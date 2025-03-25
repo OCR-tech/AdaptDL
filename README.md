@@ -80,17 +80,17 @@ To run the real-time object detection system, simply execute the main script:
 This will launch the webcam, where the system will start detecting objects in real-time. You can use voice commands to interact with the system.
 
 Available Voice Commands:
-- "Detect [Object Name]": Detect specific objects (e.g., "Detect car").
-- "Save Snapshot": Save a snapshot of the currently detected objects.
-- "Alert": Generate an alert sound when certain objects are detected.
+- "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
+- "**Save Snapshot**": Save a snapshot of the currently detected objects.
+- "**Alert**": Generate an alert sound when certain objects are detected.
 
 The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
 
 ## Customization
 You can customize the system's behavior by modifying the configuration settings in the config.yaml file:
-- Target Object Settings: Define which objects you want to detect.
-- Alert Settings: Adjust sound alert thresholds and preferences.
-- Voice Command History: Configure how the system adapts to voice command history.
+- **Target Object Settings**: Define which objects you want to detect.
+- **Alert Settings**: Adjust sound alert thresholds and preferences.
+- **Voice Command History**: Configure how the system adapts to voice command history.
 
 
 
