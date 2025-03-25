@@ -1,4 +1,4 @@
-# **AdaptDL**: Real-Time Object Detection with Voice Commands
+# AdaptDL: Real-Time Object Detection with Voice Commands
 
 **AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance systems. 
 
