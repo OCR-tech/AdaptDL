@@ -1,6 +1,6 @@
-# AdaptDL: Real-Time Object Detection with YOLOv5 and Voice Commands
+# **AdaptDL**: Real-Time Object Detection with Voice Commands
 
-**AdaptDL** is a Python-based real-time object detection system using deep learning with a webcam and voice commands for surveillance systems. 
+**AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance systems. 
 
 &emsp;&emsp;The system detects target objects from the webcam in real-time using the YOLOv5 model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system also adapts to user preferences based on voice command history and can handle challenging environments. 
 
@@ -38,8 +38,6 @@ To install the necessary Python packages, run:
 ```bash
 pip install -r requirements.txt
 ```
-
-`ultralytics/yolov5`
 
 
 ## Installation
