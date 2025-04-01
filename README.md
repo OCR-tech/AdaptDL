@@ -6,7 +6,7 @@
 
 <br/>
 <p align="center">
-<img src="docs/img/img1.png" style="width:48%; height:auto;">&emsp;
+<img src="docs/img/main2b.png" style="width:48%; height:auto;">&emsp;
 </p>
 <br/>
 
@@ -72,10 +72,11 @@ pip install -r requirements.txt
 
 ## Usage
 
-To run the real-time object detection system, simply execute the main script:
-    ```bash
-    python main.py
-    ```
+Run the script using the following command:
+
+```bash
+python main.py
+```
 
 This will launch the webcam, where the system will start detecting objects in real-time. You can use voice commands to interact with the system.
 
@@ -83,6 +84,10 @@ Available Voice Commands:
 - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
 - "**Save Snapshot**": Save a snapshot of the currently detected objects.
 - "**Alert**": Generate an alert sound when certain objects are detected.
+
+Keyboard Shortcuts:
+- **Press 's'**: to save a snapshot with detected objects.
+- **Press 'Esc'**: to exit the program.
 
 The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
 
@@ -105,6 +110,7 @@ We welcome contributions! If you'd like to contribute, feel free to fork the rep
 
 ## Acknowledgments
 - **YOLOv5**: This project uses the YOLOv5 object detection model from [YOLOv5 GitHub](https://github.com/ultralytics/yolov5).
+- **ABC**: For training YOLOv5 on a custom dataset from [Datasets](https://github.com/ultralytics/yolov5).
 - **SpeechRecognition***: For voice command processing.
 - **OpenCV**: For video capturing and processing.
 
