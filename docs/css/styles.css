@@ -75,10 +75,15 @@ main {
 .cta-button {
     background-color: rgb(50,50,50);
     color: white;
-    padding: 1rem 2rem;
+    padding: 1rem 3rem;
+    width: 145px;
+    height: 53px;
     text-decoration: none;
     border-radius: 5px;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .cta-button:hover {
@@ -146,6 +151,7 @@ footer {
 
     .h4-title  {
         font-size: 15px;
+        /* text-align: center; */
     }
 
     p {
@@ -156,6 +162,11 @@ footer {
         font-size: 13px;
     }
 
+
+    .cta-button {
+        padding: 1rem 2rem;
+        width: 115px;
+    }
 
     .btn-button
     {
