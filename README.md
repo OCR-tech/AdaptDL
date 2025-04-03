@@ -8,7 +8,6 @@
 <p align="center">
 <img src="docs/img/img1a.png" style="width:45%; height:auto;">&emsp;
 </p>
-<br/>
 
 
 ## Features
