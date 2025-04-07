@@ -1,142 +1,140 @@
-import os
-os.environ['TF_ENABLE_ONEDNN_OPTS'] = '0'
-
+from module.voice_processing.voice_input import listen_for_commands
+from module.voice_processing.voice_output import speak
 import cv2
-from detection import ObjectDetector
-from voice_commands import VoiceCommandProcessor
-from utils.video_stream import VideoStream
-import yaml
-import threading
-import queue
+import os
 
-# Other imports remain the same...
-
-def object_detection_thread(object_detector, frame_queue, detection_queue):
-    """Thread function to perform object detection."""
-    while True:
-        if not frame_queue.empty():
-            frame = frame_queue.get()
-            detections = object_detector.detect(frame)
-            detection_queue.put((frame, detections))
-
-def load_config():
-    with open("src/config.yaml", "r") as file:
-        return yaml.safe_load(file)
-    
+# from config import imagepath, videopath
+# from config import configpath, modelpath, classespath
+from utils.config import *
 
 
+
+# //===========================================//
+# def call_detector(imagepath, videopath, configpath, modelpath, classespath):
+#     from video_processing.object_detection import detector
+
+#     print('//==== call_detector ===//')
+#     # if not stop_event.is_set():
+#     detect = detector(imagepath, videopath, configpath, modelpath, classespath)
+#     detect.onVideo()
+#     # detect.onImage()
+
+
+# def call_voice_input():
+#     from voice_processing.voice_input import listen_for_commands
+
+#     print('//==== call_voice_input ===//')
+#     listen_for_commands()
+
+
+
+
+
+# //===========================================//
+# def load_config():
+#     print("load_config")
+#     # Load the configuration file
+#     with open("src/config.yaml", "r") as file:
+#         return yaml.safe_load(file)
+
+
+
+#//==================================//
 def main():
-    print("//==============================================================//")
-    config = load_config()
 
-    # Load configurations
-    print("Loading configurations...")
-    # confidence_threshold = config["model_settings"]["confidence_threshold"]
-    # nms_threshold = config["model_settings"]["nms_threshold"]
-    input_size = config["model_settings"]["input_size"]
+    print("//**************************** main ****************************//")
+    from module.voice_processing.voice_input import listen_for_commands
+    from module.video_processing.object_detection import detector
+    from module.voice_processing.voice_output import speak
 
-    # Initialize video stream
-    print("Initializing video stream...")
-    video_source = config["video_stream"]["source"]
-    video_stream = VideoStream(video_source)
-    video_stream.start()
-    print("Video stream initialized.")
 
-    # Initialize object detector
-    print("Initializing object detector...")
+    # print('//=== load config ===//')
+    # config = load_config()
 
-    # Load the model path from the configuration
-    model_path = config["model_settings"]["model_path"]
-    object_detector = ObjectDetector(model_path)
-
-    # Queues for frame and detection sharing
-    print("Initializing queues...")
-    frame_queue = queue.Queue(maxsize=1)
-    detection_queue = queue.Queue(maxsize=1)
-
-    # Start object detection thread
-    print("Starting object detection thread...")
-    detection_thread = threading.Thread(target=object_detection_thread, args=(object_detector, frame_queue, detection_queue))
-    detection_thread.daemon = True
-    detection_thread.start()
+    # # Load configurations
+    # model_path = config["model_settings"]["model_path"]
+    # object_detector = ObjectDetector(model_path)
 
 
 
 
-    # # //=======================================//
-    # # Process voice commands
-    # voice_command_processor = VoiceCommandProcessor()
-    # command = voice_command_processor.process_command()
-    # if command == "exit":
-    #     print("Exiting...")
-    #     video_stream.stop()
-    #     return
-    # elif command == "pause":
-    #     print("Pausing...")
-    #     # Implement pause functionality here
-    # elif command == "resume":
-    #     print("Resuming...")
-    #     # Implement resume functionality here
-    # elif command == "restart":
-    #     print("Restarting...")
-    #     # Implement restart functionality here
-    # elif command == "capture":
-    #     print("Capturing frame...")
-    #     # Implement capture functionality here
-    # elif command == "save":
-    #     print("Saving frame...")
-    #     # Implement save functionality here
-    # elif command == "record":
-    #     print("Recording video...")
-    #     # Implement record functionality here
-    # elif command == "stop":
-    #     print("Stopping recording...")
-    #     # Implement stop functionality here
-    # elif command == "play":
-    #     print("Playing video...")
-    #     # Implement play functionality here
-    # elif command == "pause_recording":
-    #     print("Pausing recording...")
-    #     # Implement pause recording functionality here
-    # elif command == "resume_recording":
-    #     print("Resuming recording...")
-    #     # Implement resume recording functionality here
+    # //================================//
+    # Create a threading Event
+    # stop_event = threading.Event()
+
+    # Create threads with arguments
+    # thread1 = threading.Thread(target=call_detector, args=(imagepath, videopath, configpath, modelpath, classespath))
+    # thread2 = threading.Thread(target=call_voice_input, args=())
+
+    # Start the threads
+    # thread1.start()
+    # thread2.start()
+
+    # Wait for both threads to finish
+    # thread1.join()
+    # thread2.join()
+    # print("Both tasks completed.")
 
 
 
 
+    # //================================//
+    # detect = detector(imagepath, videopath, configpath, modelpath, classespath)
+    # detect.onVideo()
+    # # detect.onImage()
 
-    # Main loop to process video frames and perform detection
+
+
+    # # //================================//
+    # command = ""
+    # while command != "exit":
+    #     command = listen_for_commands()
+    #     print('command := ', command)
+    #     command = "start"
+
+    #     if command == "start":
+    #         print('//=== ok ===//')
+    #         speak("ok")
+    #         detect = detector(imagepath, videopath, configpath, modelpath, classespath)
+    #         detect.onVideo()
+    #         # detect.onImage()
+
+
+
+
+    # # //================================//
     while True:
-        # Get a frame from the video stream
-        frame = video_stream.get_frame()
-        if frame is None:
-            break
+        # speak("System initialized. Please provide a command.")
+        print("listening for command ...")
+        # speak("listening for command ...")
 
-        # Resize the frame for faster processing
-        frame_resized = cv2.resize(frame, (input_size[0], input_size[1]))
+        # command = listen_for_commands()
+        # command = "exit"
+        command = "start"
+        # command = "help"
+        
+        print(f"Voice Command: {command}")
+        speak(command)
 
-        # Add the frame to the queue for detection
-        if frame_queue.empty():
-            frame_queue.put(frame_resized)
+        # Process the command
+        if command:
+            if command == "exit":
+                print("Resources released. Exiting the program.")
+                speak("exiting the system.")
+                cv2.destroyAllWindows()     
+                os._exit(1)                
+            elif command == "start":
+                print("Start the system.")
+                # speak("Start the system.")
+                detect = detector(imagepath, videopath, configpath, modelpath, classespath)
+                detect.onVideo()
+                # detect.onImage()
+            elif command == "help":
+                print("Available commands: start, help, exit")
+                speak("Available commands: start, help, exit")
 
-        # Get detections from the detection queue
-        if not detection_queue.empty():
-            frame_with_detections, detections = detection_queue.get()
-            cv2.imshow("Object Detection", frame_with_detections)
-
-        # Break the loop on 'Esc' key press
-        if cv2.waitKey(1) & 0xFF == 27:
-            break
 
 
-
-
-    # Release resources
-    video_stream.stop()
-    cv2.destroyAllWindows()
-    print("Resources released.")
-    print("//==============================================================//")
-
-if __name__ == "__main__":
+# //================================//
+if __name__ == '__main__':
     main()

@@ -40,8 +40,8 @@ To install this project, follow these steps:
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/username/repository.git
-    cd repository
+    git clone https://github.com/your-username/your-repo.git
+    cd your-repo
     ```
 
 <!-- 2. Create a virtual environment:
@@ -95,12 +95,16 @@ You can customize the system's behavior by modifying the configuration settings 
 
 
 ## Contributing
-
-We welcome contributions! If you'd like to contribute, feel free to fork the repository, submit pull requests, and open issues to discuss improvements or bugs.
+Please follow these steps:
+1.  Fork the repository
+2.  Create a new branch (`git checkout -b feature-branch`)
+3.  Commit your changes (`git commit -m "Added new feature"`)
+4.  Push to the branch (`git push origin feature-branch`)
+5.  Submit a pull request
 
 
 ## License
-- This project is licensed under the MIT License. See the [LICENSE](https://github.com/OCR-tech/CubeOCR/blob/main/LICENSE) for details.
+- This project is licensed under [MIT License](https://github.com/OCR-tech/CubeOCR/blob/main/LICENSE).
 
 
 ## Acknowledgments
