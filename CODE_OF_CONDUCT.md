@@ -2,7 +2,7 @@
 
 ## Our Pledge
 
-We, as contributors and maintainers of this project, pledge to make participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
+As contributors and maintainers of this project, we pledge to make participation in our project and our community a harassment-free experience for everyone, regardless of age, body size, disability, ethnicity, gender identity and expression, level of experience, nationality, personal appearance, race, religion, or sexual identity and orientation.
 
 We are committed to providing a welcoming and supportive environment for all participants, where everyone feels respected and valued.
 
@@ -39,7 +39,7 @@ This Code of Conduct applies to all spaces managed by the project, including but
 ## Enforcement
 Instances of abusive, harassing, or otherwise unacceptable behavior may be reported by contacting the project team at ocrtech.mail@gmail.com. All complaints will be reviewed and investigated and will result in a response that is deemed necessary and appropriate to the circumstances.
 
-Maintainers are obligated to maintain confidentiality with regard to the reporter of an incident.
+Project maintainers are obligated to maintain confidentiality with regard to the reporter of an incident.
 
 ## Attribution
 This Code of Conduct is adapted from the Contributor Covenant, version 2.0, available at https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
