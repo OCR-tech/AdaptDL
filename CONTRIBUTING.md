@@ -16,18 +16,17 @@ Thank you for considering contributing to **AdaptDL**. We appreciate your intere
 
 ## How to Contribute
 There are several ways to contribute to the project:
-1. **Reporting Issues**: If you encounter any bugs issues, please open an issue to inform us.
-2. **Suggesting Features**: Have ideas for improvements? Propose a feature for discussion. We love every idea!
-3. **Improving Documentation**: Notice any gaps or errors in our documentation? Submit a PR with your corrections.
-4. **Sharing Use Cases**: Real-world examples help others see the potential of this project in their organizations.
-5. **Spreading the Word**: Tell others about this project through blog posts, talks, or social media.
+1) **Reporting Issues**: If you encounter any bugs issues, please open an issue to inform us.
+2) **Suggesting Features**: Have ideas for improvements? Propose a feature for discussion. We love every idea!
+3) **Improving Documentation**: Notice any gaps or errors in our documentation? Submit a PR with your corrections.
+4) **Sharing Use Cases**: Real-world examples help others see the potential of this project in their organizations.
+5) **Spreading the Word**: Tell others about this project through blog posts, talks, or social media.
 
 
 ## Reporting Issues
 If you find a bug or an issue:
-
-1)  **Search Existing Issues**: Before creating a new issue, please check if it has already been reported.
-2)  **Create a New Issue**: If not found, open a new issue with:
+1) **Search Existing Issues**: Before creating a new issue, please check if it has already been reported.
+2) **Create a New Issue**: If not found, open a new issue with:
     - A clear and descriptive title.
     - Steps to reproduce the issue (if applicable).
     - Expected behavior and actual behavior.
@@ -36,26 +35,24 @@ If you find a bug or an issue:
 
 ## Suggesting Features
 To propose an idea for a new feature or enhancement:
-
-1)  **Check Existing Requests**: Make sure the feature request hasn't already been proposed.
-2)  **Create a New Requests**: If not found, open a new request with:
-    - A detailed description of the feature
-    - Any relevant context, examples, or use case  
-    - Potential implementation approaches for ideas
+1) **Check Existing Requests**: Make sure the feature request hasn't already been proposed.
+2) **Create a New Requests**: If not found, open a new request with:
+    - A detailed description of the feature.
+    - Any relevant context, examples, or use case. 
+    - Potential implementation approaches for ideas.
 
 
 ## Submitting Code
 To submit code, please follow these steps :
-
-1)  **Fork the Repository**: Click the "Fork" button at the top right of the repository to create your own copy.
-2)  **Create a New Branch**: Create a new branch for your changes. Please use descriptive names for your branch.
+1) **Fork the Repository**: Click the "Fork" button at the top right of the repository to create your own copy.
+2) **Create a New Branch**: Create a new branch for your changes. Please use descriptive names for your branch.
 
     ```
     git checkout -b my-feature-branch
     ```
-3)  **Make Changes Locally**: Make your changes in your local repository. Be sure to follow the style guide and keep your changes focused on a single issue or enhancement.
 
-4)  **Commit Your Changes**: Once your changes are ready, commit them with clear and concise commit messages. Please follow the commit message convention for consistency.
+3) **Make Changes Locally**: Make your changes in your local repository.
+4) **Commit Your Changes**: Once your changes are ready, commit them with clear and concise commit messages.
 
     ```
     git commit -m "Add feature X to improve functionality"
@@ -65,9 +62,8 @@ To submit code, please follow these steps :
     ```
     git push origin my-feature-branch
     ```
-6)  **Open a Pull Request (PR)**: Go to the original repository and open a pull request. Provide a detailed description of your changes in the PR. Be sure to reference the issue it resolves (if applicable) by using `#issue_number`.
+6)  **Open a Pull Request (PR)**: Go to the original repository and open a pull request. Provide a detailed description of your changes in the PR. Please see an example:
 
-    Example:
     ```
     Fixes #123 - Add feature X to improve functionality
     ```
@@ -83,7 +79,7 @@ The development process for managing contributions is as follows:
 3)  **PR Reviews**: All pull requests must be reviewed by at least one maintainer. 
 4)  **Merging PR**: Only maintainers have the permissions to merge pull requests. 
 
-Thank you for contributing to this project. We appreciate your help in making this project better.
+Thank you for contributing to **AdaptDL**. We appreciate your help in making this project better.
 
 
 <!-- ## Style Guide
