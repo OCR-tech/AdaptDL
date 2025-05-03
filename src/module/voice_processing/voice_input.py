@@ -1,5 +1,5 @@
 import speech_recognition as sr
-from utils.voice_processing.voice_output import speak
+from module.voice_processing.voice_output import speak
 import threading
 
 
