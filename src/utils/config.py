@@ -16,7 +16,7 @@ video = "street1.mp4"      # street        # 3840x2160    24fps
 
 # //=======================================//
 # path = 'C:/Users/s6010767/Documents/workspace/test_data/'
-path = 'D:/Documents/workspace/test_data/'
+path = 'D:/dataset/'
 
 
 # //=======================================//
@@ -29,8 +29,8 @@ videopath = path + 'video/' + video
 
 
 # //=======================================//
-s = 0
-# s = videopath
+# s = 0
+s = videopath
 
 
 
