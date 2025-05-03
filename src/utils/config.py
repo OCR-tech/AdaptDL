@@ -29,8 +29,8 @@ videopath = path + 'video/' + video
 
 
 # //=======================================//
-# s = 0
-s = videopath
+s = 0
+# s = videopath
 
 
 
