@@ -29,7 +29,10 @@ videopath = path + 'video/' + video
 
 
 # //=======================================//
+# s = "http://192.168.30.139:4747/video"
+# s = "http://192.168.30.139:8080/video"
 # s = 0
+# s = 1
 s = videopath
 
 
@@ -51,8 +54,8 @@ classespath = os.path.join("model_data", "coco.names")
 
 # //=======================================//
 FONT_SIZE_FPS = 0.8
-FONT_SIZE_TXT = 0.5
-FONT_SIZE_OBJ = 1
+FONT_SIZE_TXT = 0.7
+FONT_SIZE_OBJ = 0.5
 
 FONT_COLOR_FPS = (0,255,0)
 FONT_COLOR_TXT = (0,255,0)
@@ -60,11 +63,11 @@ FONT_COLOR_OBJ = (255,0,255)
 
 FONT_THICKNESS_FPS = 2
 FONT_THICKNESS_TXT = 1
-FONT_THICKNESS_OBJ = 2
+FONT_THICKNESS_OBJ = 1
 
 FONT_FPS = cv2.FONT_HERSHEY_SIMPLEX
-FONT_TXT = cv2.FONT_HERSHEY_SIMPLEX
-FONT_OBJ = cv2.FONT_HERSHEY_PLAIN
+FONT_TXT = cv2.FONT_HERSHEY_DUPLEX
+FONT_OBJ = cv2.FONT_HERSHEY_COMPLEX
 
 # FONT_TXT = cv2.FONT_HERSHEY_SIMPLEX
 # FONT_TXT = cv2.FONT_HERSHEY_COMPLEX
