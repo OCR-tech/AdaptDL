@@ -9,20 +9,20 @@ import os
 # image = "pic2a.jpg"
 image = "pic3a.jpg"
 
-video = "street1.mp4"      # street        # 3840x2160    24fps      
-# video = "street2.mp4"     # bike          # 1920x1080    30fps      
-# video = "street3.mp4"     # bike/night    # 1920x1080    30fps       
+video = "street1.mp4"      # street        # 3840x2160    24fps
+# video = "street2.mp4"     # bike          # 1920x1080    30fps
+# video = "street3.mp4"     # bike/night    # 1920x1080    30fps
 
 
 # //=======================================//
-# path = 'C:/Users/s6010767/Documents/workspace/test_data/'
-path = 'D:/dataset/'
+# path = 'D:/dataset/'
+path = './resources/'
 
 
 # //=======================================//
-imagepath = path + 'image/' + image 
-imagepath = "-" 
-videopath = path + 'video/' + video   
+imagepath = path + 'image/' + image
+imagepath = "-"
+videopath = path + 'video/' + video
 
 # print("imagepath := ", imagepath)
 # print("videopath := ", videopath)
@@ -40,13 +40,13 @@ s = videopath
 
 
 #//==================================//
-configpath = os.path.join("model_data", "ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt")
-modelpath = os.path.join("model_data", "frozen_inference_graph.pb")
-classespath = os.path.join("model_data", "coco.names")
+configpath = os.path.join("models/saved_model", "ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt")
+modelpath = os.path.join("models/saved_model", "frozen_inference_graph.pb")
+classespath = os.path.join("models/saved_model", "coco.names")
 
-# classespath = os.path.join("model_data", "coco_class_labels.txt")
-# configpath = os.path.join("model_data", "ssd_mobilenet_v2_coco_2018_03_29.pbtxt")
-# modelpath = os.path.join("model_data", "ssd_mobilenet_v2_coco_2018_03_29", "frozen_inference_graph.pb")
+# classespath = os.path.join("models/saved_model", "coco_class_labels.txt")
+# configpath = os.path.join("models/saved_model", "ssd_mobilenet_v2_coco_2018_03_29.pbtxt")
+# modelpath = os.path.join("models/saved_model", "ssd_mobilenet_v2_coco_2018_03_29", "frozen_inference_graph.pb")
 
 
 

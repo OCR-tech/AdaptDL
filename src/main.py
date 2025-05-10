@@ -1,3 +1,4 @@
+# Import necessary modules
 from module.voice_processing.voice_input import listen_for_commands
 from module.voice_processing.voice_output import speak
 import cv2
@@ -5,7 +6,8 @@ import os
 
 # from config import imagepath, videopath
 # from config import configpath, modelpath, classespath
-from utils.config import *
+from config.configs import *
+
 
 
 
@@ -112,7 +114,7 @@ def main():
         # command = "exit"
         command = "start"
         # command = "help"
-        
+
         print(f"Voice Command: {command}")
         speak(command)
 
@@ -121,8 +123,8 @@ def main():
             if command == "exit":
                 print("Resources released. Exiting the program.")
                 speak("exiting the system.")
-                cv2.destroyAllWindows()     
-                os._exit(1)                
+                cv2.destroyAllWindows()
+                os._exit(1)
             elif command == "start":
                 print("Start the system.")
                 # speak("Start the system.")

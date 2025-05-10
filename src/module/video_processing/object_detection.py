@@ -9,10 +9,10 @@ import getpass
 
 from main import classespath, configpath, modelpath             ###
 
-from utils.config import FONT_FPS, FONT_COLOR_FPS, FONT_SIZE_FPS, FONT_THICKNESS_FPS
-from utils.config import FONT_FPS, FONT_COLOR_FPS, FONT_SIZE_FPS, FONT_THICKNESS_FPS
-from utils.config import FONT_TXT, FONT_COLOR_TXT, FONT_SIZE_TXT, FONT_THICKNESS_TXT
-from utils.config import FONT_OBJ, FONT_COLOR_OBJ, FONT_SIZE_OBJ, FONT_THICKNESS_OBJ
+from config.configs import FONT_FPS, FONT_COLOR_FPS, FONT_SIZE_FPS, FONT_THICKNESS_FPS
+from config.configs import FONT_FPS, FONT_COLOR_FPS, FONT_SIZE_FPS, FONT_THICKNESS_FPS
+from config.configs import FONT_TXT, FONT_COLOR_TXT, FONT_SIZE_TXT, FONT_THICKNESS_TXT
+from config.configs import FONT_OBJ, FONT_COLOR_OBJ, FONT_SIZE_OBJ, FONT_THICKNESS_OBJ
 
 
 # Detect Objects
@@ -26,7 +26,7 @@ np.random.seed(4)
 # class mynumber:
 #     def __init__(self, value):
 #         self.value = value
-    
+
 #     def print_value(self):
 #         print(self.value)
 
@@ -106,7 +106,7 @@ def display_objects(detector_instance, img, bbox1, bboxidx, confidence, classlab
     # print('bboxidx := ', bboxidx)
     # print('bboxidx := ', type(bboxidx))
     # print('bbox := ', bbox)
-    
+
     if len(bboxidx) != 0:
 
         for i in range(0, len(bboxidx)):
@@ -266,8 +266,8 @@ def command_assistant(detector_instance):
     from voice_processing.voice_output import speak, set_volumn, on_volumn, off_volumn
 
     print('========= command_assistant ===========')
-    # detector_instance.timer_alert.stop()  
-    detector_instance.timer_assistant.stop()  
+    # detector_instance.timer_alert.stop()
+    detector_instance.timer_assistant.stop()
 
 
     # Start listening for voice commands
@@ -292,79 +292,79 @@ def command_assistant(detector_instance):
                 on_volumn()
                 print("Exiting the system.")
                 speak("Exiting the system.")
-                os._exit(1)                
-                # detector_instance.timer_assistant.stop()  
-                # detector_instance.timer_alert.stop()  
-                # cv2.destroyAllWindows()  
-                # return 
+                os._exit(1)
+                # detector_instance.timer_assistant.stop()
+                # detector_instance.timer_alert.stop()
+                # cv2.destroyAllWindows()
+                # return
             elif command == "stop":
                 speak(command)
                 print("Stop the system.")
                 speak("Stop the system.")
-                return 
+                return
             elif command == "help":
                 speak(command)
                 print("Available commands: capture, pause, resume, stop, record, play, save, alert, exit")
                 speak("Available commands: capture, pause, resume, stop, record, play, save, alert, exit")
-                return 
+                return
             elif command == "capture":
                 speak(command)
                 print("Capturing frame...")
                 speak("Capturing frame...")
                 capture_frame(detector_instance)
-                return 
+                return
             elif command == "pause":
                 speak(command)
                 print("Pausing frame...")
                 speak("Pausing frame...")
                 # pause_frame(detector_instance)
-                return 
+                return
             elif command == "resume":
                 speak(command)
                 print("Resuming the system...")
                 speak("Resuming the system...")
                 # resume_frame(detector_instance)
-                return 
+                return
             elif command == "record":
                 speak(command)
                 print("Recording frame...")
                 speak("Recording frame...")
                 # record_frame(detector_instance)
-                return 
+                return
             elif command == "play":
                 speak(command)
                 print("Playing frame...")
                 speak("Playing frame...")
-                return 
+                return
             elif command == "save":
                 speak(command)
                 print("Save frame...")
                 speak("Save frame...")
                 cv2.imwrite("snapshot.jpg", detector_instance.image_out)
-                return 
+                return
             elif command == "menu":
                 speak(command)
                 print("Displaying menu")
                 speak("Displaying menu")
-                return 
+                return
             elif command == "on":
                 speak(command)
                 on_volumn()
                 print("Alert On!")
                 speak("Alert On!")
-                return 
+                return
             elif command == "off":
                 speak(command)
                 print("Alert Off!")
                 speak("Alert Off!")
                 off_volumn()
-                return    
+                return
             else:
                 speak(command)
-                print('--- other command ---')    
+                print('--- other command ---')
                 # time.sleep(0.1)
-                # detector_instance.timer_alert.start()  
-                return 
+                # detector_instance.timer_alert.start()
+                return
 
         else:
             print('command = none')
@@ -380,8 +380,8 @@ def command_alert(detector_instance):
 
 
     print('========= command_alert ===========')
-    detector_instance.timer_assistant.stop()  
-    detector_instance.timer_alert.stop()  
+    detector_instance.timer_assistant.stop()
+    detector_instance.timer_alert.stop()
 
     # sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
     # detector_instance.image_file, detector_instance.image_path = capture_image(detector_instance)
@@ -391,8 +391,8 @@ def command_alert(detector_instance):
     voice_processor = voice_processing(detector_instance.obj)
     detector_instance.voice = voice_processor.voice_alert()
 
-    detector_instance.timer_assistant.start()  
-    detector_instance.timer_alert.start()  
+    detector_instance.timer_assistant.start()
+    detector_instance.timer_alert.start()
 
     return
 
@@ -417,7 +417,7 @@ class detector:
         self.configpath = configpath
         self.modelpath = modelpath
         self.classespath = classespath
-        
+
         print('========= detector_init ===========')
         self.setupClasses()
         self.readClasses()
@@ -435,7 +435,7 @@ class detector:
         self.net.setInputMean((127.5, 127.5, 127.5))
         self.net.setInputSwapRB(True)
         # print('net := ', self.net)
-    
+
 
     #//==================================//
     def readClasses(self):
@@ -446,19 +446,19 @@ class detector:
 
         self.classeslist.insert(0, '__Background__')
         self.colorlist = np.random.uniform(low=0, high=255, size=(len(self.classeslist), 3))
-        # print(self.classeslist) 
+        # print(self.classeslist)
 
 
 
     #//==================================//
     def onVideo(self):
-        from utils.config import s
+        from config.configs import s
 
         sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
         from image_processing.image_process import image_processing
         from timer_processing.timer import Timer
 
-        print('========= onVideo ===========')  
+        print('========= onVideo ===========')
 
         self.timer_assistant = Timer(sec, command_assistant, self)
         self.timer_alert = Timer(sec, command_alert, self)
@@ -469,7 +469,7 @@ class detector:
         # s = 0
         # s = self.videopath
         # //==================================//
-    
+
         if len(sys.argv) > 1:
             s = sys.argv[1]
             print(s)
@@ -493,7 +493,7 @@ class detector:
 
 
 
-        while cv2.waitKey(1) != (27 or ord("p")): 
+        while cv2.waitKey(1) != (27 or ord("p")):
             success, frame = self.source.read()
 
             if not success:
@@ -514,12 +514,12 @@ class detector:
             self.image_resize = image_processor.image_resize(100)
 
             # //================================//
-            # // fps,cam = 32 // fps,vid = 50 //          
+            # // fps,cam = 32 // fps,vid = 50 //
             # //================================//
 
 
             # //================================//
-            # // fps,cam = 12 // fps,vid = 16 //     
+            # // fps,cam = 12 // fps,vid = 16 //
             # # //==============================//
             bbox, bboxidx, confidence, classlabelids = detect_objects(self.net, self.image_resize)
             self.image_out = display_objects(self, self.image_resize, bbox, bboxidx, confidence, classlabelids)
@@ -539,10 +539,10 @@ class detector:
             # Set screen resolution
             # screen_width = 1920
             # screen_height = 1080
-            # winx = int(screen_width/2 - int(width/2)) 
-            # winy = int(screen_height/2 - int(height/2)) 
-            # cv2.moveWindow(win, winx - 50, winy)  
-            # cv2.resizeWindow(window, width, height) 
+            # winx = int(screen_width/2 - int(width/2))
+            # winy = int(screen_height/2 - int(height/2))
+            # cv2.moveWindow(win, winx - 50, winy)
+            # cv2.resizeWindow(window, width, height)
             cv2.imshow(self.window, self.image_out)
 
 
@@ -593,10 +593,10 @@ class detector:
         from image_processing.image_process import image_processing
         # from timer_processing.timer import timer_record
 
-        print('========= onImage ===========') 
+        print('========= onImage ===========')
 
         self.window = 'image'
-        cv2.namedWindow(self.window, cv2.WINDOW_NORMAL)  
+        cv2.namedWindow(self.window, cv2.WINDOW_NORMAL)
 
         self.id1 = 0
         self.obj = str('')
@@ -604,7 +604,7 @@ class detector:
 
         self.frame_count = 1
         print('imagepath := ', self.imagepath)
-        
+
         # self.image_original = cv2.imread('D:/Documents/workspace/test_data/image/pic1a.jpg')
         self.image_original = cv2.imread(self.imagepath)
         width = self.image_original.shape[1]
@@ -622,7 +622,7 @@ class detector:
         self.image_out1 = display_objects(self, self.image_resize, bbox, bboxidx, confidence, classlabelids)
 
         # self.image_out2 = text_detection(self)
-        self.image_out2 = self.image_out1 
+        self.image_out2 = self.image_out1
 
 
         alpha = 0.5
@@ -635,11 +635,11 @@ class detector:
         # Set screen resolution
         screen_width = 1920
         screen_height = 1080
-        winx = int(screen_width/2 - int(width/2)) 
-        winy = int(screen_height/2 - int(height/2)) 
+        winx = int(screen_width/2 - int(width/2))
+        winy = int(screen_height/2 - int(height/2))
 
 
-        cv2.resizeWindow(self.window, width, height) 
-        cv2.moveWindow(self.window, winx - 50, winy)  
+        cv2.resizeWindow(self.window, width, height)
+        cv2.moveWindow(self.window, winx - 50, winy)
         cv2.imshow(self.window,self.image_out)
         cv2.waitKey()

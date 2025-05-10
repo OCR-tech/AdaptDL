@@ -1,8 +1,8 @@
 # AdaptDL: Real-Time Object Detection with Voice Commands
 
-**AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance systems. 
+**AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance applications.
 
-&emsp;&emsp;The system detects target objects from a webcam in real-time using the YOLOv5 model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system features with user preferences adaptability based on voice command history and can handle challenging environments. 
+&emsp;&emsp;The system detects target objects from a webcam in real-time using the YOLOv5 model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system features with user preferences adaptability based on voice command history and can handle challenging environments.
 
 <!-- &emsp;&emsp;YOLOv5 is a state-of-the-art object detection model that is capable of detecting multiple objects in real-time. This model is designed to be fast and efficient, making it suitable for applications such as surveillance systems, autonomous vehicles, and robotics. -->
 
@@ -25,55 +25,59 @@
 
 ## Requirements
 
-Before running this project, install the following dependencies:
-
+Install the following dependencies:
 - Python 3.11 or higher
 - Tensorflow 2.18 or higher
 - SSD MobileNet V2 model
 - OpenCV for video capturing and processing
 - SpeechRecognition for voice command processing
-- Pyaudio (optional, depending on your microphone setup)
+- Pyaudio for microphone setup
 
 ## Installation
 To install this project, follow these steps:
 
 1. Clone the repository:
 
-    ```bash
+    ```sh
     git clone https://github.com/your-username/your-repo.git
     cd your-repo
     ```
 
 <!-- 2. Create a virtual environment:
 
-    ```bash
+    ```sh
     python -m venv .venv
-    .venv\Scripts\activate      # for Windows                    
+    .venv\Scripts\activate      # for Windows
     ``` -->
 
-2. Install dependencies:
+2. Install the dependencies:
 
-    ```bash
+    ```sh
     pip install -r requirements.txt
     ```
 
-3. Download the TensorFlow object detection model and place it in `models pretrained_model/saved_model`.
+<!-- 3. Download the TensorFlow object detection model and place it in `models/pretrained_model/saved_model`. -->
+<!-- # ssd-mobilenet-v2-tensorflow2-fpnlite-320x320-v1.tar -->
+3. Download the TensorFlow object detection model and place it in `models/pretrained_model`.
 
     ```bash
-    https://www.kaggle.com/models/tensorflow/ssd-mobilenet-v2/tensorFlow2   # ssd-mobilenet-v2-tensorflow2-fpnlite-320x320-v1.tar
+    https://www.kaggle.com/models/tensorflow/ssd-mobilenet-v2/tensorFlow2
     ```
 
 
 
 ## Usage
 
-Run the application:
+To run this project:
 
-```bash
-python src/main.py
-```
+1. Run the main application:
 
-This will launch the webcam, where the system will start detecting objects in real-time. You can use voice commands to interact with the system.
+    ```sh
+    python src\main.py
+    ```
+
+2.  The system will launch the webcam, and start detecting objects in real-time.
+3.  Use voice commands to interact with the system.
 
 Available Voice Commands:
 - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
@@ -95,7 +99,7 @@ You can customize the system's behavior by modifying the configuration settings 
 
 
 ## Contributing
-Please follow these steps:
+For contributions, please follow these steps:
 1.  Fork the repository
 2.  Create a new branch (`git checkout -b feature-branch`)
 3.  Commit your changes (`git commit -m "Added new feature"`)
@@ -104,7 +108,7 @@ Please follow these steps:
 
 
 ## License
-- This project is licensed under [MIT License](https://github.com/OCR-tech/CubeOCR/blob/main/LICENSE).
+- This project is licensed under [MIT License](https://github.com/OCR-tech/AdaptDL/blob/main/LICENSE).
 
 
 ## Acknowledgments
@@ -114,4 +118,4 @@ Please follow these steps:
 - **OpenCV**: For video capturing and processing.
 
 ## Contact
-If you have any questions or need further assistance, please open an issue on GitHub or contact us at ocrtech.mail@gmail.com.
+If you have any questions, please open an issue on GitHub or contact us at ocrtech.mail@gmail.com.
