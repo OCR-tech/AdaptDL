@@ -11,7 +11,6 @@
 <img src="docs/img/img1a.png" style="width:45%; height:auto;">&emsp;
 </p>
 
-
 ## Features
 
 - **Real-time Object Detection**: Detects objects in live video captured from a webcam using YOLOv5 model.
@@ -22,10 +21,10 @@
   - Generate sound alerts based on detection.
 - **Adaptability**: The system adapts to user preferences and improves based on input voice command history and environmental challenges.
 
-
 ## Requirements
 
 Install the following dependencies:
+
 - Python 3.11 or higher
 - Tensorflow 2.18 or higher
 - SSD MobileNet V2 model
@@ -34,13 +33,15 @@ Install the following dependencies:
 - Pyaudio for microphone setup
 
 ## Installation
+
 To install this project, follow these steps:
 
 1. Clone the repository:
 
-    ```sh
-    git clone https://github.com/your-username/your-repo.git
-    ```
+   ```sh
+         git clone https://github.com/OCR-tech/AdaptDL.git
+   cd AdaptDL
+   ```
 
 <!-- 2. Create a virtual environment:
 
@@ -51,19 +52,18 @@ To install this project, follow these steps:
 
 2. Install the dependencies:
 
-    ```sh
-    pip install -r requirements.txt
-    ```
+   ```sh
+   pip install -r requirements.txt
+   ```
 
 <!-- 3. Download the TensorFlow object detection model and place it in `models/pretrained_model/saved_model`. -->
 <!-- # ssd-mobilenet-v2-tensorflow2-fpnlite-320x320-v1.tar -->
+
 3. Download the TensorFlow object detection model and place it in `models/pretrained_model`.
 
-    ```bash
-    https://www.kaggle.com/models/tensorflow/ssd-mobilenet-v2/tensorFlow2
-    ```
-
-
+   ```bash
+   https://www.kaggle.com/models/tensorflow/ssd-mobilenet-v2/tensorFlow2
+   ```
 
 ## Usage
 
@@ -71,50 +71,56 @@ To run this project:
 
 1. Run the main application:
 
-    ```sh
-    python src\main.py
-    ```
+   ```sh
+   python src\main.py
+   ```
 
-2.  The system will launch the webcam, and start detecting objects in real-time.
-3.  Use voice commands to interact with the system.
+2. The system will launch the webcam, and start detecting objects in real-time.
+3. Use voice commands to interact with the system.
 
 Available Voice Commands:
+
 - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
 - "**Save Snapshot**": Save a snapshot of the currently detected objects.
 - "**Alert**": Generate an alert sound when certain objects are detected.
 
 Keyboard Shortcuts:
+
 - **Press 's'**: to save a snapshot with detected objects.
 - **Press 'Esc'**: to exit the program.
 
 The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
 
 ## Customization
+
 You can customize the system's behavior by modifying the configuration settings in the config.yaml file:
+
 - **Target Object Settings**: Define which objects you want to detect.
 - **Alert Settings**: Adjust sound alert thresholds and preferences.
 - **Voice Command History**: Configure how the system adapts to voice command history.
 
-
-
 ## Contributing
+
 For contributions, please follow these steps:
+
 1.  Fork the repository
 2.  Create a new branch (`git checkout -b feature-branch`)
 3.  Commit your changes (`git commit -m "Added new feature"`)
 4.  Push to the branch (`git push origin feature-branch`)
 5.  Submit a pull request
 
-
 ## License
+
 - This project is licensed under [MIT License](https://github.com/OCR-tech/AdaptDL/blob/main/LICENSE).
 
-
 ## Acknowledgments
+
 <!-- - **YOLOv5**: This project uses the YOLOv5 object detection model from [YOLOv5 GitHub](https://github.com/ultralytics/yolov5). -->
 <!-- - **ABC**: For training YOLOv5 on a custom dataset from [Datasets](https://github.com/ultralytics/yolov5). -->
+
 - **SpeechRecognition**: For voice command processing.
 - **OpenCV**: For video capturing and processing.
 
 ## Contact
+
 If you have any questions, please open an issue on GitHub or contact us at ocrtech.mail@gmail.com.

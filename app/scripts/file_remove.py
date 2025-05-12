@@ -22,8 +22,8 @@ def remove_pycache(path: Path) -> List[Path]:
 if __name__ == "__main__":
 
     # Get the path to the app directory
-    path = Path(os.path.dirname(os.getcwd()))
-    # print(f"Path to app directory: {path}")
+    path = Path(os.path.join(os.path.dirname(os.getcwd()), "AdaptDL", "app"))
+    print(f"Path to app directory: {path}")
 
     # Check if the path exists
     if not path.exists():
@@ -36,7 +36,3 @@ if __name__ == "__main__":
         print(f"Removed __pycache__ folders: {removed_folders}")
     else:
         print("No __pycache__ folders found.")
-
-
-
-
