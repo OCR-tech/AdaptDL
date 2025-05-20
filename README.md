@@ -2,7 +2,7 @@
 
 **AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance applications.
 
-The system detects target objects from a webcam in real-time using the deep learning model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system features with user preferences adaptability based on voice command history and can handle challenging environments.
+The system detects target objects from a webcam in real-time using a deep learning model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system features with user preferences adaptability based on voice command history and can handle challenging environments.
 
 <br/>
 <p align="center">
@@ -25,10 +25,11 @@ The system detects target objects from a webcam in real-time using the deep lear
 Install the following dependencies:
 
 - Python 3.11 or higher
-- Tensorflow 2.18 or higher
-- OpenCV 4.11 or higher (for video capturing and processing)
-- SpeechRecognition 3.14 or higher (for voice command processing)
-- Pyaudio 0.2 or higher (for microphone setup)
+  <!-- - Tensorflow 2.18 or higher, for deep learning model -->
+  <!-- - Tensorflow Hub 0.13 or higher, for loading the pre-trained model -->
+- OpenCV 4.11 or higher, for video capturing and processing
+- SpeechRecognition 3.14 or higher, for voice command processing
+- Pyaudio 0.2 or higher, for microphone setup
 <!-- - SSD MobileNet V2 model -->
 
 ## Installation
@@ -80,20 +81,20 @@ Available Voice Commands:
 - "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop detecting car").
 - "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
 - "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save snapshot car").
+- "**Help**": List available commands.
+- "**Exit**": Exit the program.
 <!-- - "**Detect**": Detect all objects in the model.
 - "**Stop**": Stop detecting all objects.
 - "**Alert**": Generate an alert sound when all objects are detected.
 - "**Save**": Save a snapshot of all detected objects. -->
-- "**Help**": List available commands.
-- "**Exit**": Exit the program.
 
 Keyboard Shortcuts:
 
 - **Press 's'**: to save a snapshot with detected objects.
 - **Press 'a'**: to generate an alert sound when specific objects are detected.
-- **Press 'd'**: to detect specific objects.
 - **Press 'h'**: to list available commands.
 - **Press 'Esc'**: to exit the program.
+<!-- - **Press 'd'**: to detect specific objects. -->
 
 The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
 
