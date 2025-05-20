@@ -78,9 +78,9 @@ To run this project:
 Available Voice Commands:
 
 - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
-- "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop detecting car").
+- "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop car").
 - "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
-- "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save snapshot car").
+- "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save car").
 - "**Help**": List available commands.
 - "**Exit**": Exit the program.
 <!-- - "**Detect**": Detect all objects in the model.
@@ -100,7 +100,9 @@ The system adapts to user preferences over time based on input voice command his
 
 ## Customization
 
-You can customize the system's behavior by modifying the configuration settings in the config.yaml file:
+<!-- You can customize the system's behavior by modifying the configuration settings in the config.yaml file: -->
+
+The system's behavior can be customized by modifying the configuration settings in the config.py file:
 
 - **Target Object Settings**: Define which objects you want to detect.
 - **Alert Settings**: Adjust sound alert thresholds and preferences.
@@ -123,8 +125,6 @@ For contributions, please follow these steps:
 ## Contact
 
 We welcome any feedback, suggestions, or contributions to this project. For any inquiries, please contact us at:
-
-<!-- - **Name**: OCR-tech -->
 
 - **Email**: ocrtech.mail@gmail.com
 - **Website**: [https://ocr-tech.github.io/AdaptDL](https://ocr-tech.github.io/AdaptDL/)
