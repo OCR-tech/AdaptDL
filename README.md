@@ -84,8 +84,8 @@ Available Voice Commands:
 - "**Stop**": Stop detecting all objects.
 - "**Alert**": Generate an alert sound when all objects are detected.
 - "**Save**": Save a snapshot of all detected objects.
-- "**Exit**": Exit the program.
 - "**Help**": List available commands.
+- "**Exit**": Exit the program.
 
 Keyboard Shortcuts:
 
