@@ -28,16 +28,16 @@ The system detects target objects from a webcam in real-time using a deep learni
 Install the following dependencies:
 
 - Python 3.11 or higher
+- OpenCV for video capturing and processing
+- SpeechRecognition for voice command processing
+- Pyaudio for microphone setup
   <!-- - Tensorflow 2.18 or higher, for deep learning model -->
   <!-- - Tensorflow Hub 0.13 or higher, for loading the pre-trained model -->
-- OpenCV 4.11 or higher, for video capturing and processing
-- SpeechRecognition 3.14 or higher, for voice command processing
-- Pyaudio 0.2 or higher, for microphone setup
-<!-- - SSD MobileNet V2 model -->
+  <!-- - SSD MobileNet V2 model -->
 
 ## Installation
 
-To install this project, follow these steps:
+To install this project, please follow these steps:
 
 1. Clone the repository:
 
@@ -50,7 +50,7 @@ To install this project, follow these steps:
 
    ```sh
    python -m venv .venv
-   .venv\Scripts\activate
+   .venv\Scripts\Activate
    ```
 
 3. Install the dependencies:
@@ -60,9 +60,7 @@ To install this project, follow these steps:
    ```
 
 <!-- # ssd-mobilenet-v2-tensorflow2-fpnlite-320x320-v1.tar -->
-
 <!-- 4. Download the [SSD MobileNet V2 TensorFlow 2 model](https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1) and extract the files into `app/models/pretrained_model/`. -->
-
    <!-- - Ensure the directory contains files like `saved_model.pb` and the `saved_model` folder. -->
 
 ## Usage
@@ -82,24 +80,23 @@ Voice Commands:
 
 - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
 - "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop car").
-- "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
 - "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save car").
 - "**Help**": List available commands.
 - "**Exit**": Exit the program.
 <!-- - "**Detect**": Detect all objects in the model.
 - "**Stop**": Stop detecting all objects.
 - "**Alert**": Generate an alert sound when all objects are detected.
+- "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
 - "**Save**": Save a snapshot of all detected objects. -->
 
 Keyboard Shortcuts:
 
 - **Press 's'**: to save a snapshot with detected objects.
-- **Press 'a'**: to generate an alert sound when specific objects are detected.
+- **Press 'd'**: to detect specific objects.
 - **Press 'h'**: to list available commands.
 - **Press 'Esc'**: to exit the program.
-<!-- - **Press 'd'**: to detect specific objects. -->
-
-The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
+  <!-- - **Press 'a'**: to generate an alert sound when specific objects are detected. -->
+  The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
 
 ## Customization
 
@@ -123,7 +120,7 @@ For contributions, please follow these steps:
 
 ## License
 
-- This project is licensed under [MIT License](https://github.com/OCR-tech/AdaptDL/blob/main/LICENSE).
+- This project is licensed under [MIT License](LICENSE).
 
 ## Contact
 
