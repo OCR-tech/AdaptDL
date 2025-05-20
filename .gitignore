@@ -1,4 +1,6 @@
 .vscode/
+app/data/
+app/dataset/
 app/scripts/
-# app/tests/
-# app/dataset/
+app/tests/
+app/trains/
