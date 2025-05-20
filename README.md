@@ -26,10 +26,10 @@ Install the following dependencies:
 
 - Python 3.11 or higher
 - Tensorflow 2.18 or higher
-<!-- - SSD MobileNet V2 model -->
 - OpenCV 4.11 or higher (for video capturing and processing)
 - SpeechRecognition 3.14 or higher (for voice command processing)
 - Pyaudio 0.2 or higher (for microphone setup)
+<!-- - SSD MobileNet V2 model -->
 
 ## Installation
 
@@ -80,10 +80,10 @@ Available Voice Commands:
 - "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop detecting car").
 - "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
 - "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save snapshot car").
-- "**Detect**": Detect all objects in the model.
+<!-- - "**Detect**": Detect all objects in the model.
 - "**Stop**": Stop detecting all objects.
 - "**Alert**": Generate an alert sound when all objects are detected.
-- "**Save**": Save a snapshot of all detected objects.
+- "**Save**": Save a snapshot of all detected objects. -->
 - "**Help**": List available commands.
 - "**Exit**": Exit the program.
 
@@ -118,14 +118,6 @@ For contributions, please follow these steps:
 ## License
 
 - This project is licensed under [MIT License](https://github.com/OCR-tech/AdaptDL/blob/main/LICENSE).
-
-## Acknowledgments
-
-<!-- - **YOLOv5**: This project uses the YOLOv5 object detection model from [YOLOv5 GitHub](https://github.com/ultralytics/yolov5). -->
-<!-- - **ABC**: For training YOLOv5 on a custom dataset from [Datasets](https://github.com/ultralytics/yolov5). -->
-
-- **SpeechRecognition**: For voice command processing.
-- **OpenCV**: For video capturing and processing.
 
 ## Contact
 
