@@ -19,6 +19,7 @@
   - Select target objects.
   - Save snapshots of detected objects.
   - Generate sound alerts based on detection.
+  <!-- - **SMS Alert**: Sends an SMS alert when certain objects are detected. -->
 - **Adaptability**: The system adapts to user preferences and improves based on input voice command history and environmental challenges.
 
 ## Requirements
@@ -39,7 +40,7 @@ To install this project, follow these steps:
 1. Clone the repository:
 
    ```sh
-         git clone https://github.com/OCR-tech/AdaptDL.git
+   git clone https://github.com/OCR-tech/AdaptDL.git
    cd AdaptDL
    ```
 
@@ -72,7 +73,7 @@ To run this project:
 1. Run the main application:
 
    ```sh
-   python src\main.py
+   python app/main.py
    ```
 
 2. The system will launch the webcam, and start detecting objects in real-time.
@@ -123,4 +124,10 @@ For contributions, please follow these steps:
 
 ## Contact
 
-If you have any questions, please open an issue on GitHub or contact us at ocrtech.mail@gmail.com.
+We welcome any feedback, suggestions, or contributions to this project. For any inquiries, please contact us at:
+
+<!-- - **Name**: OCR-tech -->
+
+- **Email**: ocrtech.mail@gmail.com
+- **Website**: [https://ocr-tech.github.io/AdaptDL](https://ocr-tech.github.io/AdaptDL/)
+- **GitHub**: [https://github.com/OCR-tech](https://github.com/OCR-tech)
