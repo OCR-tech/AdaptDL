@@ -2,9 +2,7 @@
 
 **AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance applications.
 
-&emsp;&emsp;The system detects target objects from a webcam in real-time using the YOLOv5 model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system features with user preferences adaptability based on voice command history and can handle challenging environments.
-
-<!-- &emsp;&emsp;YOLOv5 is a state-of-the-art object detection model that is capable of detecting multiple objects in real-time. This model is designed to be fast and efficient, making it suitable for applications such as surveillance systems, autonomous vehicles, and robotics. -->
+The system detects target objects from a webcam in real-time using the deep learning model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system features with user preferences adaptability based on voice command history and can handle challenging environments.
 
 <br/>
 <p align="center">
@@ -13,7 +11,7 @@
 
 ## Features
 
-- **Real-time Object Detection**: Detects objects in live video captured from a webcam using YOLOv5 model.
+- **Real-time Object Detection**: Detects objects in live video captured from a webcam using a deep learning model.
 - **Bounding Boxes and Labels**: Overlays bounding boxes and labels on the detected objects in the video stream.
 - **Voice Command Control**: Users can interact with the system through voice commands:
   - Select target objects.
@@ -28,10 +26,10 @@ Install the following dependencies:
 
 - Python 3.11 or higher
 - Tensorflow 2.18 or higher
-- SSD MobileNet V2 model
-- OpenCV for video capturing and processing
-- SpeechRecognition for voice command processing
-- Pyaudio for microphone setup
+<!-- - SSD MobileNet V2 model -->
+- OpenCV 4.11 or higher (for video capturing and processing)
+- SpeechRecognition 3.14 or higher (for voice command processing)
+- Pyaudio 0.2 or higher (for microphone setup)
 
 ## Installation
 
@@ -57,14 +55,11 @@ To install this project, follow these steps:
    pip install -r requirements.txt
    ```
 
-<!-- 3. Download the TensorFlow object detection model and place it in `models/pretrained_model/saved_model`. -->
 <!-- # ssd-mobilenet-v2-tensorflow2-fpnlite-320x320-v1.tar -->
 
-4. Download the TensorFlow object detection model and place it in `app/models/pretrained_model`.
+<!-- 4. Download the [SSD MobileNet V2 TensorFlow 2 model](https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1) and extract the files into `app/models/pretrained_model/`. -->
 
-   ```bash
-   https://www.kaggle.com/models/tensorflow/ssd-mobilenet-v2/tensorFlow2
-   ```
+   <!-- - Ensure the directory contains files like `saved_model.pb` and the `saved_model` folder. -->
 
 ## Usage
 
@@ -82,12 +77,22 @@ To run this project:
 Available Voice Commands:
 
 - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
-- "**Save Snapshot**": Save a snapshot of the currently detected objects.
-- "**Alert**": Generate an alert sound when certain objects are detected.
+- "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop detecting car").
+- "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
+- "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save snapshot car").
+- "**Detect**": Detect all objects in the model.
+- "**Stop**": Stop detecting all objects.
+- "**Alert**": Generate an alert sound when all objects are detected.
+- "**Save**": Save a snapshot of all detected objects.
+- "**Exit**": Exit the program.
+- "**Help**": List available commands.
 
 Keyboard Shortcuts:
 
 - **Press 's'**: to save a snapshot with detected objects.
+- **Press 'a'**: to generate an alert sound when specific objects are detected.
+- **Press 'd'**: to detect specific objects.
+- **Press 'h'**: to list available commands.
 - **Press 'Esc'**: to exit the program.
 
 The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
