@@ -1,5 +1,8 @@
 # AdaptDL: Real-Time Object Detection with Voice Commands
 
+![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+![License](https://img.shields.io/badge/license-MIT-blue)
+
 **AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance applications.
 
 The system detects target objects from a webcam in real-time using a deep learning model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system features with user preferences adaptability based on voice command history and can handle challenging environments.
@@ -75,7 +78,7 @@ To run this project:
 2. The system will launch the webcam, and start detecting objects in real-time.
 3. Use voice commands to interact with the system.
 
-Available Voice Commands:
+Voice Commands:
 
 - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
 - "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop car").
@@ -102,7 +105,7 @@ The system adapts to user preferences over time based on input voice command his
 
 <!-- You can customize the system's behavior by modifying the configuration settings in the config.yaml file: -->
 
-The system's behavior can be customized by modifying the configuration settings in the config.py file:
+The system's behavior can be customized by modifying the configuration settings in the `config.py` file:
 
 - **Target Object Settings**: Define which objects you want to detect.
 - **Alert Settings**: Adjust sound alert thresholds and preferences.
