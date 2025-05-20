@@ -44,14 +44,14 @@ To install this project, follow these steps:
    cd AdaptDL
    ```
 
-<!-- 2. Create a virtual environment:
+2. Create a virtual environment:
 
-    ```sh
-    python -m venv .venv
-    .venv\Scripts\activate      # for Windows
-    ``` -->
+   ```sh
+   python -m venv .venv
+   .venv\Scripts\activate
+   ```
 
-2. Install the dependencies:
+3. Install the dependencies:
 
    ```sh
    pip install -r requirements.txt
@@ -60,7 +60,7 @@ To install this project, follow these steps:
 <!-- 3. Download the TensorFlow object detection model and place it in `models/pretrained_model/saved_model`. -->
 <!-- # ssd-mobilenet-v2-tensorflow2-fpnlite-320x320-v1.tar -->
 
-3. Download the TensorFlow object detection model and place it in `models/pretrained_model`.
+4. Download the TensorFlow object detection model and place it in `app/models/pretrained_model`.
 
    ```bash
    https://www.kaggle.com/models/tensorflow/ssd-mobilenet-v2/tensorFlow2
