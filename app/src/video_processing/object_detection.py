@@ -15,6 +15,8 @@ from src.config.configs import FONT_FPS, FONT_COLOR_FPS, FONT_SIZE_FPS, FONT_THI
 from src.config.configs import FONT_TXT, FONT_COLOR_TXT, FONT_SIZE_TXT, FONT_THICKNESS_TXT
 from src.config.configs import FONT_OBJ, FONT_COLOR_OBJ, FONT_SIZE_OBJ, FONT_THICKNESS_OBJ
 
+from src.video_processing.sort import Sort
+
 # Set a random seed for reproducibility
 np.random.seed(4)
 
@@ -154,7 +156,7 @@ def capture_image_objbox(detector_instance):
     cv2.imwrite(image_file, detector_instance.image_out)
 
 # //=======================================//
-def detect_objects(net, img):
+def detect_objects(detector_instance, net, img):
     """
     Detect objects in the given image using the specified neural network.
     """
@@ -162,34 +164,133 @@ def detect_objects(net, img):
     # print('=== detect_objects ===')
 
     # Perform object detection using the neural network
-    classlabelids, confidence, bbox = net.detect(img, confThreshold=0.5, nmsThreshold=0.4)
+    # classlabelids, confidence, bbox = net.detect(img, confThreshold=0.5, nmsThreshold=0.4)
+    classlabelids, confidence, bbox = net.detect(img, confThreshold=0.55, nmsThreshold=0.5)
+
+    # Sort the detected objected in x-axis and y-axis respectively, and keep tracking with the same numbering for classlabelids
+    sorted_indices = sorted(range(len(bbox)), key=lambda i: (bbox[i][1], bbox[i][0]))
+    bbox = [bbox[i] for i in sorted_indices]
+    confidence = [confidence[i] for i in sorted_indices]
+    classlabelids = [classlabelids[i] for i in sorted_indices]
 
     # Convert bounding boxes and confidence scores to lists
     bbox = list(bbox)
     confidence = list(np.array(confidence).reshape(1, -1)[0])
     confidence = list(map(float, confidence))
-    # print('classlabelid := ', classlabelids)
-    # print('confidence := ', confidence)
-    # print('bbox := ', bbox)
 
     # Apply Non-Maximum Suppression (NMS) to filter overlapping boxes
     bboxidx = cv2.dnn.NMSBoxes(bbox, confidence, score_threshold=0.5, nms_threshold=0.1)
     # print('len(bbox) := ', len(bboxidx))
+
+    # print('=== detect_objects ===')
     # print('bboxidx := ', bboxidx)
+    # print('classlabelid := ', classlabelids)
+    # print('confidence := ', confidence)
+    # print('bbox := ', bbox)
+
+    bbox1 = []
+    confidence1 = []
+    classlabelids1 = []
+
+    # loop with the index value inside of bboxidx
+    for i in range(len(bboxidx)):
+        idx = np.squeeze(bboxidx[i])
+        # print('i := ', i)
+        # print('idx := ', idx)
+        bbox1.append(bbox[idx])
+        confidence1.append(confidence[idx])
+        classlabelids1.append(classlabelids[idx])
+
+    # print('classlabelid1 := ', classlabelids1)
+    # print('confidence1 := ', confidence1)
+    # print('bbox1 := ', bbox1)
+    bbox = bbox1
+    confidence = confidence1
+    classlabelids = classlabelids1
 
     return bbox, bboxidx, confidence, classlabelids
 
+
+
+
 # //=======================================//
-def display_objects(detector_instance, img, bbox1, bboxidx, confidence, classlabelids):
+def sort_objects(detector_instance, bbox, bboxidx, confidence, classlabelids):
+
+    # Sort the bounding boxes and class labels based on the indices from NMS (confidence)
+    dets = []
+    for i in range(len(bboxidx)):
+        # idx = np.squeeze(bboxidx[i])
+        x, y, w, h = bbox[i]
+        score = confidence[i]
+        dets.append([x, y, x + w, y + h, score])
+    dets = np.array(dets)
+    # cast to int
+    dets = dets.astype(np.int32)
+    # print('dets := ', dets)
+
+    # Update tracker
+    tracks = detector_instance.tracker.update(dets)
+    tracks = tracks.astype(np.int32)
+    # print('tracks := ', tracks)
+
+
+    # Map track_id to classlabelid
+    track_id_to_class = {}
+    for i, track in enumerate(tracks):
+        x1, y1, x2, y2, track_id = track.astype(int)
+        # Find the detection that matches this track (by IoU or nearest bbox)
+        # Here, we use a simple nearest center approach
+        track_center = np.array([(x1 + x2) / 2, (y1 + y2) / 2])
+        min_dist = float('inf')
+        matched_classlabelid = None
+        for j in range(len(bbox)):
+            bx, by, bw, bh = bbox[j]
+            det_center = np.array([bx + bw / 2, by + bh / 2])
+            dist = np.linalg.norm(track_center - det_center)
+            if dist < min_dist:
+                min_dist = dist
+                matched_classlabelid = classlabelids[j]
+        track_id_to_class[track_id] = matched_classlabelid
+        # print('=== sort_objects ===')
+        # print('bbox := ', bbox)
+        # print('track_id_to_class := ', track_id_to_class)
+
+    return tracks, track_id_to_class
+
+# //=======================================//
+def get_confidence_for_bbox(bbox, confidence, x1, y1, x2, y2):
+    """
+    Find the confidence score for the given bbox (x1, y1, x2, y2) by matching with the list of detected bboxes.
+    Returns the confidence score if found, else 0.0.
+    """
+    max_iou = 0
+    matched_conf = 0.0
+    for i, (bx, by, bw, bh) in enumerate(bbox):
+        bx2, by2 = bx + bw, by + bh
+        # Compute IoU
+        xx1 = max(x1, bx)
+        yy1 = max(y1, by)
+        xx2 = min(x2, bx2)
+        yy2 = min(y2, by2)
+        inter_area = max(0, xx2 - xx1) * max(0, yy2 - yy1)
+        boxA_area = (x2 - x1) * (y2 - y1)
+        boxB_area = bw * bh
+        union_area = boxA_area + boxB_area - inter_area
+        iou = inter_area / union_area if union_area > 0 else 0
+        if iou > max_iou:
+            max_iou = iou
+            matched_conf = confidence[i]
+    return matched_conf
+
+# //=======================================//
+def display_objects(detector_instance, img, tracks, track_id_to_class, bbox, confidence):
     """
     Display detected objects on the image with bounding boxes, labels, and confidence scores.
     Args:
         detector_instance: The instance containing detection-related data and configurations.
         img (numpy.ndarray): The input image where objects are detected.
-        bbox1 (list): List of bounding boxes for detected objects.
-        bboxidx (list): Indices of bounding boxes after applying Non-Maximum Suppression (NMS).
-        confidence (list): Confidence scores for detected objects.
-        classlabelids (list): Class label IDs for detected objects.
+        tracks (list): List of tracked objects.
+        track_id_to_class (dict): Mapping of track IDs to class labels.
     Returns:
         numpy.ndarray: The image with bounding boxes, labels, and confidence scores drawn.
     """
@@ -202,124 +303,110 @@ def display_objects(detector_instance, img, bbox1, bboxidx, confidence, classlab
     detector_instance.bbox = []         # Bounding boxes
     detector_instance.confidence = []   # Confidence scores
 
-    # Check if there are any valid bounding boxes after NMS
-    if len(bboxidx) != 0:
-        for i in range(0, len(bboxidx)):
-            objid = [i + 1]   # Assign a unique ID to each detected object
+    # Draw bounding boxes and labels on the image
+    for track in tracks:
+        x1, y1, x2, y2, track_id = track.astype(int)
+        classlabelid = track_id_to_class.get(track_id, None)
 
-            # Uncomment the following lines for debugging
-            # print('//--------------------------//')
-            # print('i := ', i)
-            # print('id := ', id)
-            # print(len(bboxidx))
-            # print('bboxidx[i] := ', bboxidx[i])
+        classlabel = [detector_instance.classeslist[classlabelid]]
+        classcolor = [int(c) for c in detector_instance.colorlist[classlabelid]]
 
-            # Extract the bounding box for the current object
-            bbox = bbox1[np.squeeze(bboxidx[i])]
-            x, y, w, h = bbox  # Coordinates and dimensions of the bounding box
+        # Get the confidence score based on the bbox
+        classconfidence = get_confidence_for_bbox(bbox, confidence, x1, y1, x2, y2)
 
-            # Extract the confidence score and class label ID
-            classconfidence = np.round(confidence[np.squeeze(bboxidx[i])],2)
-            classlabelid = np.squeeze(classlabelids[np.squeeze(bboxidx[i])])
-            # print('classconfidence := ', classconfidence)
-            # print('classlabelid := ', classlabelid)
+        if classlabelid is not None:
+            classlabel = detector_instance.classeslist[classlabelid]
+            label = f"ID {track_id}: {classlabel}"
+        else:
+            label = f"ID {track_id}: Unknown"
 
-            # Get the class label and color for the current object
-            classlabel = [detector_instance.classeslist[classlabelid]]
-            classcolor = [int(c) for c in detector_instance.colorlist[classlabelid]]
-            # print('classeslist := ', detector_instance.classeslist)
-            # print('classlabel := ', classlabel)
-            # print('classcolor := ', classcolor)
+        # Draw corner lines for the bounding box
+        # cv2.rectangle(img, (x1, y1), (x2, y2), classcolor, thickness=FONT_THICKNESS_OBJ)
+        w = x2 - x1
+        h = y2 - y1
+        x = x1
+        y = y1
+        linewidth = min(int(w * 0.3), int(h * 0.3))
+        cv2.line(img, (x, y), (x + linewidth, y), classcolor, thickness=FONT_THICKNESS_OBJ)
+        cv2.line(img, (x, y), (x, y + linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
+        cv2.line(img, (x + w, y), (x + w - linewidth, y), classcolor, thickness=FONT_THICKNESS_OBJ)
+        cv2.line(img, (x + w, y), (x + w, y + linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
+        cv2.line(img, (x, y + h), (x + linewidth, y + h), classcolor, thickness=FONT_THICKNESS_OBJ)
+        cv2.line(img, (x, y + h), (x, y + h - linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
+        cv2.line(img, (x + w, y + h), (x + w - linewidth, y + h), classcolor, thickness=FONT_THICKNESS_OBJ)
+        cv2.line(img, (x + w, y + h), (x + w, y + h - linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
 
-            # detector_instance.obj = detector_instance.obj + ', ' + classlabel
-            # self.obj = ' '.join(self.obj['label'])
-            # print('list := ', detector_instance.obj)
-
-            # Format the label to display object ID, class label, and confidence score
-            label = "{}: {}: {:.2f}".format(objid, classlabel, classconfidence)
-            # label = "{}: {:.2f}: {}".format(classlabel, classconfidence, i)
-            # print('Text := ', Text)
-
+        # Put the label on the image
+        cv2.putText(img, label, (x1, y1 - 10), FONT_OBJ, FONT_SIZE_OBJ, classcolor, FONT_THICKNESS_OBJ)
+        # cv2.putText(img, label, (x, y - 10), FONT_OBJ, FONT_SIZE_OBJ, classcolor, FONT_THICKNESS_OBJ)
 
 
-            # Update the detector instance with the detection results
-            detector_instance.objid += objid
-            detector_instance.bbox += [[x, y, w, h]]
-            detector_instance.confidence += [classconfidence]
-            detector_instance.obj += classlabel
+        # Put the text on the image
+        # cv2.rectangle(detector_instance.image_resize, (x,y), (x+w, y+h), color=classcolor, thickness=THICKNESS1)
+        # cv2.putText(self.image, classlabel, (x, y+20), cv2.FONT_HERSHEY_SIMPLEX, 2, (255,255,255), 3)
+        # cv2.imshow("Result3", self.image)
+        # cv2.putText(self.image, str(round(classconfidence*100, 2)), (x, y+40), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255,255,255), 1)
+        # cv2.imshow("Result4", self.image)
+
+        # cv2.putText(img, "Menu Options", (15, 50), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'S': Start", (15, 50), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'M': Menu", (15, 70), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'Esc': Exit", (15, 90), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+
+        if detector_instance.FLAG_MENU:
+            # Display menu options on the image using putText
+            # cv2.putText(img, "Press 'S': save", (15, 150), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            # cv2.putText(img, "Press 'H': help", (15, 170), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'+' +Sound", (15, 110), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'-' -Sound", (15, 130), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'1': Capture Image", (15, 150), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'2': Capture Image with Boxes", (15, 170), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'3' Pause", (15, 190), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'4' Resume", (15, 210), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'5' Save", (15, 230), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'6' Record", (15, 250), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'7' Play", (15, 270), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'8' Program", (15, 290), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'9' Help", (15, 310), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+            cv2.putText(img, "'0' Mute", (15, 330), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        else:
+            pass
 
 
-            # # bbox = bbox1[np.squeeze(bboxidx[i])].tolist()
-            # bbox = [[x,y,w,h]]
-            # classconfidence = [classconfidence]
-
-            # detector_instance.objid = detector_instance.objid + objid
-            # detector_instance.bbox = detector_instance.bbox + bbox
-            # detector_instance.confidence = detector_instance.confidence + classconfidence
-            # detector_instance.obj = detector_instance.obj + classlabel
+        # print('=== display_objects ===')
+        # print('x1, x2, y1, y2 := ', x1, x2, y1, y2)
+        # print('track_id := ', track_id)
+        # print('classlabelid := ', classlabelid)
+        # print('classlabel := ', classlabel)
+        # print('label := ', label)
 
 
 
 
-            # Put the text on the image
-            # cv2.rectangle(detector_instance.image_resize, (x,y), (x+w, y+h), color=classcolor, thickness=THICKNESS1)
-            # cv2.putText(self.image, classlabel, (x, y+20), cv2.FONT_HERSHEY_SIMPLEX, 2, (255,255,255), 3)
-            # cv2.imshow("Result3", self.image)
-            # cv2.putText(self.image, str(round(classconfidence*100, 2)), (x, y+40), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255,255,255), 1)
-            # cv2.imshow("Result4", self.image)
+        # Update the detector instance with the detection results
+        detector_instance.objid += [track_id]
+        detector_instance.bbox += [[x, y, w, h]]
+        detector_instance.confidence += [classconfidence]
+        detector_instance.obj += [classlabel]
 
-            # cv2.putText(img, "Menu Options", (15, 50), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-            cv2.putText(img, "'S': Start", (15, 50), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-            cv2.putText(img, "'M': Menu", (15, 70), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-            cv2.putText(img, "'Esc': Exit", (15, 90), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
 
-            if detector_instance.FLAG_MENU:
-                # Display menu options on the image using putText
-                # cv2.putText(img, "Press 'S': save", (15, 150), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                # cv2.putText(img, "Press 'H': help", (15, 170), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'+' +Sound", (15, 110), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'-' -Sound", (15, 130), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'1': Capture Image", (15, 150), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'2': Capture Image with Boxes", (15, 170), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'3' Pause", (15, 190), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'4' Resume", (15, 210), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'5' Save", (15, 230), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'6' Record", (15, 250), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'7' Play", (15, 270), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'8' Program", (15, 290), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'9' Help", (15, 310), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-                cv2.putText(img, "'0' Mute", (15, 330), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-            else:
-                pass
+        # //=======================================//
+        # if  detector_instance.imagepath == "-":
+        #     cv2.putText(img, 'FPS: '+str(int(detector_instance.fps)), (20, 40), FONT, FONT_SCALE2, (255,255,255), THICKNESS1)
+        # # cv2.imshow("Result5", self.image)
 
-            # Draw the bounding box and label on the image
-            cv2.putText(img, label, (x, y - 10), FONT_OBJ, FONT_SIZE_OBJ, classcolor, FONT_THICKNESS_OBJ)
+        # cv2.putText(img, f"FPS: {int(detector_instance.fps)}", (15, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        # cv2.putText(img, f"FPS: {detector_instance.fps:.2f}", (15, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
+        # cv2.putText(img, 'FPS: '+str(int(detector_instance.fps)), (20, 40), FONT, FONT_SCALE2, (255,255,255), THICKNESS1)
 
-            # Draw corner lines for the bounding box
-            linewidth = min(int(w * 0.3), int(h * 0.3))
-            cv2.line(img, (x, y), (x + linewidth, y), classcolor, thickness=FONT_THICKNESS_OBJ)
-            cv2.line(img, (x, y), (x, y + linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
-            cv2.line(img, (x + w, y), (x + w - linewidth, y), classcolor, thickness=FONT_THICKNESS_OBJ)
-            cv2.line(img, (x + w, y), (x + w, y + linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
-            cv2.line(img, (x, y + h), (x + linewidth, y + h), classcolor, thickness=FONT_THICKNESS_OBJ)
-            cv2.line(img, (x, y + h), (x, y + h - linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
-            cv2.line(img, (x + w, y + h), (x + w - linewidth, y + h), classcolor, thickness=FONT_THICKNESS_OBJ)
-            cv2.line(img, (x + w, y + h), (x + w, y + h - linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
+        # self.image1 = img.copy()
+        # cv2.waitKey(1)
+        # time.sleep(5)
 
-            # //=======================================//
-            # if  detector_instance.imagepath == "-":
-            #     cv2.putText(img, 'FPS: '+str(int(detector_instance.fps)), (20, 40), FONT, FONT_SCALE2, (255,255,255), THICKNESS1)
-            # # cv2.imshow("Result5", self.image)
 
-            # cv2.putText(img, f"FPS: {int(detector_instance.fps)}", (15, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            # cv2.putText(img, f"FPS: {detector_instance.fps:.2f}", (15, 30), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
-            # cv2.putText(img, 'FPS: '+str(int(detector_instance.fps)), (20, 40), FONT, FONT_SCALE2, (255,255,255), THICKNESS1)
 
-            # self.image1 = img.copy()
-            # cv2.waitKey(1)
-            # time.sleep(5)
 
-    # #//=====================================
+    #//=====================================
     # print('objid :=', detector_instance.objid)
     # print('obj :=', detector_instance.obj)
     # print('bbox :=', detector_instance.bbox)
@@ -334,6 +421,91 @@ def display_objects(detector_instance, img, bbox1, bboxidx, confidence, classlab
     # print(dict_obj)
 
     return img
+
+
+
+# //=======================================//
+# def display_objects(detector_instance, img, bbox1, bboxidx, confidence, classlabelids):
+    """
+    Display detected objects on the image with bounding boxes, labels, and confidence scores,
+    sorted from left to right.
+    Args:
+        detector_instance: The instance containing detection-related data and configurations.
+        img (numpy.ndarray): The input image where objects are detected.
+        bbox1 (list): List of bounding boxes for detected objects.
+        bboxidx (list): Indices of bounding boxes after applying Non-Maximum Suppression (NMS).
+        confidence (list): Confidence scores for detected objects.
+        classlabelids (list): Class label IDs for detected objects.
+    Returns:
+        numpy.ndarray: The image with bounding boxes, labels, and confidence scores drawn.
+    """
+
+
+
+    # Initialize lists to store detection results
+    detector_instance.objid = []
+    detector_instance.obj = []
+    detector_instance.bbox = []
+    detector_instance.confidence = []
+
+    # Prepare a list to hold all detections for sorting
+    detections = []
+    if len(bboxidx) != 0:
+        for i in range(0, len(bboxidx)):
+            idx = np.squeeze(bboxidx[i])
+            bbox = bbox1[idx]
+            x, y, w, h = bbox
+            classconfidence = np.round(confidence[idx], 2)
+            classlabelid = np.squeeze(classlabelids[idx])
+            classlabel = detector_instance.classeslist[classlabelid]
+            classcolor = [int(c) for c in detector_instance.colorlist[classlabelid]]
+            detections.append({
+                "bbox": bbox,
+                "x": x,
+                "y": y,
+                "w": w,
+                "h": h,
+                "confidence": classconfidence,
+                "classlabelid": classlabelid,
+                "classlabel": classlabel,
+                "classcolor": classcolor
+            })
+
+        # Sort detections by x coordinate (left to right)
+        detections = sorted(detections, key=lambda d: d["x"])
+
+        # Draw sorted detections and number them
+        for idx, det in enumerate(detections, start=1):
+            x, y, w, h = det["x"], det["y"], det["w"], det["h"]
+            classconfidence = det["confidence"]
+            classlabel = det["classlabel"]
+            classcolor = det["classcolor"]
+
+            # Update detector_instance lists
+            detector_instance.objid.append(idx)
+            detector_instance.bbox.append([x, y, w, h])
+            detector_instance.confidence.append(classconfidence)
+            detector_instance.obj.append(classlabel)
+
+            # Format the label to display object number, class label, and confidence score
+            label = f"{idx}: {classlabel}: {classconfidence:.2f}"
+
+            # Draw the bounding box and label on the image
+            # cv2.putText(img, label, (x, y - 10), FONT_OBJ, FONT_SIZE_OBJ, classcolor, FONT_THICKNESS_OBJ)
+            # linewidth = min(int(w * 0.3), int(h * 0.3))
+            # cv2.line(img, (x, y), (x + linewidth, y), classcolor, thickness=FONT_THICKNESS_OBJ)
+            # cv2.line(img, (x, y), (x, y + linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
+            # cv2.line(img, (x + w, y), (x + w - linewidth, y), classcolor, thickness=FONT_THICKNESS_OBJ)
+            # cv2.line(img, (x + w, y), (x + w, y + linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
+            # cv2.line(img, (x, y + h), (x + linewidth, y + h), classcolor, thickness=FONT_THICKNESS_OBJ)
+            # cv2.line(img, (x, y + h), (x, y + h - linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
+            # cv2.line(img, (x + w, y + h), (x + w - linewidth, y + h), classcolor, thickness=FONT_THICKNESS_OBJ)
+            # cv2.line(img, (x + w, y + h), (x + w, y + h - linewidth), classcolor, thickness=FONT_THICKNESS_OBJ)
+
+    # (Menu drawing code can remain unchanged...)
+
+    return img
+
 
 
 # //===========================================//
@@ -509,6 +681,7 @@ class detector:
         self.configpath = configpath
         self.modelpath = modelpath
         self.classespath = classespath
+        self.tracker = Sort()  # Initialize SORT tracker
 
         print('=== detector_init ===')
         self.setupClasses()  # Set up the detection model
@@ -541,7 +714,21 @@ class detector:
         # Add a background class and generate random colors for each class
         self.classeslist.insert(0, '__Background__')  # Add a placeholder for the background class
         self.colorlist = np.random.uniform(low=0, high=255, size=(len(self.classeslist), 3))  # Generate random colors for each class
+
+        # All class labels of 92 classes in COCO dataset
+        # print(len(self.classeslist))
         # print(self.classeslist)
+
+        # ['__Background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light',
+        # 'fire hydrant', 'street sign', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant',
+        #  'bear', 'zebra', 'giraffe', 'hat', 'backpack', 'umbrella', 'shoe', 'eye glasses', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis',
+        #  'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'plate',
+        #  'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog',
+        #  'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'mirror', 'dining table', 'window', 'desk', 'toilet', 'door',
+        # 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator',
+        #  'blender', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush', 'hair brush']
+
+
 
     def onVideo(self):
         """
@@ -572,7 +759,10 @@ class detector:
         #         print(f"Camera index {i} is available")
 
         # Open the video source (camera or video file)
-        self.source = cv2.VideoCapture(s)
+        if s == '-':
+            print("No video source")
+        else:
+            self.source = cv2.VideoCapture(s)
 
         # Set up the display window
         self.window = 'camera'
@@ -610,9 +800,16 @@ class detector:
             # // fps,cam = 12 // fps,vid = 16 //
             # # //==============================//
 
+
+
             # Perform object detection and display results
-            bbox, bboxidx, confidence, classlabelids = detect_objects(self.net, self.image_resize)
-            self.image_out = display_objects(self, self.image_resize, bbox, bboxidx, confidence, classlabelids)
+            bbox, bboxidx, confidence, classlabelids = detect_objects(self, self.net, self.image_resize)
+
+            tracks, track_id_to_class = sort_objects(self, bbox, bboxidx, confidence, classlabelids)
+
+            self.image_out = display_objects(self, self.image_resize, tracks, track_id_to_class, bbox, confidence)
+
+
 
             # Display FPS on the output image
             cv2.putText(self.image_out, f"FPS: {int(self.fps)}", (15, 30), FONT_FPS, FONT_SIZE_FPS, FONT_COLOR_FPS, FONT_THICKNESS_FPS)
@@ -678,10 +875,6 @@ class detector:
             # cv2.putText(img, "'0' Mute", (15, 330), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
 
 
-
-
-
-
         # Stop the timers and release resources
         self.timer_assistant.stop()  # Stop the assistant timer
         self.timer_alert.stop()  # Stop the alert timer
@@ -706,6 +899,8 @@ class detector:
         self.id1 = 0  # Object ID counter
         self.obj = str('')  # Detected object labels
         self.text = str('')  # Additional text information
+        self.FLAG_MENU = False   # Flag for menu options
+        self.volume = 50  # Initial volume level
 
         self.frame_count = 1  # Frame counter
         print('imagepath := ', self.imagepath)  # Debug: Print the image path
@@ -719,14 +914,18 @@ class detector:
         image_processor = image_processing(self.image_original)
         self.image_resize = image_processor.image_resize(100)
 
-        # Perform object detection on the resized image
-        bbox, bboxidx, confidence, classlabelids = detect_objects(self.net, self.image_resize)
 
-        # Display the detected objects with bounding boxes and labels
-        self.image_out1 = display_objects(self, self.image_resize, bbox, bboxidx, confidence, classlabelids)
+        # Perform object detection and display results
+        bbox, bboxidx, confidence, classlabelids = detect_objects(self, self.net, self.image_resize)
+
+        tracks, track_id_to_class = sort_objects(self, bbox, bboxidx, confidence, classlabelids)
+
+        self.image_out = display_objects(self, self.image_resize, tracks, track_id_to_class, bbox, confidence)
+
 
         # Placeholder for additional processing (e.g., text detection)
-        self.image_out2 = self.image_out1
+        self.image_out1 = self.image_out
+        self.image_out2 = self.image_out
 
         # Blend the two processed images (if applicable)
         alpha = 0.5  # Weight for the first image
@@ -755,3 +954,5 @@ class detector:
         # Display the processed image in the window
         cv2.imshow(self.window, self.image_out)
         cv2.waitKey()
+        cv2.destroyAllWindows()  # Close all OpenCV windows
+        os._exit(1)  # Exit the program

@@ -9,9 +9,9 @@ image = "pic1a.jpg"
 # image = "pic3a.jpg"
 
 # Specify the video file to be used.
-video = "video1.mp4"       # street        # 3840x2160    24fps
-# video = "video2.mp4"     # bike          # 1920x1080    30fps
-# video = "video3.mp4"     # bike/night    # 1920x1080    30fps
+video = "video1.mp4"    # street    # 3840x2160    30fps
+# video = "video2.mp4"      # street    # 1920x1080    30fps
+# video = "video3.mp4"    # room      # 1920x1080    30fps
 
 # Define the base path for resources (images and videos).
 # path = 'D:/dataset/'
@@ -19,8 +19,9 @@ video = "video1.mp4"       # street        # 3840x2160    24fps
 path = os.getcwd()
 
 # Construct the full paths for the image and video files
-imagepath = os.path.join(path, "app", "resources", "video", image)
-imagepath = "-"
+imagepath = os.path.join(path, "app", "resources", "image", image)
+imagepath = "-"     # Uncomment this line to disable image input
+
 videopath = os.path.join(path, "app", "resources", "video", video)
 
 # Uncomment the following lines to debug and print the paths
@@ -58,8 +59,9 @@ classespath = os.path.join(os.getcwd(), "app", "models", "saved_model", "coco.na
 # //=======================================//
 # Font settings for displaying text on the video frames
 FONT_SIZE_FPS = 0.8             # Font size for FPS display
-FONT_SIZE_TXT = 0.43             # Font size for general text
+FONT_SIZE_TXT = 0.45             # Font size for general text
 FONT_SIZE_OBJ = 0.5             # Font size for object labels
+# FONT_SIZE_OBJ = 0.5             # Font size for object labels
 
 FONT_COLOR_FPS = (0, 255, 0)    # Green color for FPS text
 FONT_COLOR_TXT = (0, 255, 0)    # Green color for general text
@@ -67,7 +69,7 @@ FONT_COLOR_OBJ = (255, 0, 255)  # Magenta color for object labels
 
 FONT_THICKNESS_FPS = 2          # Thickness of FPS text
 FONT_THICKNESS_TXT = 1          # Thickness of general text
-FONT_THICKNESS_OBJ = 1          # Thickness of object labels
+FONT_THICKNESS_OBJ = 2          # Thickness of object labels
 
 FONT_FPS = cv2.FONT_HERSHEY_SIMPLEX   # Font style for FPS text
 FONT_TXT = cv2.FONT_HERSHEY_SIMPLEX    # Font style for general text

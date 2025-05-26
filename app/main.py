@@ -105,7 +105,8 @@ def main():
         # command = "help"
 
         print(f"Voice Command: {command}")
-        speak(command)
+        # speak(command)
+
 
         # Process the command
         if command:
@@ -118,8 +119,11 @@ def main():
                 print("Start the system.")
                 # speak("Start the system.")
                 detect = detector(imagepath, videopath, configpath, modelpath, classespath)
+
+                # Uncomment the following line to process for image or video input
                 detect.onVideo()
                 # detect.onImage()
+
             elif command == "help":
                 print("Available commands: start, help, exit")
                 speak("Available commands: start, help, exit")
