@@ -14,6 +14,7 @@ from src.config.configs import FONT_FPS, FONT_COLOR_FPS, FONT_SIZE_FPS, FONT_THI
 from src.config.configs import FONT_FPS, FONT_COLOR_FPS, FONT_SIZE_FPS, FONT_THICKNESS_FPS
 from src.config.configs import FONT_TXT, FONT_COLOR_TXT, FONT_SIZE_TXT, FONT_THICKNESS_TXT
 from src.config.configs import FONT_OBJ, FONT_COLOR_OBJ, FONT_SIZE_OBJ, FONT_THICKNESS_OBJ
+from src.config.configs import FONT_POS_INT, FONT_SPACE_TXT
 
 from src.video_processing.sort import Sort
 
@@ -165,8 +166,19 @@ def detect_objects(detector_instance, net, img):
 
     # Perform object detection using the neural network
     # classlabelids, confidence, bbox = net.detect(img, confThreshold=0.5, nmsThreshold=0.4)
-    classlabelids, confidence, bbox = net.detect(img, confThreshold=0.55, nmsThreshold=0.5)
+    classlabelids, confidence, bbox = net.detect(img, confThreshold=0.6, nmsThreshold=0.5)
+    # print('classlabelids := ', classlabelids)
+    # print('confidence := ', confidence)
+    # print('bbox := ', bbox)
 
+
+    # if classlabelids is match to classlabelids_idx, then remove the corresponding bbox and confidence
+    bbox = [bbox[i] for i in range(len(bbox)) if classlabelids[i] not in detector_instance.classlabelids_idx]
+    confidence = [confidence[i] for i in range(len(confidence)) if classlabelids[i] not in detector_instance.classlabelids_idx]
+    classlabelids = [classlabelids[i] for i in range(len(classlabelids)) if classlabelids[i] not in detector_instance.classlabelids_idx]
+    # print('classlabelids1 := ', classlabelids)
+    # print('confidence1 := ', confidence)
+    # print('bbox1 := ', bbox)
 
 
     # Sort the detected objected in x-axis and y-axis respectively, and keep tracking with the same numbering for classlabelids
@@ -280,6 +292,7 @@ def display_objects(detector_instance, img, tracks, track_id_to_class):
     for track in tracks:
         x1, y1, x2, y2, track_id = track.astype(int)
         classlabelid = track_id_to_class.get(track_id, None)
+        # print('classlabelid := ', classlabelid)
 
         classlabel = [detector_instance.classeslist[classlabelid]]
         classcolor = [int(c) for c in detector_instance.colorlist[classlabelid]]
@@ -325,27 +338,28 @@ def display_objects(detector_instance, img, tracks, track_id_to_class):
     # cv2.putText(self.image, str(round(classconfidence*100, 2)), (x, y+40), cv2.FONT_HERSHEY_SIMPLEX, 1.5, (255,255,255), 1)
     # cv2.imshow("Result4", self.image)
 
-    # cv2.putText(img, "Menu Options", (15, 100), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-    cv2.putText(img, "'S': Start", (15, 150), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-    cv2.putText(img, "'M': Menu", (15, 200), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-    cv2.putText(img, "'Esc': Exit", (15, 250), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+
+    # cv2.putText(img, "Menu Options", (15, 50), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+    cv2.putText(img, "'S': Start", (15, FONT_POS_INT + 1 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+    cv2.putText(img, "'M': Menu", (15, FONT_POS_INT + 2 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+    cv2.putText(img, "'Esc': Exit", (15, FONT_POS_INT + 3 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
 
     if detector_instance.FLAG_MENU:
         # Display menu options on the image using putText
         # cv2.putText(img, "Press 'S': save", (15, 150), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
         # cv2.putText(img, "Press 'H': help", (15, 170), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'+' +Sound", (15, 110), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'-' -Sound", (15, 130), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'1': Capture Image", (15, 150), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'2': Capture Image with Boxes", (15, 170), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'3' Pause", (15, 190), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'4' Resume", (15, 210), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'5' Save", (15, 230), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'6' Record", (15, 250), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'7' Play", (15, 270), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'8' Program", (15, 290), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'9' Help", (15, 310), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
-        cv2.putText(img, "'0' Mute", (15, 330), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'+' +Sound", (15, FONT_POS_INT + 4 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'-' -Sound", (15, FONT_POS_INT + 5 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'1': Capture Image", (15, FONT_POS_INT + 6 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'2': Capture Image with Boxes", (15, FONT_POS_INT + 7 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'3' Pause", (15, FONT_POS_INT + 8 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'4' Resume", (15, FONT_POS_INT + 9 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'5' Save", (15, FONT_POS_INT + 10 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'6' Record", (15, FONT_POS_INT + 11 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'7' Play", (15, FONT_POS_INT + 12 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'8' Program", (15, FONT_POS_INT + 13 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'9' Help", (15, FONT_POS_INT + 14 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
+        cv2.putText(img, "'0' Mute", (15, FONT_POS_INT + 15 * FONT_SPACE_TXT), FONT_TXT, FONT_SIZE_TXT, FONT_COLOR_TXT, FONT_THICKNESS_TXT)
     else:
         pass
 
@@ -589,12 +603,20 @@ class detector:
         # Add a background class and generate random colors for each class
         self.classeslist.insert(0, '__Background__')  # Add a placeholder for the background class
 
+        # List of class names to remove
+        self.classlabelids_idx = [73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91]  # Indices of classes to remove
+        self.classeslist = [cls for i, cls in enumerate(self.classeslist) if i not in self.classlabelids_idx]
+
+
         self.colorlist = np.random.uniform(low=0, high=255, size=(len(self.classeslist), 3))  # Generate random colors for each class
 
         # All class labels of 92 classes in COCO dataset
-        # print(len(self.classeslist))
         # print(self.classeslist)
+        # print(len(self.classeslist))
+        # print(self.colorlist)
+        # print(len(self.colorlist))
 
+        # Uncomment the following lines to see the class labels and colors
         # ['__Background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light',
         # 'fire hydrant', 'street sign', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant',
         #  'bear', 'zebra', 'giraffe', 'hat', 'backpack', 'umbrella', 'shoe', 'eye glasses', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis',
@@ -667,6 +689,10 @@ class detector:
             self.fps = 1/(currenttime - starttime)
             starttime = currenttime
 
+            # Get the width and height of the frame
+            self.height, self.width, _ = frame.shape
+            # print('height:', self.height, 'width:', self.width)
+
             # Store the original frame and resize it
             self.image_original = frame.copy()
             image_processor = image_processing(self.image_original)
@@ -687,15 +713,25 @@ class detector:
 
 
             # Display FPS on the output image
-            cv2.putText(self.image_out, f"FPS: {int(self.fps)}", (15, 100), FONT_FPS, FONT_SIZE_FPS, FONT_COLOR_FPS, FONT_THICKNESS_FPS)
+            cv2.putText(self.image_out, f"FPS: {int(self.fps)}", (15, 80), FONT_FPS, FONT_SIZE_FPS, FONT_COLOR_FPS, FONT_THICKNESS_FPS)
 
             # Show the processed frame in the display window
-            # screen_width = 1920
-            # screen_height = 1080
-            # winx = int(screen_width/2 - int(width/2))
-            # winy = int(screen_height/2 - int(height/2))
-            # cv2.moveWindow(win, winx - 50, winy)
-            # cv2.resizeWindow(window, width, height)
+            screen_width = 1920
+            screen_height = 1080
+
+            # check if the screen resolution is larger than 1920x1080
+            if screen_width > 1920 or screen_height > 1080:
+                # if screen resolution is larger than 1920x1080, then resize the window to half of the screen resolution
+                win_width = int(self.width/2 - int(screen_width/2))
+                win_height = int(self.height/2 - int(screen_height/2))
+            else:
+                win_width = int(self.width/2)
+                win_height = int(self.height/2)
+
+            # winx = int(self.width/2 - int(screen_width/2))
+            # winy = int(self.height/2 - int(screen_height/2))
+            # cv2.moveWindow(self.window, winx, winy)
+            cv2.resizeWindow(self.window, win_width, win_height)
             cv2.imshow(self.window, self.image_out)
 
             # Handle key events for additional functionality
@@ -782,8 +818,8 @@ class detector:
 
         # Read the input image from the specified path
         self.image_original = cv2.imread(self.imagepath)
-        width = self.image_original.shape[1]
-        height = self.image_original.shape[0]
+        self.width = self.image_original.shape[1]
+        self.height = self.image_original.shape[0]
 
         # Resize the image using the image processing module
         image_processor = image_processing(self.image_original)

@@ -32,15 +32,16 @@ class voice_processing:
         # Define keyword lists for different commands
         keyword_list1 = ['bus', 'bus1', 'bus2:', 'bus3']                            # Keywords for "Stop" command
         keyword_list2 = ['bicycle', 'bicycle1', 'bicycle2', 'bicycle3']             # Keywords for "Alert" command
-        keyword_list3 = ['motorcycle', 'motorcycle1', 'motorcycle2', 'motorcycle3'] # Keywords for "Turn left" command
-        keyword_list4 = ['chair', 'chair1', 'chair2', 'chair3']                     # Keywords for "Turn right" command
-        keyword_list5 = ['person', 'person1', 'person2', 'person3']                 # Keywords for "Go straight" command
-        keyword_list6 = ['car', 'car1', 'car2', 'car3']                             # Keywords for "Turn left" command
+        keyword_list3 = ['motorcycle', 'motorcycle1', 'motorcycle2', 'motorcycle3'] # Keywords for "Detected" command
+        keyword_list4 = ['chair', 'chair1', 'chair2', 'chair3']                     # Keywords for "Detected" command
+        keyword_list5 = ['person', 'person1', 'person2', 'person3']                 # Keywords for "Detected" command
+        keyword_list6 = ['car', 'car1', 'car2', 'car3']                             # Keywords for "Detected" command
+        keyword_list7 = ['tv', 'tv1', 'tv2', 'tv3']                                 # Keywords for "Detected" command
 
         # Check if any keyword from the lists matches the detected words
         if any(word in list for word in keyword_list1):
             print('=== stop === ')
-            speak("Stop! Obstacle detected")
+            speak("Stop!")
             return
 
         elif any(word in list for word in keyword_list2):
@@ -49,21 +50,26 @@ class voice_processing:
             return
 
         elif any(word in list for word in keyword_list3):
-            print('=== turn left === ')
-            speak("Turn left")
+            print('=== Detected === ')
+            speak("Detected")
             return
 
         elif any(word in list for word in keyword_list4):
-            print('=== turn right === ')
-            speak("Turn right")
+            print('=== Detected === ')
+            speak("Detected")
             return
 
         elif any(word in list for word in keyword_list5):
-            print('=== go straight === ')
-            speak("Go straight")
+            print('=== Detected === ')
+            speak("Detected")
             return
 
         elif any(word in list for word in keyword_list6):
+            print('=== Detected === ')
+            speak("Detected")
+            return
+
+        elif any(word in list for word in keyword_list7):
             print('=== Detected === ')
             speak("Detected")
             return
