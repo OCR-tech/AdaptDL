@@ -35,6 +35,7 @@ class voice_processing:
         keyword_list3 = ['motorcycle', 'motorcycle1', 'motorcycle2', 'motorcycle3'] # Keywords for "Turn left" command
         keyword_list4 = ['chair', 'chair1', 'chair2', 'chair3']                     # Keywords for "Turn right" command
         keyword_list5 = ['person', 'person1', 'person2', 'person3']                 # Keywords for "Go straight" command
+        keyword_list6 = ['car', 'car1', 'car2', 'car3']                             # Keywords for "Turn left" command
 
         # Check if any keyword from the lists matches the detected words
         if any(word in list for word in keyword_list1):
@@ -60,4 +61,9 @@ class voice_processing:
         elif any(word in list for word in keyword_list5):
             print('=== go straight === ')
             speak("Go straight")
+            return
+
+        elif any(word in list for word in keyword_list6):
+            print('=== Detected === ')
+            speak("Detected")
             return
