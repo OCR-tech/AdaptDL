@@ -75,7 +75,7 @@ To run this project:
    ```
 
 2. The system will launch the webcam, and start detecting objects in real-time.
-3. Use voice commands to interact with the system.
+3. Use voice commands or keyboard shortcuts to interact with the system.
 
 Voice Commands:
 
@@ -103,7 +103,7 @@ Keyboard Shortcuts:
 
 <!-- You can customize the system's behavior by modifying the configuration settings in the config.yaml file: -->
 
-The system's behavior can be customized by modifying the configuration settings in the `config.py` file:
+The system's behavior can be customized by modifying the default settings in the `config.py` file:
 
 - **Target Object Settings**: Define which objects you want to detect.
 - **Alert Settings**: Adjust sound alert thresholds and preferences.
