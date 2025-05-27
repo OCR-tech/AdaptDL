@@ -1,35 +1,38 @@
 # Import necessary modules
 import cv2
 import os
+# import sys
+# import argparse
 from src.config.configs import *
 
 
 # //===========================================//
-# def call_detector(imagepath, videopath, configpath, modelpath, classespath):
-#     from video_processing.object_detection import detector
+# def parse_arguments():
 
-#     print('//==== call_detector ===//')
-#     # if not stop_event.is_set():
-#     detect = detector(imagepath, videopath, configpath, modelpath, classespath)
-#     detect.onVideo()
-#     # detect.onImage()
+#     parser = argparse.ArgumentParser(description="Example script using argparse.")
+#     parser.add_argument('--config', type=str, help='Path to config file')
+#     parser.add_argument('--device', type=str, default='cpu', help='Device to use (cpu/gpu)')
+#     parser.add_argument('--input', type=str, help='Input source (image/video)')
+#     parser.add_argument('--threshold', type=float, default=0.5, help='Detection threshold')
+#     args = parser.parse_args()
+
+#     print("Config file:", args.config)
+#     print("Device:", args.device)
+#     print("Input source:", args.input)
+#     print("Threshold:", args.threshold)
+
+#     # Example usage in your code
+#     if args.input:
+#         print(f"Processing input: {args.input} on device: {args.device}")
+#     else:
+#         print("No input source provided.")
+#     return args
+
+
+
+
 
 # //===========================================//
-# def call_voice_input():
-#     from voice_processing.voice_input import listen_for_commands
-
-#     print('//==== call_voice_input ===//')
-#     listen_for_commands()
-
-# //===========================================//
-# def load_config():
-#     print("load_config")
-#     # Load the configuration file
-#     with open("src/config.yaml", "r") as file:
-#         return yaml.safe_load(file)
-
-
-
 def main():
     '''
     Main function to initialize the system and listen for voice commands.
@@ -43,36 +46,16 @@ def main():
     # This function is the entry point of the application.
     print("//*** main ***//")
 
-    # //================================//
-    # print('//=== load config ===//')
-    # config = load_config()
 
-    # # Load configurations
-    # model_path = config["model_settings"]["model_path"]
-    # object_detector = ObjectDetector(model_path)
+    # # Parse command line arguments
+    # args = parse_arguments()
+    # config = args.config
+    # device = args.device
+    # input_source = args.input
+    # threshold = args.threshold
+    # print(f"Parsed arguments: config={config}, device={device}, input_source={input_source}, threshold={threshold}")
 
 
-    # //================================//
-    # Create a threading Event
-    # stop_event = threading.Event()
-
-    # Create threads with arguments
-    # thread1 = threading.Thread(target=call_detector, args=(imagepath, videopath, configpath, modelpath, classespath))
-    # thread2 = threading.Thread(target=call_voice_input, args=())
-
-    # Start the threads
-    # thread1.start()
-    # thread2.start()
-
-    # Wait for both threads to finish
-    # thread1.join()qq
-    # thread2.join()
-    # print("Both tasks completed.")
-
-    # //================================//
-    # detect = detector(imagepath, videopath, configpath, modelpath, classespath)
-    # detect.onVideo()
-    # # detect.onImage()
 
     # # //================================//
     # command = ""
@@ -90,6 +73,7 @@ def main():
 
 
 
+    # # //================================//
     # The main loop to continuously listen for voice commands and process them
     while True:
         # Initialize the system
@@ -127,6 +111,8 @@ def main():
             elif command == "help":
                 print("Available commands: start, help, exit")
                 speak("Available commands: start, help, exit")
+
+
 
 
 if __name__ == '__main__':
