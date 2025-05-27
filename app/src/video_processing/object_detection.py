@@ -843,15 +843,25 @@ class detector:
         self.image_out = cv2.addWeighted(self.image_out1, alpha, self.image_out2, beta, 0.5)
         self.image_out = np.uint8(alpha * (self.image_out1) + beta * (self.image_out2))
 
-        # Set screen resolution for displaying the image
-        screen_width = 1920  # Screen width in pixels
-        screen_height = 1080  # Screen height in pixels
-        winx = int(screen_width / 2 - int(width / 2))
-        winy = int(screen_height / 2 - int(height / 2))
+        # Show the processed frame in the display window
+        screen_width = 1920
+        screen_height = 1080
 
-        # Resize and move the display window
-        cv2.resizeWindow(self.window, width, height)
-        cv2.moveWindow(self.window, winx - 50, winy)
+        # check if the screen resolution is larger than 1920x1080
+        if screen_width > 1920 or screen_height > 1080:
+            # if screen resolution is larger than 1920x1080, then resize the window to half of the screen resolution
+            win_width = int(self.width/2 - int(screen_width/2))
+            win_height = int(self.height/2 - int(screen_height/2))
+        else:
+            win_width = int(self.width/2)
+            win_height = int(self.height/2)
+
+        # winx = int(self.width/2 - int(screen_width/2))
+        # winy = int(self.height/2 - int(screen_height/2))
+        # cv2.moveWindow(self.window, winx, winy)
+        cv2.resizeWindow(self.window, win_width, win_height)
+        # cv2.moveWindow(self.window, winx - 50, winy)
+
 
         # Ensure self.image_out is a valid NumPy array
         if not isinstance(self.image_out, np.ndarray):
