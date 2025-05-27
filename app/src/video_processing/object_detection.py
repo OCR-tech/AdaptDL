@@ -147,14 +147,15 @@ def capture_image_objbox(detector_instance):
     # parentDirectory = os.path.dirname(fileDirectory)  # Parent directory
 
     currentworkingDirector = os.getcwd()    # Get the current working directory
-    image_path = os.path.join(currentworkingDirector, "data", "saved_image")  # Path to the "image" directory
-    # print('image_path := ', image_path)
+    image_path = os.path.join(currentworkingDirector, "app", "data", "saved_image")  # Path to the "image" directory
+    print('image_path := ', image_path)
 
     # Construct the file name for the image with bounding boxes
     image_file = image_path + '\\' + f'image_{detector_instance.frame_count:03d}_obj.jpg'
 
     # Save the current frame with bounding boxes as an image
     cv2.imwrite(image_file, detector_instance.image_out)
+    print('image_save_objbox := ', image_file)
 
 # //=======================================//
 def detect_objects(detector_instance, net, img):
@@ -754,7 +755,7 @@ class detector:
             elif key == ord("M") or key == ord("m"):
                 print("//=== Press 'M' ===")
                 display_menu(self)
-            elif key == ord("S") or key == ord("s"):
+            elif key == ord("S") or key == ord("s") or key == ord("2"):
                 print("//=== Press 'S' ===")
                 capture_image_objbox(self)
                 # cv2.imwrite("image.jpg", self.image_out)
