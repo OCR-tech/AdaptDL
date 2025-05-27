@@ -121,8 +121,8 @@ def main():
                 detect = detector(imagepath, videopath, configpath, modelpath, classespath)
 
                 # Uncomment the following line to process for image or video input
-                detect.onVideo()
-                # detect.onImage()
+                # detect.onVideo()
+                detect.onImage()
 
             elif command == "help":
                 print("Available commands: start, help, exit")

@@ -20,7 +20,7 @@ path = os.getcwd()
 
 # Construct the full paths for the image and video files
 imagepath = os.path.join(path, "app", "resources", "image", image)
-imagepath = "-"     # Uncomment this line to disable image input
+# imagepath = "-"     # Uncomment this line to disable image input
 
 videopath = os.path.join(path, "app", "resources", "video", video)
 
