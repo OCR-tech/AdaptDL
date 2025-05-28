@@ -4,7 +4,7 @@ Thank you for considering contributing to **AdaptDL**. We appreciate your intere
 
 ## How to Contribute
 
-There are several ways to contribute to the project: reporting issues, suggesting features, improving documentation, sharing use cases, and spreading the word.
+There are several ways to contribute to the project, including reporting issues, suggesting features, improving documentation, sharing use cases, and spreading the word.
 
 ## Reporting Issues
 
