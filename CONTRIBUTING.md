@@ -3,7 +3,6 @@
 Thank you for considering contributing to **AdaptDL**. We appreciate your interest in improving this project. Please follow the guidelines outlined in this document.
 
 <!-- ## Table of Contents
-
 - [How to Contribute](#contribute)
 - [Reporting Issues](#repoting)
 - [Suggesting Features](#suggesting)
@@ -68,7 +67,7 @@ To propose a new feature:
    Fixes #123 - Add feature X to improve functionality
    ```
 
-<!-- Thank you for contributing to **AdaptDL**. We appreciate your help in making this project better. -->
+<!-- Thank you for contributing to **AdaptDL**. -->
 
 ---
 
