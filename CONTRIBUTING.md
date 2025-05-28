@@ -2,26 +2,13 @@
 
 Thank you for considering contributing to **AdaptDL**. We appreciate your interest in improving this project. Please follow the guidelines outlined in this document.
 
-<!-- ## Table of Contents
-- [How to Contribute](#contribute)
-- [Reporting Issues](#repoting)
-- [Suggesting Features](#suggesting)
-- [Submitting Code](#submitting)
-  <br> -->
-
 ## How to Contribute
 
-There are several ways to contribute to the project:
-
-- Reporting Issues
-- Suggesting Features
-- Improving Documentation
-- Sharing Use Cases
-- Spreading the Word
+There are several ways to contribute to the project, including reporting issues, suggesting features, improving documentation, sharing use cases, and spreading the word.
 
 ## Reporting Issues
 
-If you find a bug or an issue:
+If you find an issue:
 
 1. **Check Existing Issues**: check if the issue hasn't already been reported.
 2. **Create a New Issue**: If not found, open a new issue with:
@@ -67,7 +54,7 @@ To propose a new feature:
    Fixes #123 - Add feature X to improve functionality
    ```
 
-<!-- Thank you for contributing to **AdaptDL**. -->
+<br>
 
 ---
 
