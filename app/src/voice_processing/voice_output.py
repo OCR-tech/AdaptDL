@@ -12,7 +12,7 @@ def speak(text):
     """
     Convert the given text to speech.
     """
-    print("//=== speak ===//")
+    # print("//=== speak ===//")
     with engine_lock:  # Ensure thread-safe access to the engine
         engine.setProperty('rate', 300)  # Set the speech rate (words per minute)
         # engine.setProperty('volume', 1)  # Uncomment to set the volume level (1 = max)
