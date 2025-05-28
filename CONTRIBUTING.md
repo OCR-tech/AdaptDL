@@ -13,7 +13,7 @@ If you find an issue:
 1. **Check Existing Issues**: check if the issue hasn't already been reported.
 2. **Create a New Issue**: If not found, open a new issue with:
    - A descriptive title.
-   - A detailed description of the issue.
+   - A detailed description.
    - Any relevant screenshots, logs, error messages, and environment.
 
 ## Suggesting Features
@@ -23,7 +23,7 @@ To propose a new feature:
 1. **Check Existing Requests**: check if the feature hasn't already been proposed.
 2. **Create a New Requests**: If not found, open a new request with:
    - A descriptive title.
-   - A detailed description of the feature.
+   - A detailed description.
    - The use case and how it would benefit users.
 
 ## Submitting Code
