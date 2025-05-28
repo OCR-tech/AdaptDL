@@ -19,7 +19,7 @@ from src.config.configs import FONT_POS_INT, FONT_SPACE_TXT
 from src.video_processing.sort import Sort
 
 # Set a random seed for reproducibility
-np.random.seed(4)
+np.random.seed(5)
 
 # Set the time interval for the timer
 sec = 1
@@ -607,8 +607,6 @@ class detector:
         # List of class names to remove
         self.classlabelids_idx = [73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91]  # Indices of classes to remove
         self.classeslist = [cls for i, cls in enumerate(self.classeslist) if i not in self.classlabelids_idx]
-
-
         self.colorlist = np.random.uniform(low=0, high=255, size=(len(self.classeslist), 3))  # Generate random colors for each class
 
         # All class labels of 92 classes in COCO dataset
@@ -616,19 +614,6 @@ class detector:
         # print(len(self.classeslist))
         # print(self.colorlist)
         # print(len(self.colorlist))
-
-        # Uncomment the following lines to see the class labels and colors
-        # ['__Background__', 'person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus', 'train', 'truck', 'boat', 'traffic light',
-        # 'fire hydrant', 'street sign', 'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog', 'horse', 'sheep', 'cow', 'elephant',
-        #  'bear', 'zebra', 'giraffe', 'hat', 'backpack', 'umbrella', 'shoe', 'eye glasses', 'handbag', 'tie', 'suitcase', 'frisbee', 'skis',
-        #  'snowboard', 'sports ball', 'kite', 'baseball bat', 'baseball glove', 'skateboard', 'surfboard', 'tennis racket', 'bottle', 'plate',
-        #  'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl', 'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot', 'hot dog',
-        #  'pizza', 'donut', 'cake', 'chair', 'couch', 'potted plant', 'bed', 'mirror', 'dining table', 'window', 'desk', 'toilet', 'door',
-        # 'tv', 'laptop', 'mouse', 'remote', 'keyboard', 'cell phone', 'microwave', 'oven', 'toaster', 'sink', 'refrigerator',
-        #  'blender', 'book', 'clock', 'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush', 'hair brush']
-
-        # remove_names = ["book", "clock", "vase", "scissors", "teddy bear", "hair drier", "toothbrush", "hair brush"]
-
 
     def onVideo(self):
         """
@@ -705,12 +690,10 @@ class detector:
             # # //==============================//
 
 
-
             # Perform object detection and display results
             bbox, bboxidx, confidence, classlabelids = detect_objects(self, self.net, self.image_resize)
             tracks, track_id_to_class = sort_objects(self, bbox, bboxidx, confidence, classlabelids)
             self.image_out = display_objects(self, self.image_resize, tracks, track_id_to_class)
-
 
 
             # Display FPS on the output image
@@ -815,7 +798,7 @@ class detector:
         self.volume = 50  # Initial volume level
 
         self.frame_count = 1  # Frame counter
-        print('imagepath := ', self.imagepath)  # Debug: Print the image path
+        # print('imagepath := ', self.imagepath)  # Debug: Print the image path
 
         # Read the input image from the specified path
         self.image_original = cv2.imread(self.imagepath)
@@ -826,12 +809,10 @@ class detector:
         image_processor = image_processing(self.image_original)
         self.image_resize = image_processor.image_resize(100)
 
-
         # Perform object detection and display results
         bbox, bboxidx, confidence, classlabelids = detect_objects(self, self.net, self.image_resize)
         tracks, track_id_to_class = sort_objects(self, bbox, bboxidx, confidence, classlabelids)
         self.image_out = display_objects(self, self.image_resize, tracks, track_id_to_class)
-
 
         # Placeholder for additional processing (e.g., text detection)
         self.image_out1 = self.image_out
@@ -867,7 +848,7 @@ class detector:
         if not isinstance(self.image_out, np.ndarray):
             self.image_out = np.array(self.image_out, dtype=np.uint8)
 
-        # Ensure the image has valid dimensions (e.g., 2D or 3D)
+        # Ensure the image has valid dimensions
         if len(self.image_out.shape) not in [2, 3]:
             raise ValueError("Invalid image dimensions for cv2.imshow")
 

@@ -4,14 +4,14 @@ import os
 
 # //=======================================//
 # Specify the image file to be used.
-image = "pic1a.jpg"
-# image = "pic2a.jpg"
-# image = "pic3a.jpg"
+image = "pic1.jpg"
+# image = "pic2.jpg"
+# image = "pic3.jpg"
 
 # Specify the video file to be used.
-video = "video1.mp4"    # street    # 3840x2160    30fps
-# video = "video2.mp4"      # street    # 1920x1080    30fps
-# video = "video3.mp4"    # room      # 1920x1080    30fps
+video = "video1.mp4"      # 3840x2160    30fps
+# video = "video2.mp4"    # 1920x1080    30fps
+# video = "video3.mp4"    # 1920x1080    30fps
 
 # Define the base path for resources (images and videos).
 # path = 'D:/dataset/'
@@ -21,17 +21,9 @@ path = os.getcwd()
 # Construct the full paths for the image and video files
 imagepath = os.path.join(path, "app", "resources", "image", image)
 imagepath = "-"     # Uncomment this line to disable image input
-
 videopath = os.path.join(path, "app", "resources", "video", video)
 
-# Uncomment the following lines to debug and print the paths
-# print("imagepath := ", imagepath)
-# print("videopath := ", videopath)
-
 # Define the video source
-# The source can be:
-# - Integer for a webcam (e.g., 0 for the default webcam, 1 for an external webcam)
-# - Path to a video file
 # - URL for an IP camera stream
 # s = "http://192.168.30.139:4747/video"
 # s = "http://192.168.30.139:8080/video"
@@ -47,14 +39,11 @@ s = videopath   # video
 configpath = os.path.join(os.getcwd(), "app", "models", "saved_model", "ssd_mobilenet_v3_large_coco_2020_01_14.pbtxt")
 modelpath = os.path.join(os.getcwd(), "app", "models", "saved_model", "frozen_inference_graph.pb")
 classespath = os.path.join(os.getcwd(), "app", "models", "saved_model", "coco.names")
-# print("configpath := ", configpath)
-# print("modelpath := ", modelpath)
-# print("classespath := ", classespath)
 
 # Uncomment the following lines to switch to a different model or class labels
 # configpath = os.path.join("models/saved_model", "ssd_mobilenet_v2_coco_2018_03_29.pbtxt")
 # modelpath = os.path.join("models/saved_model", "ssd_mobilenet_v2_coco_2018_03_29", "frozen_inference_graph.pb")
-# classespath = os.path.join("models/saved_model", "coco_class_labels.txt")
+# classespath = os.path.join("models/saved_model", "coco.txt")
 
 # //=======================================//
 # Font settings for displaying text on the video frames
