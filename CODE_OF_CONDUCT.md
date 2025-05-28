@@ -18,7 +18,7 @@ We are responsible for clarifying the standards of acceptable behavior and are e
 
 ## Scope
 
-This Code of Conduct applies to all spaces managed by the project:
+This Code of Conduct applies to:
 
 - Discussions in issues, pull requests, and discussions.
 - Contributing code or documentation.
