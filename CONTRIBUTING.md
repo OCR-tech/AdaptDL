@@ -68,9 +68,7 @@ To propose a new feature:
    Fixes #123 - Add feature X to improve functionality
    ```
 
-<br>
-
-Thank you for contributing to **AdaptDL**. We appreciate your help in making this project better.
+<!-- Thank you for contributing to **AdaptDL**. We appreciate your help in making this project better. -->
 
 ---
 
