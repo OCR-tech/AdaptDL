@@ -29,10 +29,10 @@ The system detects target objects from a webcam in real-time using a deep learni
 
 Install the following dependencies:
 
-- Python 3.11 or higher
-- OpenCV for video capturing and processing
-- SpeechRecognition for voice command processing
-- Pyaudio for microphone setup
+- Python >= 3.11
+- OpenCV (video capturing and processing)
+- SpeechRecognition (voice command processing)
+- Pyaudio (microphone setup)
   <!-- - Tensorflow 2.18 or higher, for deep learning model -->
   <!-- - Tensorflow Hub 0.13 or higher, for loading the pre-trained model -->
   <!-- - SSD MobileNet V2 model -->
