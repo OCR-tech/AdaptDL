@@ -11,7 +11,7 @@ The system detects target objects from a webcam in real-time using a deep learni
 
 <br/>
 <p align="center">
-<img src="docs/img/img1a.png" style="width:45%; height:auto;">&emsp;
+<img src="public/img/img1a.png" style="width:45%; height:auto;">&emsp;
 </p>
 
 ## Features
