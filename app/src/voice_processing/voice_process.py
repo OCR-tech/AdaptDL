@@ -30,13 +30,13 @@ class voice_processing:
         print('list:=', list)  # Print the list for debugging
 
         # Define keyword lists for different commands
-        keyword_list1 = ['bus', 'bus1', 'bus2:', 'bus3']                            # Keywords for "Stop" command
-        keyword_list2 = ['bicycle', 'bicycle1', 'bicycle2', 'bicycle3']             # Keywords for "Alert" command
-        keyword_list3 = ['motorcycle', 'motorcycle1', 'motorcycle2', 'motorcycle3'] # Keywords for "Detected" command
-        keyword_list4 = ['chair', 'chair1', 'chair2', 'chair3']                     # Keywords for "Detected" command
-        keyword_list5 = ['person', 'person1', 'person2', 'person3']                 # Keywords for "Detected" command
+        keyword_list1 = ['bus0', 'bus1', 'bus2:', 'bus3']                            # Keywords for "Stop" command
+        keyword_list2 = ['bicycle0', 'bicycle1', 'bicycle2', 'bicycle3']             # Keywords for "Alert" command
+        keyword_list3 = ['motorcycle0', 'motorcycle1', 'motorcycle2', 'motorcycle3'] # Keywords for "Detected" command
+        keyword_list4 = ['chair0', 'chair1', 'chair2', 'chair3']                     # Keywords for "Detected" command
+        keyword_list5 = ['person0', 'person1', 'person2', 'person3']                 # Keywords for "Detected" command
         keyword_list6 = ['car', 'car1', 'car2', 'car3']                             # Keywords for "Detected" command
-        keyword_list7 = ['tv', 'tv1', 'tv2', 'tv3']                                 # Keywords for "Detected" command
+        keyword_list7 = ['tv0', 'tv1', 'tv2', 'tv3']                                 # Keywords for "Detected" command
 
         # Check if any keyword from the lists matches the detected words
         if any(word in list for word in keyword_list1):

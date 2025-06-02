@@ -8,8 +8,8 @@ image = "pic1.jpg"
 # image = "pic2.jpg"
 
 # Specify the video file to be used.
-# video = "video1.mp4"      # 3840x2160    30fps
-video = "video2.mp4"    # 1920x1080    30fps
+video = "video1.mp4"      # 3840x2160    30fps
+# video = "video2.mp4"    # 1920x1080    30fps
 
 
 # Define the base path for resources (images and videos).
