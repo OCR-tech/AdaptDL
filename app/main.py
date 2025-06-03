@@ -16,21 +16,22 @@ def main():
     from src.voice_processing.voice_output import speak
 
     # This function is the entry point of the application.
-    print("//*** main ***//")
+    print("//=== main ===//")
 
     # Check if the paths are valid
     if not ((os.path.exists(imagepath)) or "-") or not (os.path.exists(videopath)) or not (os.path.exists(configpath))  or not (os.path.exists(modelpath)) or not (os.path.exists(classespath)):
-        print("Invalid system paths.")
+        # print("Invalid system paths.")
         os._exit(1)
     else:
-        print("Valid system paths")
+        # print("Valid system paths")
+        pass
 
         # # //================================//
         # The main loop to continuously listen for voice commands and process them
         while True:
             # Initialize the system
-            # speak("System initialized. Please provide a command.")
-            # print("System initialized. Please provide a command.")
+            # speak("System initialized. Please provide a command")
+            # print("System initialized. Please provide a command")
 
             # Listen for voice commands
             # command = listen_for_commands()
@@ -39,13 +40,13 @@ def main():
             # command = "help"
 
             print(f"Voice Command: {command}")
-            # speak(command)
+            speak(command)
 
             # Process the command
             if command:
                 if command == "exit":
-                    print("Resources released. Exiting the program.")
-                    speak("exiting the system.")
+                    print("Exiting the program.")
+                    speak("Exiting the program.")
                     cv2.destroyAllWindows()
                     os._exit(1)
                 elif command == "start":

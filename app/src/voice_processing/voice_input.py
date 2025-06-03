@@ -12,7 +12,7 @@ def listen_for_commands():
     Listen for voice commands using the microphone and return the recognized command.
     """
 
-    print("//=== listen_for_commands ===//")
+    print("=== listen_for_commands ===")
     # Initialize the speech recognizer and microphone
     with engine_lock:  # Ensure thread-safe access to the recognizer and microphone
         recognizer = sr.Recognizer()  # Initialize the speech recognizer
