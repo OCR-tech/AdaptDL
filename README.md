@@ -2,9 +2,14 @@
 
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Build](https://img.shields.io/github/actions/workflow/status/OCR-tech/AdaptDL/ci.yml?branch=main&label=build)
+
+<!-- ![Build](https://img.shields.io/github/actions/workflow/status/OCR-tech/AdaptDL/ci.yml?branch=main&label=build)
 ![Tests](https://img.shields.io/github/actions/workflow/status/OCR-tech/AdaptDL/test.yml?label=tests)
-![Coverage](https://img.shields.io/codecov/c/github/OCR-tech/AdaptDL?label=coverage)
+![Coverage](https://img.shields.io/codecov/c/github/OCR-tech/AdaptDL?label=coverage) -->
+
+<!-- ![Build Status](https://github.com/OCR-tech/AdaptDL/actions/workflows/ci.yml/badge.svg)
+![Test Status](https://github.com/OCR-tech/AdaptDL/actions/workflows/test.yml/badge.svg)
+![Coverage Status](https://img.shields.io/codecov/c/github/OCR-tech/AdaptDL?label=coverage) -->
 
 <!-- ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=OCR-tech.AdaptDL) -->
 
@@ -81,43 +86,43 @@ To run this project:
 2. The system will launch the webcam, and start detecting objects in real-time.
 3. Use voice commands or keyboard shortcuts to interact with the system.
 
-The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
+Voice Commands:
 
-<!-- Voice Commands: -->
-
-| Voice Command        | Description                         |
+<!-- | Voice Command        | Description                         |
 | -------------------- | ----------------------------------- |
 | Detect [Object Name] | Detect specific objects             |
 | Stop [Object Name]   | Stop detecting specific objects     |
 | Save [Object Name]   | Save a snapshot of detected objects |
 | Help                 | List available commands             |
-| Exit                 | Exit the program                    |
+| Exit                 | Exit the program                    | -->
 
-<!-- - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
+- "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
 - "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop car").
 - "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save car").
 - "**Help**": List available commands.
-- "**Exit**": Exit the program. -->
+- "**Exit**": Exit the program.
 <!-- - "**Detect**": Detect all objects in the model.
 - "**Stop**": Stop detecting all objects.
 - "**Alert**": Generate an alert sound when all objects are detected.
 - "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
 - "**Save**": Save a snapshot of all detected objects. -->
 
-<!-- Keyboard Shortcuts: -->
+Keyboard Shortcuts:
 
-| Keyboard Shortcut | Action                                |
+<!-- | Keyboard Shortcut | Action                                |
 | ----------------- | ------------------------------------- |
 | 's'               | Save a snapshot with detected objects |
 | 'd'               | Detect specific objects               |
 | 'h'               | List available commands               |
-| 'Esc'             | Exit the program                      |
+| 'Esc'             | Exit the program                      | -->
 
-<!-- - **Press 's'**: to save a snapshot with detected objects.
+- **Press 's'**: to save a snapshot with detected objects.
 - **Press 'd'**: to detect specific objects.
-- **Press 'h'**: to list available commands.
-- **Press 'Esc'**: to exit the program. -->
+- **Press 'Esc'**: to exit the program.
+  <!-- - **Press 'h'**: to list available commands. -->
   <!-- - **Press 'a'**: to generate an alert sound when specific objects are detected. -->
+
+The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
 
 <!-- ## Web Version
 
