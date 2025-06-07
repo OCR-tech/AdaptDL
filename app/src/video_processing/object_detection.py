@@ -619,7 +619,7 @@ class detector:
         """
         Process video input for object detection and display results in real-time.
         """
-        from src.config.configs import s  # Import video source configuration
+        from src.config.configs import video_source  # Import video source configuration
 
         # Add parent directory to the system path for module imports
         sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -634,8 +634,8 @@ class detector:
 
         # Check if a video source is provided via command-line arguments
         if len(sys.argv) > 1:
-            s = sys.argv[1]  # Use the provided video source
-            print(s)
+            video_source = sys.argv[1]  # Use the provided video source
+            print(video_source)
 
         # Uncomment the following lines to check available camera indices
         # for i in range(10):
@@ -644,10 +644,10 @@ class detector:
         #         print(f"Camera index {i} is available")
 
         # Open the video source (camera or video file)
-        if s == '-':
+        if video_source == '-':
             print("No video source")
         else:
-            self.source = cv2.VideoCapture(s)
+            self.source = cv2.VideoCapture(video_source)
 
         # Set up the display window
         self.window = 'camera'

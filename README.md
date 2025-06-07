@@ -2,12 +2,15 @@
 
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
+![Build](https://img.shields.io/github/actions/workflow/status/OCR-tech/AdaptDL/ci.yml?branch=main&label=build)
+![Tests](https://img.shields.io/github/actions/workflow/status/OCR-tech/AdaptDL/test.yml?label=tests)
+![Coverage](https://img.shields.io/codecov/c/github/OCR-tech/AdaptDL?label=coverage)
 
 <!-- ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=OCR-tech.AdaptDL) -->
 
 **AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance applications.
 
-The system detects target objects from a webcam in real-time using a deep learning model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system features with user preferences adaptability based on voice command history and can handle challenging environments.
+The system detects target objects from a webcam in real-time using a deep learning model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system adapts to user preferences based on voice command history and can handle challenging environments.
 
 <br/>
 <p align="center">
@@ -29,10 +32,10 @@ The system detects target objects from a webcam in real-time using a deep learni
 
 Install the following dependencies:
 
-- Python >= 3.11
-- OpenCV (video capturing and processing)
-- SpeechRecognition (voice command processing)
-- Pyaudio (microphone setup)
+- **Python** >= 3.11
+- **OpenCV** (video capturing and processing)
+- **SpeechRecognition** (voice command processing)
+- **PyAudio** (microphone setup)
   <!-- - Tensorflow 2.18 or higher, for deep learning model -->
   <!-- - Tensorflow Hub 0.13 or higher, for loading the pre-trained model -->
   <!-- - SSD MobileNet V2 model -->
@@ -78,27 +81,53 @@ To run this project:
 2. The system will launch the webcam, and start detecting objects in real-time.
 3. Use voice commands or keyboard shortcuts to interact with the system.
 
-Voice Commands:
+The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
 
-- "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
+<!-- Voice Commands: -->
+
+| Voice Command        | Description                         |
+| -------------------- | ----------------------------------- |
+| Detect [Object Name] | Detect specific objects             |
+| Stop [Object Name]   | Stop detecting specific objects     |
+| Save [Object Name]   | Save a snapshot of detected objects |
+| Help                 | List available commands             |
+| Exit                 | Exit the program                    |
+
+<!-- - "**Detect [Object Name]**": Detect specific objects (e.g., "Detect car").
 - "**Stop [Object Name]**": Stop detecting specific objects (e.g., "Stop car").
 - "**Save [Object Name]**": Save a snapshot of specific detected objects (e.g., "Save car").
 - "**Help**": List available commands.
-- "**Exit**": Exit the program.
+- "**Exit**": Exit the program. -->
 <!-- - "**Detect**": Detect all objects in the model.
 - "**Stop**": Stop detecting all objects.
 - "**Alert**": Generate an alert sound when all objects are detected.
 - "**Alert [Object Name]**": Generate an alert sound when specific objects are detected (e.g., "Alert person").
 - "**Save**": Save a snapshot of all detected objects. -->
 
-Keyboard Shortcuts:
+<!-- Keyboard Shortcuts: -->
 
-- **Press 's'**: to save a snapshot with detected objects.
+| Keyboard Shortcut | Action                                |
+| ----------------- | ------------------------------------- |
+| 's'               | Save a snapshot with detected objects |
+| 'd'               | Detect specific objects               |
+| 'h'               | List available commands               |
+| 'Esc'             | Exit the program                      |
+
+<!-- - **Press 's'**: to save a snapshot with detected objects.
 - **Press 'd'**: to detect specific objects.
 - **Press 'h'**: to list available commands.
-- **Press 'Esc'**: to exit the program.
+- **Press 'Esc'**: to exit the program. -->
   <!-- - **Press 'a'**: to generate an alert sound when specific objects are detected. -->
-  The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
+
+<!-- ## Web Version
+
+A browser-based demo is also available. **Requirements:**
+
+- A modern web browser (Chrome, Edge, Firefox, or Safari)
+- Webcam access permission (the browser will prompt you)
+- The page must be served via `localhost` or HTTPS for webcam access
+
+To try the web version, open `app/web/index.html` (or `index0.html`) in your browser, and click **Start** to begin real-time object detection directly in your browser—no installation required! -->
 
 ## Customization
 

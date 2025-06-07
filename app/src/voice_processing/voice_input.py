@@ -32,7 +32,8 @@ def listen_for_commands():
 
             try:
                 # Use Google's speech recognition API to recognize the audio
-                command = recognizer.recognize_google(audio, language="en-US")
+                command = recognizer.recognize_google(audio)
+                # command = recognizer.recognize_google(audio, language="en-US")
                 # command = recognizer.recognize_assemblyai(audio, api_token="YOUR_API_TOKEN")
                 # command = recognizer.recognize_ibm(audio,key="YOUR_IBM_API_KEY", language="en-US")
                 # command = recognizer.recognize_azure(audio, key="YOUR_AZURE_API_KEY", language="en-US")
