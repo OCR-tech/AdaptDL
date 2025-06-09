@@ -1,3 +1,4 @@
+.github/workflows/
 .venv/
 .vscode/
 app/data/
