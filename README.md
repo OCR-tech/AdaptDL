@@ -59,15 +59,15 @@ To install this project, please follow these steps:
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/OCR-tech/AdaptDL.git
-   cd AdaptDL
+      git clone https://github.com/OCR-tech/AdaptDL.git
+      cd AdaptDL
    ```
 
 2. Create a virtual environment:
 
    ```sh
    python -m venv .venv
-   .\.venv\Scripts\Activate
+      .\.venv\Scripts\Activate
    ```
 
 3. Install the dependencies:
@@ -90,7 +90,7 @@ To run this project:
    python app/main.py
    ```
 
-2. The system will launch the webcam, and start detecting objects in real-time.
+2. The system will launch the webcam and start detecting objects in real-time.
 3. Use voice commands or keyboard shortcuts to interact with the system.
 
 <!-- Voice Commands: -->
@@ -135,7 +135,18 @@ A browser-based demo is also available. **Requirements:**
 - Webcam access permission (the browser will prompt you)
 - The page must be served via `localhost` or HTTPS for webcam access
 
-To try the web version, open `app/web/index.html` (or `index0.html`) in your browser, and click **Start** to begin real-time object detection directly in your browser—no installation required! -->
+To try the web version, open `app/web/index.html` in your browser, and click **Start** to begin real-time object detection directly in your browser—no installation required! -->
+
+<!-- For the web version:
+
+1. Ensure you have a modern web browser (Chrome, Edge, Firefox, or Safari) and webcam access permission.
+2. The page must be served via `localhost` or HTTPS for webcam access.
+3. To try the web version, run a local server (e.g., using Python's built-in HTTP server):
+   ```sh
+   python -m http.server 8000
+   ```
+4. Open your web browser and navigate to `http://localhost:8000/app/web/index.html`.
+5. Click **Start** to begin real-time object detection directly in your browser—no installation required! -->
 
 <!-- ## Customization
 
@@ -179,3 +190,7 @@ For any inquiries, please contact us at:
 - **Email**: ocrtech.mail@gmail.com
 - **Website**: [https://ocr-tech.github.io/AdaptDL](https://ocr-tech.github.io/AdaptDL/)
 - **GitHub**: [https://github.com/OCR-tech](https://github.com/OCR-tech)
+
+```
+
+```
