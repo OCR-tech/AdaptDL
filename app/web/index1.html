@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AdaptDL</title>
+    <meta name="viewport" content="width=1200, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+
+  <body>
+    <div class="container" id="container">
+      <div class="theme-section">
+        <label class="switch">
+          <input type="checkbox" id="theme-switch" />
+          <span class="slider"></span>
+        </label>
+        <span class="theme-mode-text" id="theme-mode-text">Theme</span>
+      </div>
+      <!-- <h1>AdaptDL</h1> -->
+      <!-- <div class="status" id="status">Welcome to AdaptDL</div> -->
+      <div class="status" id="status">Welcome</div>
+      <div class="video-section">
+        <div class="video-feed" id="video-feed">
+          <span> Video Feed </span>
+        </div>
+      </div>
+
+        <div class="controls-section">
+          <button onclick="startVideo()" id="btn-start" style="width: 48%; min-width: 390px; display: inline-block">Start</button>
+          <button onclick="stopVideo()" id="btn-stop" style="width: 48%; min-width: 390px; display: none">Stop</button>
+          <br />
+          <button onclick="showCommand()" id="btn-command" style="width: 15%; display: inline-block">Command</button>
+          <button onclick="showCommand1()" id="btn-command1" style="width: 15%; display: none">Command</button>
+          <button onclick="showVoice()" id="btn-voice" style="width: 15%; display: inline-block">Voice</button>
+          <button onclick="showVoice1()" id="btn-voice1" style="width: 15%; display: none">Voice</button>
+          <button onclick="showSettings()" id="btn-settings" style="width: 15%; display: inline-block">Settings</button>
+          <button onclick="showSettings1()" id="btn-settings1" style="width: 15%; display: none">Settings</button>
+   </div>
+
+
+      <div class="group-frame1" id="group-frame1" style="display: none">
+        <div class="controls-section">
+          <button onclick="captureImage()" id="btn-capture">Capture Image</button>
+          <button onclick="captureImageWithBoxes()" id="btn-capture-boxes"> Capture Image with Boxes </button>
+          <button onclick="pauseVideo()" id="btn-pause">Pause</button>
+          <button onclick="resumeVideo()" id="btn-resume">Resume</button>
+          <button onclick="saveVideo()" id="btn-save">Save</button>
+          <button onclick="recordVideo()" id="btn-record">Record</button>
+          <button onclick="playVideo()" id="btn-play">Play</button>
+          <button onclick="showHelp()" id="btn-help">Help</button>
+          <button onclick="mute()" id="btn-mute">Mute</button>
+        </div>
+      </div>
+
+
+
+      <div class="group-frame2" id="group-frame2" style="display: none">
+        <div class="checkbox-group">
+          <label>Settings:</label>
+          <input type="checkbox" id="notification" />
+          <label for="notification">Notification</label>
+          <input type="checkbox" id="privacy" />
+          <label for="privacy">Privacy</label>
+          <input type="checkbox" id="updates" />
+          <label for="updates">Mode</label>
+          <label for="updates">Fullscreeen</label>
+          <label for="updates">History command</label>
+        </div>
+        <div class="voice-checkbox-group">
+          <label>Voice Settings:</label>
+          <input type="checkbox" id="voice_control" />
+          <label for="voice_control">Voice Control</label>
+          <input type="checkbox" id="alert" />
+          <label for="alert">Alert</label>
+        </div>
+
+        <div class="slider-group">
+          <label for="volume-slider">Volume:</label>
+          <input
+            type="range"
+            id="volume-slider"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+            style="width: 120px"
+          />
+          <span id="volume-value">50</span>
+        </div>
+        <script>
+          const slider = document.getElementById("volume-slider");
+          const valueDisplay = document.getElementById("volume-value");
+          slider.addEventListener("input", function () {
+            valueDisplay.textContent = slider.value;
+          });
+        </script>
+      </div>
+
+
+      <div class="group-frame3" id="group-frame3" style="display: none">
+        <div class="video_source_section" id="video-source-section">
+          <h2>Video Source</h2>
+          <select id="video-source" onchange="updateVideoSource()">
+            <option value="" disabled>Select Video Source</option>
+            <option value="default" selected>Default</option>
+            <option value="webcam">Webcam (external)</option>
+            <option value="ip_camera">IP Camera (wifi)</option>
+            <option value="stream">Stream (internet)</option>
+            <option value="video_file">Video File</option>
+          </select>
+          <button
+            class="btn-browse"
+            id="btn-browse"
+            disabled="true"
+            type="button"
+            onclick="browseVideoFile()"
+          >
+            Browse
+          </button>
+        </div>
+      </div>
+
+
+
+    <div class="links-section" id="links-section" style="text-align: center; margin-top: 25px; margin-bottom: 0px; font-size: 15px;">
+      <p>
+        <a class="btn-link fw-bold" href="pages/help.html" target="_blank" style="text-decoration: none"> Help </a> |
+        <a class="btn-link fw-bold" href="https://ocr-tech.github.io/AdaptDL/" target="_blank" style="text-decoration: none" >Web</a> |
+        <a class="btn-link fw-bold" href="https://ocr-tech.github.io/OCR-tech/" target="_blank" style="text-decoration: none">Contact</a>
+        <!-- <a class="btn-link fw-bold" href="https://ocr-tech.github.io/OCR-tech/" target="_blank" style="text-decoration: none">Contact</a> -->
+    </div>
+    </div>
+
+
+
+    <div class="footer">
+      <!-- &copy; 2025 AdaptDL | Real-Time Object Detection with Voice Commands -->
+      <p>&copy; 2025 AdaptDL | Real-Time Object Detection</p>
+      </p>
+    </div>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>

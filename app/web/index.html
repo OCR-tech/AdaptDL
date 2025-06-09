@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AdaptDL</title>
+    <meta name="viewport" content="width=1200, initial-scale=1.0" />
+    <!-- Add favicon -->
+    <!-- <link rel="icon" type="image/x-icon" href="img/favicon.ico" /> -->
+    <link rel="icon" type="image/x-icon" href="img/icon.png" />
+    <!-- Add CSS styles -->
+    <link rel="stylesheet" href="css/styles.css" />
+    <!-- TensorFlow.js and COCO-SSD -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.18.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+  </head>
+
+  <body>
+    <div class="container" id="container">
+      <div class="theme-section">
+        <span class="theme-mode-text" id="theme-mode-text">Theme</span>
+        <label class="switch">
+          <input type="checkbox" id="theme-switch" />
+          <span class="slider"></span>
+        </label>
+      </div>
+      <!-- <h1>AdaptDL</h1> -->
+      <!-- <div class="status" id="status">Welcome</div> -->
+      <div class="status" id="status">Loading model...</div>
+      <!-- <div class="status" id="status">Loading model...</div> -->
+      <div class="video-section">
+        <div class="video-feed" id="video-feed">
+          <span id="video-placeholder">Video Feed</span>
+        </div>
+      </div>
+
+      <div class="controls-section">
+        <button
+          onclick="startButton()"
+          id="btn-start"
+          style="width: 75%; display: inline-block"
+          disabled="true"
+        >
+          Start
+        </button>
+        <button
+          onclick="stopButton()"
+          id="btn-stop"
+          style="width: 75%; display: none"
+          disabled="true"
+        >
+          Stop
+        </button>
+        <br />
+        <button
+          class="button-command"
+          onclick="showCommand()"
+          id="btn-command"
+          disabled="true"
+        >
+          Command
+        </button>
+        <button
+          class="button-voice"
+          onclick="showVoice()"
+          id="btn-voice"
+          style="display: inline-block"
+          disabled="true"
+        >
+          Voice
+        </button>
+        <button
+          class="button-settings"
+          onclick="showSettings()"
+          id="btn-settings"
+          style="display: inline-block"
+          disabled="true"
+        >
+          Settings
+        </button>
+      </div>
+      <div class="group-frame1" id="group-frame1" style="display: none">
+        <div class="controls-section">
+          <button
+            onclick="playVideo()"
+            id="btn-play"
+            style="width: 20%; display: inline-block"
+          >
+            Play
+          </button>
+          <button
+            onclick="pauseVideo()"
+            id="btn-pause"
+            style="width: 20%; display: inline-block"
+          >
+            Pause
+          </button>
+          <button
+            onclick="resumeVideo()"
+            id="btn-resume"
+            style="width: 20%; display: inline-block"
+          >
+            Resume
+          </button>
+          <br />
+          <button
+            onclick="captureImage()"
+            id="btn-capture"
+            style="width: 20%; display: inline-block"
+          >
+            Capture
+          </button>
+          <button
+            onclick="captureImageWithBoxes()"
+            id="btn-capture-boxes"
+            style="width: 20%; display: inline-block"
+          >
+            Boxes
+          </button>
+          <button
+            onclick="saveVideo()"
+            id="btn-save"
+            style="width: 20%; display: inline-block"
+          >
+            Save
+          </button>
+          <br />
+          <button
+            onclick="recordVideo()"
+            id="btn-record"
+            style="width: 20%; display: inline-block"
+          >
+            Record
+          </button>
+          <button
+            onclick="history()"
+            id="btn-history"
+            style="width: 20%; display: inline-block"
+          >
+            History
+          </button>
+          <button
+            onclick="exit()"
+            id="btn-exit"
+            style="width: 20%; display: inline-block"
+          >
+            Exit
+          </button>
+        </div>
+      </div>
+
+      <div class="group-frame2" id="group-frame2" style="display: none">
+        <div class="checkbox-group">
+          <label>Settings:</label>
+          <input type="checkbox" id="notification" />
+          <label for="notification">Notification</label>
+          <input type="checkbox" id="privacy" />
+          <label for="privacy">Privacy</label>
+          <input type="checkbox" id="updates" />
+          <label for="updates">Mode</label>
+          <label for="updates">Fullscreen</label>
+          <label for="updates">History command</label>
+        </div>
+        <div class="voice-checkbox-group">
+          <label>Voice Settings:</label>
+          <input type="checkbox" id="voice_control" />
+          <label for="voice_control">Voice Control</label>
+          <input type="checkbox" id="alert" />
+          <label for="alert">Alert</label>
+        </div>
+
+        <div class="slider-group">
+          <label for="volume-slider">Volume:</label>
+          <input
+            type="range"
+            id="volume-slider"
+            min="0"
+            max="100"
+            step="1"
+            value="50"
+            style="width: 120px"
+          />
+          <span id="volume-value">50</span>
+        </div>
+        <script>
+          const slider = document.getElementById("volume-slider");
+          const valueDisplay = document.getElementById("volume-value");
+          slider.addEventListener("input", function () {
+            valueDisplay.textContent = slider.value;
+          });
+        </script>
+      </div>
+
+      <div class="group-frame3" id="group-frame3" style="display: none">
+        <h3>Video Source</h3>
+        <div class="video_source_section" id="video-source-section">
+          <div class="controls-section">
+            <div
+              style="display: flex; align-items: center; gap: 10px; width: 60%"
+            >
+              <select
+                id="video-source"
+                onchange="updateVideoSource()"
+                style="flex: none"
+              >
+                <option value="camera" selected>Camera (default)</option>
+                <option value="webcam">Webcam (external)</option>
+                <option value="ip_camera">IP Camera (wifi)</option>
+                <option value="stream">Stream (internet)</option>
+                <option value="video">Video (file)</option>
+              </select>
+              <button
+                id="btn-browse"
+                disabled="true"
+                type="button"
+                onclick="browseVideoFile()"
+                style="flex: none"
+              >
+                Browse
+              </button>
+            </div>
+          </div>
+
+          <br />
+          <input
+            type="text"
+            id="ip-camera-url"
+            placeholder="Enter video URL"
+            style="width: 60%"
+            onchange="validateIPCameraURL()"
+          />
+
+          <button
+            id="btn-ok"
+            class="button-ok"
+            disabled="true"
+            type="button"
+            style="width: 80px; margin-left: 8px"
+            onclick="okIPCamera()"
+          >
+            OK
+          </button>
+          <br />
+          <input
+            type="file"
+            id="video-file"
+            accept="video/*"
+            style="width: 80%; margin-top: 10px"
+            onchange="handleFileSelect(event)"
+          />
+        </div>
+      </div>
+
+      <div
+        class="links-section"
+        id="links-section"
+        style="
+          text-align: center;
+          margin-top: 25px;
+          margin-bottom: 0px;
+          font-size: 15px;
+        "
+      >
+        <p>
+          <a
+            class="btn-link fw-bold"
+            href="pages/help.html"
+            target="_blank"
+            style="text-decoration: none"
+          >
+            Help
+          </a>
+          |
+          <a
+            class="btn-link fw-bold"
+            href="https://ocr-tech.github.io/AdaptDL/"
+            target="_blank"
+            style="text-decoration: none"
+            >Web</a
+          >
+          |
+          <a
+            class="btn-link fw-bold"
+            href="https://ocr-tech.github.io/OCR-tech/"
+            target="_blank"
+            style="text-decoration: none"
+            >Contact</a
+          >
+          <!-- <a class="btn-link fw-bold" href="https://ocr-tech.github.io/OCR-tech/" target="_blank" style="text-decoration: none">Contact</a> -->
+        </p>
+      </div>
+    </div>
+
+    <div class="footer">
+      <!-- &copy; 2025 AdaptDL | Real-Time Object Detection with Voice Commands -->
+      <p>&copy; 2025 AdaptDL | Real-Time Object Detection</p>
+    </div>
+
+    <!-- Add JavaScript files -->
+    <script src="js/scripts.js"></script>
+    <script src="js/object_detect.js"></script>
+    <script src="js/command.js"></script>
+    <script src="js/video.js"></script>
+  </body>
+</html>
