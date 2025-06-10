@@ -43,15 +43,15 @@ function updateVideoSource() {
     btnCommand.disabled = true; // Disable the command button
     btnVoice.disabled = true; // Disable the voice button
     btnBrowse.disabled = true; // Disable the browse button
-    btnOk.disabled = true; // Disable the OK button
+    // btnOk.disabled = true; // Disable the OK button
     btnOk.style.display = "block"; // Show the button initially
     ipCameraUrlInput.disabled = false; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "block"; // Hide the input initially
     // ipCameraUrlInput.value = ""; // Clear previous value
     // ipCameraUrlInput.value = "http://192.168.30.139:4747";
-    ipCameraUrlInput.value = "192.168.30.139:4747";
+    ipCameraUrlInput.value = "192.168.210.139:8080";
     ipCameraUrlInput.focus();
-    CheckIPCamera(); // Call the function to start the IP camera
+    // CheckIPCamera(); // Call the function to start the IP camera
 
     //------------------------------//
   } else if (videoSource === "stream") {
@@ -132,22 +132,21 @@ function CheckIPCamera() {
   const video = document.createElement("video");
   const ipCameraUrl = document.getElementById("ip-camera-url").value;
 
-  document.getElementById("status").innerText = "Starting IP camera...";
-
-  videoFeed.innerHTML = ""; // Clear previous content
-  video.id = "ip-camera-stream";
-  video.autoplay = true;
-  video.playsInline = true;
-  video.style.width = "100%";
-  video.style.height = "100%";
-  video.style.objectFit = "contain";
-  videoFeed.appendChild(video);
-  // Set the source of the video element to the IP camera URL
-  video.src = ipCameraUrl;
-  video.onloadedmetadata = function () {
-    video.play();
-    document.getElementById("status").innerText = "IP Camera stream started.";
-  };
+  // document.getElementById("status").innerText = "Starting IP camera...";
+  // videoFeed.innerHTML = ""; // Clear previous content
+  // video.id = "ip-camera-stream";
+  // video.autoplay = true;
+  // video.playsInline = true;
+  // video.style.width = "100%";
+  // video.style.height = "100%";
+  // video.style.objectFit = "contain";
+  // videoFeed.appendChild(video);
+  // // Set the source of the video element to the IP camera URL
+  // video.src = ipCameraUrl;
+  // video.onloadedmetadata = function () {
+  //   video.play();
+  //   document.getElementById("status").innerText = "IP Camera stream started.";
+  // };
 }
 
 // ==========================================//
@@ -156,21 +155,23 @@ function validateIPCameraURL() {
   const ipCameraUrlValue = ipCameraUrl.value.trim();
   const btnOk = document.getElementById("btn-ok");
 
-  btnOk.disabled = true; // Disable the OK button initially
+  // btnOk.disabled = true; // Disable the OK button initially
   btnOk.style.display = "block";
 
   // video_source = "http://192.168.30.139:4747"
   // video_source = "http://192.168.30.139:8080"
+  // video_source = "http://192.168.210.139:8080"
+
   // Check if the URL matches exactly the expected format "xxx.xxx.xx.xxx:xxxx" with total 15 digits
   // if (ipCameraUrlValue.match(/^(http:\/\/)?(\d{1,3}\.){3}\d{1,3}:\d{1,5}$/i)) {
   if (ipCameraUrlValue.match(/^(http:\/\/)?(\d{1,3}\.){3}\d{1,3}:\d{1,5}$/i)) {
     alert("URL format OK");
     document.getElementById("status").innerText = "Valid IP camera URL.";
-    btnOk.disabled = false; // Disable the OK button if the URL is valid
+    btnOk.disabled = false; // enable the OK button if the URL is valid
   } else {
     alert("URL format NOT OK");
     document.getElementById("status").innerText = "Invalid IP camera URL.";
-    btnOk.disabled = true; // Enable the OK button if the URL is invalid
+    btnOk.disabled = true; // disable the OK button if the URL is invalid
   }
 }
 
@@ -185,7 +186,8 @@ function okIPCamera() {
 
   if (
     ipCameraUrl === "192.168.30.139:4747" ||
-    ipCameraUrl === "192.168.30.139:8080"
+    ipCameraUrl === "192.168.30.139:8080" ||
+    ipCameraUrl === "192.168.210.139:8080"
   ) {
     document.getElementById("status").innerText =
       "IP Camera URL set to: " + ipCameraUrl;
@@ -193,6 +195,7 @@ function okIPCamera() {
     btnStart.disabled = false; // Enable the start button
     btnCommand.disabled = false; // Enable the command button
     btnVoice.disabled = false; // Enable the voice button
+    CheckIPCamera(); // Call the function to start the IP camera
   } else {
     document.getElementById("status").innerText =
       "Please enter a valid IP camera URL.";
@@ -259,6 +262,7 @@ function browseVideoFile() {
   fileInput.click();
 }
 
+// =========================================//
 function CheckVideo() {
   const videoFeed = document.getElementById("video-feed");
   const video = document.createElement("video");

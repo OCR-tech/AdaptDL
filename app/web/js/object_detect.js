@@ -180,10 +180,13 @@ function startWebcam() {
 // =========================================//
 function startIPCamera() {
   document.getElementById("status").innerText = "Starting IP Camera...";
-  // Remove previous video/canvas if any
+
+  // Clean up previous video/canvas if any
   if (video) {
     video.pause();
-    video.srcObject = null;
+    if (video.srcObject) {
+      video.srcObject.getTracks().forEach((track) => track.stop());
+    }
     video.remove();
     video = null;
   }
@@ -191,55 +194,63 @@ function startIPCamera() {
     canvas.remove();
     canvas = null;
   }
-  // Create video element
-  video = document.createElement("video");
-  video.id = "ip-camera-stream";
-  video.autoplay = true;
-  video.playsInline = true;
-  video.muted = true; // Ensure autoplay works in all browsers
-  video.style.width = "100%";
-  video.style.height = "100%";
-  video.style.objectFit = "contain";
-  // Create canvas for drawing
-  canvas = document.createElement("canvas");
-  canvas.id = "overlay";
-  canvas.style.position = "absolute";
-  canvas.style.top = "0";
-  canvas.style.left = "0";
-  canvas.style.width = "100%";
-  canvas.style.height = "100%";
-  canvas.style.pointerEvents = "none";
-  // Insert into DOM
+
+  // Get and sanitize the base URL
+  const ipCameraUrl = document.getElementById("ip-camera-url").value.trim();
+  let baseUrl = ipCameraUrl.replace(/\/+$/, ""); // Remove trailing slashes
+  const shotUrl = baseUrl + "/shot.jpg";
+  alert("IP Camera URL: " + shotUrl);
+
+  // Prepare canvas for drawing
   const videoFeed = document.getElementById("video-feed");
   videoFeed.innerHTML = "";
-  videoFeed.appendChild(video);
+  canvas = document.createElement("canvas");
+  canvas.id = "overlay";
+  canvas.style.position = "relative";
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
   videoFeed.appendChild(canvas);
-  // Hide placeholder
+  ctx = canvas.getContext("2d");
+
+  // Hide placeholder if any
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
-  // Access IP camera stream
-  const ipCameraUrl = document.getElementById("ip-camera-url").value;
-  if (!ipCameraUrl) {
-    document.getElementById("status").innerText =
-      "Please enter an IP camera URL.";
-    return;
+
+  // Frame fetching and detection loop
+  function fetchAndDetect() {
+    const img = new window.Image();
+    img.crossOrigin = "Anonymous";
+    img.onload = function () {
+      // Set canvas size to match image
+      if (canvas.width !== img.width || canvas.height !== img.height) {
+        canvas.width = img.width;
+        canvas.height = img.height;
+      }
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      // Run detection if model is loaded
+      if (model) {
+        model.detect(canvas).then(function (predictions) {
+          drawPredictions(predictions);
+          document.getElementById("status").innerText = "Detecting...";
+          animationId = requestAnimationFrame(fetchAndDetect);
+        });
+      } else {
+        animationId = requestAnimationFrame(fetchAndDetect);
+      }
+    };
+    img.onerror = function () {
+      document.getElementById("status").innerText =
+        "Error loading IP camera frame. Check the URL and network.";
+      // Retry after a short delay
+      setTimeout(fetchAndDetect, 1000);
+    };
+    img.src = shotUrl + "?t=" + Date.now(); // Prevent caching
   }
-  video.src = ipCameraUrl;
-  video.onloadedmetadata = function () {
-    video.play();
-    // Wait for video to be ready
-    video.addEventListener("playing", function onPlay() {
-      video.removeEventListener("playing", onPlay);
-      // Set canvas size to match video
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      ctx = canvas.getContext("2d");
-      document.getElementById("status").innerText = "Detecting...";
-      document.getElementById("btn-start").style.display = "none";
-      document.getElementById("btn-stop").style.display = "inline-block";
-      detectFrame();
-    });
-  };
+
+  fetchAndDetect();
+  document.getElementById("btn-start").style.display = "none";
+  document.getElementById("btn-stop").style.display = "inline-block";
 }
 
 // =========================================//
