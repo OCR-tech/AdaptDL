@@ -55,7 +55,7 @@ Install the following dependencies:
 
 ## Installation
 
-To install this project, please follow these steps:
+To install and run this project, follow these steps:
 
 1. Clone the repository:
 
@@ -81,16 +81,17 @@ To install this project, please follow these steps:
 <!-- 4. Download the [SSD MobileNet V2 TensorFlow 2 model](https://tfhub.dev/tensorflow/ssd_mobilenet_v2/fpnlite_320x320/1) and extract the files into `app/models/pretrained_model/`. -->
    <!-- - Ensure the directory contains files like `saved_model.pb` and the `saved_model` folder. -->
 
-## Usage
-
-To run this project:
-
-1. Run the main application:
+4. Run the application:
 
    ```sh
    python app/main.py
    ```
 
+## Usage
+
+To run this project:
+
+1. Run the application.
 2. The system will launch the webcam and start detecting objects in real-time.
 3. Use voice commands or keyboard shortcuts to interact with the system.
 
