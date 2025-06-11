@@ -1,6 +1,7 @@
 # AdaptDL: Real-Time Object Detection with Voice Commands
 
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
+![TensorFlow](https://img.shields.io/badge/tensorflow-2.18%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 <!-- ![Build](https://img.shields.io/github/actions/workflow/status/OCR-tech/AdaptDL/ci.yml?branch=main&label=build)
