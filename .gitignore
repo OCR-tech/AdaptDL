@@ -9,6 +9,6 @@ app/src/utils/
 app/src/gui/
 app/tests/
 app/trains/
-app/web/
+# app/web/
 app/main0.py
 project_structure.txt
