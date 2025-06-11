@@ -9,6 +9,8 @@ let stream = null;
 // Load the COCO-SSD model on page load
 cocoSsd.load().then(function (loadedModel) {
   model = loadedModel;
+  // initSystem();
+  listAllCameras();
   document.getElementById("status").innerText = "Ready!";
   document.getElementById("btn-start").disabled = false;
   document.getElementById("btn-command").disabled = false;
@@ -18,15 +20,21 @@ cocoSsd.load().then(function (loadedModel) {
 });
 
 // =========================================//
+function initSystem() {
+  alert("Initialize the system.");
+}
+
+// =========================================//
 function startButton() {
+  // alert("Start Button Clicked");
   const videoSource = document.getElementById("video-source").value;
 
   // Check Video source selection
   if (videoSource === "camera") {
-    startCamera();
-  } else if (videoSource === "webcam") {
-    startWebcam();
-  } else if (videoSource === "ip_camera") {
+    startIntegratedCamera();
+  } else if (videoSource === "camera_usb") {
+    startUSBCamera();
+  } else if (videoSource === "camera_ip") {
     startIPCamera();
   } else if (videoSource === "stream") {
     startStream();
@@ -42,140 +50,289 @@ function startButton() {
 }
 
 // =========================================//
-function startCamera() {
-  document.getElementById("status").innerText = "Starting Camera...";
-  // Remove previous video/canvas if any
-  if (video) {
-    video.pause();
-    video.srcObject = null;
-    video.remove();
-    video = null;
-  }
-  if (canvas) {
-    canvas.remove();
-    canvas = null;
-  }
-  // Create video element
-  video = document.createElement("video");
-  video.id = "webcam-stream";
-  video.autoplay = true;
-  video.playsInline = true;
-  video.muted = true; // Ensure autoplay works in all browsers
-  video.style.width = "100%";
-  video.style.height = "100%";
-  video.style.objectFit = "contain";
-  // Create canvas for drawing
-  canvas = document.createElement("canvas");
-  canvas.id = "overlay";
-  canvas.style.position = "absolute";
-  canvas.style.top = "0";
-  canvas.style.left = "0";
-  canvas.style.width = "100%";
-  canvas.style.height = "100%";
-  canvas.style.pointerEvents = "none";
-  // Insert into DOM
-  const videoFeed = document.getElementById("video-feed");
-  videoFeed.innerHTML = "";
-  videoFeed.appendChild(video);
-  videoFeed.appendChild(canvas);
-  // Hide placeholder
-  const placeholder = document.getElementById("video-placeholder");
-  if (placeholder) placeholder.style.display = "none";
-  // Access webcam
+function startIntegratedCamera() {
+  alert("Starting Integrated Camera...");
   navigator.mediaDevices
-    .getUserMedia({ video: true, audio: false })
-    .then(function (mediaStream) {
-      stream = mediaStream;
-      video.srcObject = mediaStream;
-      video.onloadedmetadata = function () {
-        video.play();
-        // Wait for video to be ready
-        video.addEventListener("playing", function onPlay() {
-          video.removeEventListener("playing", onPlay);
-          // Set canvas size to match video
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          ctx = canvas.getContext("2d");
-          document.getElementById("status").innerText = "Detecting...";
-          document.getElementById("btn-start").style.display = "none";
-          document.getElementById("btn-stop").style.display = "inline-block";
-          detectFrame();
+    .enumerateDevices()
+    .then(function (devices) {
+      const videoInputs = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+      let integratedCamera = videoInputs.find(
+        (device) =>
+          device.label.toLowerCase().includes("integrated") ||
+          device.label.toLowerCase().includes("built-in")
+      );
+      // Fallback: use the first camera if no label matches
+      if (!integratedCamera && videoInputs.length > 0) {
+        integratedCamera = videoInputs[0];
+      }
+      if (!integratedCamera) {
+        document.getElementById("status").innerText =
+          "No integrated camera found.";
+        return;
+      }
+      // Start the camera using the deviceId
+      navigator.mediaDevices
+        .getUserMedia({
+          video: { deviceId: { exact: integratedCamera.deviceId } },
+          audio: false,
+        })
+        .then(function (mediaStream) {
+          if (video) {
+            video.pause();
+            video.srcObject = null;
+            video.remove();
+            video = null;
+          }
+          if (canvas) {
+            canvas.remove();
+            canvas = null;
+          }
+          video = document.createElement("video");
+          video.id = "camera-stream";
+          video.autoplay = true;
+          video.playsInline = true;
+          video.muted = true;
+          video.style.width = "100%";
+          video.style.height = "100%";
+          video.style.objectFit = "contain";
+          canvas = document.createElement("canvas");
+          canvas.id = "overlay";
+          canvas.style.position = "absolute";
+          canvas.style.top = "0";
+          canvas.style.left = "0";
+          canvas.style.width = "100%";
+          canvas.style.height = "100%";
+          canvas.style.pointerEvents = "none";
+          const videoFeed = document.getElementById("video-feed");
+          videoFeed.innerHTML = "";
+          videoFeed.appendChild(video);
+          videoFeed.appendChild(canvas);
+          const placeholder = document.getElementById("video-placeholder");
+          if (placeholder) placeholder.style.display = "none";
+          stream = mediaStream;
+          video.srcObject = mediaStream;
+          video.onloadedmetadata = function () {
+            video.play();
+            video.addEventListener("playing", function onPlay() {
+              video.removeEventListener("playing", onPlay);
+              canvas.width = video.videoWidth;
+              canvas.height = video.videoHeight;
+              ctx = canvas.getContext("2d");
+              document.getElementById("status").innerText = "Detecting...";
+              document.getElementById("btn-start").style.display = "none";
+              document.getElementById("btn-stop").style.display =
+                "inline-block";
+              detectFrame();
+            });
+          };
+        })
+        .catch(function (err) {
+          document.getElementById("status").innerText =
+            "Unable to access integrated camera: " + err.message;
         });
-      };
     })
     .catch(function (err) {
       document.getElementById("status").innerText =
-        "Unable to access webcam: " + err.message;
+        "Error enumerating devices: " + err.message;
     });
 }
 
 // =========================================//
-function startWebcam() {
-  document.getElementById("status").innerText = "Starting Webcam...";
-  // Remove previous video/canvas if any
-  if (video) {
-    video.pause();
-    video.srcObject = null;
-    video.remove();
-    video = null;
-  }
-  if (canvas) {
-    canvas.remove();
-    canvas = null;
-  }
-  // Create video element
-  video = document.createElement("video");
-  video.id = "webcam-stream";
-  video.autoplay = true;
-  video.playsInline = true;
-  video.muted = true; // Ensure autoplay works in all browsers
-  video.style.width = "100%";
-  video.style.height = "100%";
-  video.style.objectFit = "contain";
-  // Create canvas for drawing
-  canvas = document.createElement("canvas");
-  canvas.id = "overlay";
-  canvas.style.position = "absolute";
-  canvas.style.top = "0";
-  canvas.style.left = "0";
-  canvas.style.width = "100%";
-  canvas.style.height = "100%";
-  canvas.style.pointerEvents = "none";
-  // Insert into DOM
-  const videoFeed = document.getElementById("video-feed");
-  videoFeed.innerHTML = "";
-  videoFeed.appendChild(video);
-  videoFeed.appendChild(canvas);
-  // Hide placeholder
-  const placeholder = document.getElementById("video-placeholder");
-  if (placeholder) placeholder.style.display = "none";
-  // Access webcam
+
+function startUSBCamera() {
+  alert("Starting USB Camera...");
   navigator.mediaDevices
-    .getUserMedia({ video: true, audio: false })
-    .then(function (mediaStream) {
-      stream = mediaStream;
-      video.srcObject = mediaStream;
-      video.onloadedmetadata = function () {
-        video.play();
-        // Wait for video to be ready
-        video.addEventListener("playing", function onPlay() {
-          video.removeEventListener("playing", onPlay);
-          // Set canvas size to match video
-          canvas.width = video.videoWidth;
-          canvas.height = video.videoHeight;
-          ctx = canvas.getContext("2d");
-          document.getElementById("status").innerText = "Detecting...";
-          document.getElementById("btn-start").style.display = "none";
-          document.getElementById("btn-stop").style.display = "inline-block";
-          detectFrame();
+    .enumerateDevices()
+    .then(function (devices) {
+      const videoInputs = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+      let integratedCamera = videoInputs.find(
+        (device) =>
+          device.label.toLowerCase().includes("integrated") ||
+          device.label.toLowerCase().includes("built-in")
+      );
+      // Try to find a USB or external camera by label
+      let usbCamera = videoInputs.find(
+        (device) =>
+          device.label.toLowerCase().includes("usb") ||
+          device.label.toLowerCase().includes("external")
+      );
+      // Fallback: use the second camera if available (often USB)
+      if (!usbCamera && videoInputs.length > 1) {
+        usbCamera = videoInputs[1];
+      }
+      // If still not found, use the first camera
+      if (!usbCamera && videoInputs.length > 0) {
+        usbCamera = videoInputs[0];
+      }
+      // Start the camera using the deviceId
+      if (!usbCamera) {
+        document.getElementById("status").innerText = "No USB camera found.";
+        return;
+      }
+      // Start the camera using the deviceId
+      navigator.mediaDevices
+        .getUserMedia({
+          video: { deviceId: { exact: usbCamera.deviceId } },
+          audio: false,
+        })
+        .then(function (mediaStream) {
+          if (video) {
+            video.pause();
+            video.srcObject = null;
+            video.remove();
+            video = null;
+          }
+          if (canvas) {
+            canvas.remove();
+            canvas = null;
+          }
+          video = document.createElement("video");
+          video.id = "usb-camera-stream";
+          video.autoplay = true;
+          video.playsInline = true;
+          video.muted = true;
+          video.style.width = "100%";
+          video.style.height = "100%";
+          video.style.objectFit = "contain";
+          canvas = document.createElement("canvas");
+          canvas.id = "overlay";
+          canvas.style.position = "absolute";
+          canvas.style.top = "0";
+          canvas.style.left = "0";
+          canvas.style.width = "100%";
+          canvas.style.height = "100%";
+          canvas.style.pointerEvents = "none";
+          const videoFeed = document.getElementById("video-feed");
+          videoFeed.innerHTML = "";
+          videoFeed.appendChild(video);
+          videoFeed.appendChild(canvas);
+          const placeholder = document.getElementById("video-placeholder");
+          if (placeholder) placeholder.style.display = "none";
+          stream = mediaStream;
+          video.srcObject = mediaStream;
+          video.onloadedmetadata = function () {
+            video.play();
+            document.getElementById("status").innerText = "Detecting...";
+            video.addEventListener("playing", function onPlay() {
+              video.removeEventListener("playing", onPlay);
+              canvas.width = video.videoWidth;
+              canvas.height = video.videoHeight;
+              ctx = canvas.getContext("2d");
+              document.getElementById("status").innerText = "Detecting...";
+              document.getElementById("btn-start").style.display = "none";
+              document.getElementById("btn-stop").style.display =
+                "inline-block";
+              detectFrame();
+            });
+          };
+        })
+        .catch(function (err) {
+          document.getElementById("status").innerText =
+            "Unable to access USB camera: " + err.message;
         });
-      };
     })
     .catch(function (err) {
       document.getElementById("status").innerText =
-        "Unable to access webcam: " + err.message;
+        "Error enumerating devices: " + err.message;
     });
 }
+// =========================================//
+// function startUSBCamera() {
+//   alert("StartingUSBCamera");
+//   navigator.mediaDevices
+//     .enumerateDevices()
+//     .then(function (devices) {
+//       // Find the first USB camera (label may vary by OS/browser)
+//       const videoInputs = devices.filter(
+//         (device) => device.kind === "videoinput"
+//       );
+//       let usbCamera = videoInputs.find(
+//         (device) =>
+//           device.label.toLowerCase().includes("usb") ||
+//           device.label.toLowerCase().includes("external")
+//       );
+//       // Fallback: use the second camera if available (often USB)
+//       if (!usbCamera && videoInputs.length > 1) {
+//         usbCamera = videoInputs[1];
+//       }
+//       // If still not found, use the first camera
+//       if (!usbCamera && videoInputs.length > 0) {
+//         usbCamera = videoInputs[0];
+//       }
+//       if (!usbCamera) {
+//         document.getElementById("status").innerText = "No USB camera found.";
+//         return;
+//       }
+//       // Start the camera using the deviceId
+//       navigator.mediaDevices
+//         .getUserMedia({
+//           video: { deviceId: { exact: usbCamera.deviceId } },
+//           audio: false,
+//         })
+//         .then(function (mediaStream) {
+//           if (video) {
+//             video.pause();
+//             video.srcObject = null;
+//             video.remove();
+//             video = null;
+//           }
+//           if (canvas) {
+//             canvas.remove();
+//             canvas = null;
+//           }
+//           video = document.createElement("video");
+//           video.id = "usb-camera-stream";
+//           video.autoplay = true;
+//           video.playsInline = true;
+//           video.muted = true;
+//           video.style.width = "100%";
+//           video.style.height = "100%";
+//           video.style.objectFit = "contain";
+//           canvas = document.createElement("canvas");
+//           canvas.id = "overlay";
+//           canvas.style.position = "absolute";
+//           canvas.style.top = "0";
+//           canvas.style.left = "0";
+//           canvas.style.width = "100%";
+//           canvas.style.height = "100%";
+//           canvas.style.pointerEvents = "none";
+//           const videoFeed = document.getElementById("video-feed");
+//           videoFeed.innerHTML = "";
+//           videoFeed.appendChild(video);
+//           videoFeed.appendChild(canvas);
+//           const placeholder = document.getElementById("video-placeholder");
+//           if (placeholder) placeholder.style.display = "none";
+//           stream = mediaStream;
+//           video.srcObject = mediaStream;
+//           video.onloadedmetadata = function () {
+//             video.play();
+//             video.addEventListener("playing", function onPlay() {
+//               video.removeEventListener("playing", onPlay);
+//               canvas.width = video.videoWidth;
+//               canvas.height = video.videoHeight;
+//               ctx = canvas.getContext("2d");
+//               document.getElementById("status").innerText = "Detecting...";
+//               document.getElementById("btn-start").style.display = "none";
+//               document.getElementById("btn-stop").style.display =
+//                 "inline-block";
+//               detectFrame();
+//             });
+//           };
+//         })
+//         .catch(function (err) {
+//           document.getElementById("status").innerText =
+//             "Unable to access USB camera: " + err.message;
+//         });
+//     })
+//     .catch(function (err) {
+//       document.getElementById("status").innerText =
+//         "Error enumerating devices: " + err.message;
+//     });
+// }
 
 // =========================================//
 function startIPCamera() {

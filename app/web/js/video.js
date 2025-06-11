@@ -1,6 +1,39 @@
 // =========================================//
+function listAllCameras() {
+  // alert("ListAllCameras.");
+
+  // List all available video input devices
+  navigator.mediaDevices
+    .enumerateDevices()
+    .then(function (devices) {
+      const videoInputs = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+
+      if (videoInputs.length === 0) {
+        alert("No cameras found.");
+      } else {
+        videoInputs.forEach((input) => {
+          alert("Camera: " + input.label);
+          // cameraList.push({
+          //   id: input.deviceId,
+          //   label: input.label,
+          // });
+          // cameraList.push({ id: input.deviceId, label: input.label });
+        });
+      }
+    })
+    .catch(function (err) {
+      alert("Error enumerating devices: " + err);
+    });
+  // alert(cameraList);
+  // return cameraList;
+}
+
+// =========================================//
 // Video source selection
 function updateVideoSource() {
+  alert("updateVideoSource");
   const videoSource = document.getElementById("video-source").value;
   const btnBrowse = document.getElementById("btn-browse");
   const btnStart = document.getElementById("btn-start");
@@ -11,7 +44,7 @@ function updateVideoSource() {
 
   //------------------------------//
   if (videoSource === "camera") {
-    document.getElementById("status").innerText = "Camera (default)";
+    document.getElementById("status").innerText = "Integrated Camera (default)";
     btnStart.disabled = false; // Disable the start button
     btnCommand.disabled = false; // Disable the command button
     btnVoice.disabled = false; // Disable the voice button
@@ -20,12 +53,11 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Hide the button initially
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
-    CheckCamera(); // Call the function to start the camera
+    CheckIntegratedCamera(); // Call the function to start the camera
 
     //------------------------------//
-  } else if (videoSource === "webcam") {
-    // startVideo();
-    document.getElementById("status").innerText = "Webcam (external)";
+  } else if (videoSource === "camera_usb") {
+    document.getElementById("status").innerText = "USB Camera (external)";
     btnStart.disabled = true; // Disable the start button
     btnCommand.disabled = true; // Disable the command button
     btnVoice.disabled = true; // Disable the voice button
@@ -34,16 +66,17 @@ function updateVideoSource() {
     btnOk.style.display = "none"; // Hide the button initially
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
-    CheckWebcam(); // Call the function to start the webcam
+    CheckUSBCamera(); // Call the function to start the webcam
 
     //------------------------------//
-  } else if (videoSource === "ip_camera") {
+  } else if (videoSource === "camera_ip") {
     document.getElementById("status").innerText = "IP Camera (wifi)";
     btnStart.disabled = true; // Disable the start button
     btnCommand.disabled = true; // Disable the command button
     btnVoice.disabled = true; // Disable the voice button
     btnBrowse.disabled = true; // Disable the browse button
     // btnOk.disabled = true; // Disable the OK button
+    btnOk.disabled = false; // Disable the OK button
     btnOk.style.display = "block"; // Show the button initially
     ipCameraUrlInput.disabled = false; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "block"; // Hide the input initially
@@ -83,44 +116,52 @@ function updateVideoSource() {
 
 // ==========================================//
 // Select default camera source
-function CheckCamera() {
+function CheckIntegratedCamera() {
+  alert("CheckIntegratedCamera");
   // Check if video feed is from a built-in camera
-  const videoFeed = document.getElementById("video-feed");
   const btnStart = document.getElementById("btn-start");
   const btnStop = document.getElementById("btn-stop");
   const btnCommand = document.getElementById("btn-command");
   const btnVoice = document.getElementById("btn-voice");
 
-  if (videoFeed) {
-    startCamera();
+  alert(flag_videoSource0);
+  alert(flag_videoSource1);
+
+  // if the built-in camera is available, use the built-in camera in the video feed
+  if (flag_videoSource0 === true) {
+    alert("Built-in camera is available");
     btnStart.disabled = true; // disable the start button
     btnStop.disabled = false; // enable the stop button
     btnCommand.disabled = false; // enable the command button
     btnVoice.disabled = false; // enable the voice button
+    startIntegratedCamera();
   } else {
-    console.error("Video feed element not found.");
+    console.error("Built-in camera not available.");
     return;
   }
 }
 
 // ==========================================//
-// Select webcam video source
-function CheckWebcam() {
+// Select USB camera video source
+function CheckUSBCamera() {
+  alert("CheckUSBCamera");
   // Check if video feed is from an external webcam
-  const videoFeed = document.getElementById("video-feed");
   const btnStart = document.getElementById("btn-start");
   const btnStop = document.getElementById("btn-stop");
   const btnCommand = document.getElementById("btn-command");
   const btnVoice = document.getElementById("btn-voice");
 
-  if (videoFeed) {
-    startWebcam();
+  listAllCameras(); // Call the function to list all available cameras
+  // if the built-in camera is available, use the built-in camera in the video feed
+  if (flag_videoSource1 === true) {
+    alert("USB camera is available");
     btnStart.disabled = true; // disable the start button
     btnStop.disabled = false; // enable the stop button
     btnCommand.disabled = false; // enable the command button
     btnVoice.disabled = false; // enable the voice button
+    startUSBCamera();
   } else {
-    console.error("Video feed element not found.");
+    console.error("USB camera not available.");
     return;
   }
 }

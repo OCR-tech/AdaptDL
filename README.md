@@ -190,7 +190,3 @@ For any inquiries, please contact us at:
 - **Email**: ocrtech.mail@gmail.com
 - **Website**: [https://ocr-tech.github.io/AdaptDL](https://ocr-tech.github.io/AdaptDL/)
 - **GitHub**: [https://github.com/OCR-tech](https://github.com/OCR-tech)
-
-```
-
-```

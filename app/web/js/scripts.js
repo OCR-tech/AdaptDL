@@ -1,3 +1,4 @@
+// =========================================//
 // Switch button logic
 const themeSwitch = document.getElementById("theme-switch");
 const themeModeText = document.getElementById("theme-mode-text");
