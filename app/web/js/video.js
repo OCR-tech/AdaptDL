@@ -1,27 +1,19 @@
 // =========================================//
 function listAllCameras() {
-  // alert("ListAllCameras");
-  // flag_videoSource0 = false; // Reset the flag for integrated camera
-  // flag_videoSource1 = false; // Reset the flag for USB camera
-
-  // List all available video input devices
   navigator.mediaDevices
     .enumerateDevices()
     .then(function (devices) {
       const videoInputs = devices.filter(
         (device) => device.kind === "videoinput"
       );
-
       if (videoInputs.length === 0) {
         alert("No cameras found.");
       } else {
         videoInputs.forEach((input) => {
-          // alert("Found: " + input.label);
-
           if (input.label.includes("Integrated")) {
-            flag_videoSource0 = true; // Set flag for integrated camera
+            flag_videoSource0 = true;
           } else if (input.label.includes("USB")) {
-            flag_videoSource1 = true; // Set flag for USB camera
+            flag_videoSource1 = true;
           }
         });
       }

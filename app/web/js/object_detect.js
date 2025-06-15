@@ -6,22 +6,48 @@ let canvas = null;
 let ctx = null;
 let stream = null;
 
+// =========================================//
+// Import the COCO-SSD model from TensorFlow.js
 // Load the COCO-SSD model on page load
-cocoSsd.load().then(function (loadedModel) {
-  model = loadedModel;
-  // initSystem();
-  listAllCameras();
-  document.getElementById("status").innerText = "Ready!";
-  document.getElementById("btn-start").disabled = false;
-  document.getElementById("btn-command").disabled = false;
-  document.getElementById("btn-voice").disabled = false;
-  document.getElementById("btn-settings").disabled = false;
-  document.getElementById("btn-stop").disabled = false;
+window.addEventListener("DOMContentLoaded", function () {
+  cocoSsd
+    .load()
+    .then(function (loadedModel) {
+      model = loadedModel;
+      initSystem();
+      listAllCameras();
+      document.getElementById("status").innerText = "Ready!";
+      document.getElementById("theme-switch").disabled = false;
+      document.getElementById("btn-start").disabled = false;
+      document.getElementById("btn-command").disabled = false;
+      document.getElementById("btn-voice").disabled = false;
+      document.getElementById("btn-settings").disabled = false;
+      document.getElementById("btn-stop").disabled = false;
+    })
+    .catch(function (err) {
+      document.getElementById("status").innerText = "Model load error: " + err;
+    });
 });
 
 // =========================================//
+function requestCameraPermission() {
+  alert("RequestingCameraPermission");
+}
+
+// =========================================//
 function initSystem() {
-  alert("Initialize the system.");
+  // alert("InitializeSystem");
+
+  // Check if the browser supports getUserMedia
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Request camera permission
+    // requestCameraPermission();
+  } else {
+    document.getElementById("status").innerText =
+      "Camera access is not supported by your browser.";
+    alert("Camera access is not supported by your browser.");
+    return;
+  }
 }
 
 // =========================================//
@@ -311,7 +337,8 @@ function startIPCamera() {
       document.getElementById("status").innerText =
         "Error loading IP camera frame. Check the URL and network.";
       // Retry after a short delay
-      setTimeout(fetchAndDetect, 1000);
+      // setTimeout(fetchAndDetect, 1000);
+      return;
     };
     img.src = shotUrl + "?t=" + Date.now(); // Prevent caching
   }
