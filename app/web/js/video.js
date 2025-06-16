@@ -80,7 +80,7 @@ function updateVideoSource() {
     ipCameraUrlInput.style.display = "block"; // Hide the input initially
     // ipCameraUrlInput.value = ""; // Clear previous value
     // ipCameraUrlInput.value = "http://192.168.30.139:4747";
-    ipCameraUrlInput.value = "192.168.210.139:8080";
+    ipCameraUrlInput.value = "192.168.233.61:8080";
     ipCameraUrlInput.focus();
 
     //------------------------------//
@@ -221,7 +221,8 @@ function okIPCamera() {
   if (
     ipCameraUrl === "192.168.30.139:4747" ||
     ipCameraUrl === "192.168.30.139:8080" ||
-    ipCameraUrl === "192.168.210.139:8080"
+    ipCameraUrl === "192.168.210.139:8080" ||
+    ipCameraUrl === "192.168.233.61:8080"
   ) {
     document.getElementById("status").innerText =
       "IP Camera URL set to: " + ipCameraUrl;
