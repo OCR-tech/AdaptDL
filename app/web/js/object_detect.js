@@ -15,7 +15,9 @@ window.addEventListener("DOMContentLoaded", function () {
     .then(function (loadedModel) {
       model = loadedModel;
       initSystem();
+      // requestCameraPermission();
       listAllCameras();
+
       document.getElementById("status").innerText = "Ready!";
       document.getElementById("theme-switch").disabled = false;
       document.getElementById("btn-start").disabled = false;
@@ -344,12 +346,14 @@ function startIPCamera() {
   document.getElementById("status").innerText = "Starting IP Camera...";
 
   // Get the base URL from the input field
-  const ipCameraUrl = document.getElementById("ip-camera-url").value;
+  // const ipCameraUrl = document.getElementById("ip-camera-url").value;
 
-  // let baseUrl = "192.168.233.61:8080";
-  // let baseUrl = "http://192.168.233.61:8080";
-  // const shotUrl = baseUrl;
-  // const shotUrl = baseUrl + "/video";
+  let ipCameraUrl = "192.168.233.160:8000";
+
+  // let ipCameraUrl = "192.168.233.61:8080";
+  // let ipCameraUrl = "http://192.168.233.61:8080";
+  // const shotUrl = ipCameraUrl;
+  // const shotUrl = ipCameraUrl + "/video";
   const shotUrl = "http://" + ipCameraUrl + "/shot.jpg";
 
   if (video) {

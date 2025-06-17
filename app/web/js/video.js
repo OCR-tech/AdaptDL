@@ -1,25 +1,63 @@
 // =========================================//
+// function listAllCameras() {
+//   navigator.mediaDevices
+//     .enumerateDevices()
+//     .then(function (devices) {
+//       const videoInputs = devices.filter(
+//         (device) => device.kind === "videoinput"
+//       );
+//       if (videoInputs.length === 0) {
+//         alert("No cameras found.");
+//       } else {
+//         videoInputs.forEach((input) => {
+//           if (input.label.includes("Integrated")) {
+//             flag_videoSource0 = true;
+//           } else if (input.label.includes("USB")) {
+//             flag_videoSource1 = true;
+//           }
+//         });
+//       }
+//     })
+//     .catch(function (err) {
+//       alert("Error enumerating devices: " + err);
+//     });
+// }
+
+// =========================================//
 function listAllCameras() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    alert("Camera access is not supported by your browser.");
+    return;
+  }
   navigator.mediaDevices
-    .enumerateDevices()
-    .then(function (devices) {
-      const videoInputs = devices.filter(
-        (device) => device.kind === "videoinput"
-      );
-      if (videoInputs.length === 0) {
-        alert("No cameras found.");
-      } else {
-        videoInputs.forEach((input) => {
-          if (input.label.includes("Integrated")) {
-            flag_videoSource0 = true;
-          } else if (input.label.includes("USB")) {
-            flag_videoSource1 = true;
+    .getUserMedia({ video: true })
+    .then(function (stream) {
+      navigator.mediaDevices
+        .enumerateDevices()
+        .then(function (devices) {
+          const videoInputs = devices.filter(
+            (device) => device.kind === "videoinput"
+          );
+          if (videoInputs.length === 0) {
+            alert("No cameras found.");
+          } else {
+            videoInputs.forEach((input) => {
+              if (input.label.includes("Integrated")) {
+                flag_videoSource0 = true;
+              } else if (input.label.includes("USB")) {
+                flag_videoSource1 = true;
+              }
+            });
           }
+          // Stop the stream after enumeration
+          stream.getTracks().forEach((track) => track.stop());
+        })
+        .catch(function (err) {
+          alert("Error enumerating devices: " + err);
         });
-      }
     })
     .catch(function (err) {
-      alert("Error enumerating devices: " + err);
+      alert("Camera permission denied: " + err.message);
     });
 }
 
@@ -80,7 +118,9 @@ function updateVideoSource() {
     ipCameraUrlInput.style.display = "block"; // Hide the input initially
     // ipCameraUrlInput.value = ""; // Clear previous value
     // ipCameraUrlInput.value = "http://192.168.30.139:4747";
-    ipCameraUrlInput.value = "192.168.233.61:8080";
+    // ipCameraUrlInput.value = "192.168.233.61:8080";
+    ipCameraUrlInput.value = "192.168.233.160:8000";
+
     ipCameraUrlInput.focus();
 
     //------------------------------//
@@ -222,7 +262,8 @@ function okIPCamera() {
     ipCameraUrl === "192.168.30.139:4747" ||
     ipCameraUrl === "192.168.30.139:8080" ||
     ipCameraUrl === "192.168.210.139:8080" ||
-    ipCameraUrl === "192.168.233.61:8080"
+    ipCameraUrl === "192.168.233.61:8080" ||
+    ipCameraUrl === "192.168.233.160:8000"
   ) {
     document.getElementById("status").innerText =
       "IP Camera URL set to: " + ipCameraUrl;
