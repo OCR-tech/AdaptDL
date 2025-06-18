@@ -9,6 +9,7 @@ app/src/utils/
 app/src/gui/
 app/tests/
 app/trains/
-# app/web/
+app/web/pages/
+app/web/js/command.js
 project_structure.txt
 app/main0.py
