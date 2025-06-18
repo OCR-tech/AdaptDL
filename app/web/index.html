@@ -80,6 +80,7 @@
           Settings
         </button> -->
       </div>
+
       <div class="group-frame1" id="group-frame1" style="display: none">
         <div class="controls-section">
           <button
@@ -262,28 +263,28 @@
         <p>
           <a
             class="btn-link fw-bold"
-            href="pages/tutorial.html"
-            target="_blank"
-            style="text-decoration: none"
+            id="btn-tutorial"
+            style="text-decoration: none; cursor: pointer"
+            onclick="showTutorial()"
             >Tutorial</a
           >
           |
           <a
             class="btn-link fw-bold"
-            href="pages/help.html"
-            target="_blank"
-            style="text-decoration: none"
+            id="btn-help"
+            style="text-decoration: none; cursor: pointer"
+            onclick="showHelp()"
           >
             Help
           </a>
-          |
+          <!-- |
           <a
             class="btn-link fw-bold"
             href="https://ocr-tech.github.io/AdaptDL/"
             target="_blank"
             style="text-decoration: none"
             >Web</a
-          >
+          > -->
           <!-- |
           <a
             class="btn-link fw-bold"
@@ -295,17 +296,46 @@
           <!-- <a class="btn-link fw-bold" href="https://ocr-tech.github.io/OCR-tech/" target="_blank" style="text-decoration: none">Contact</a> -->
         </p>
       </div>
+
+      <!-- Begin tutorial.html include -->
+      <div
+        class="group-frame4"
+        id="group-frame4"
+        include-html="pages/tutorial.html"
+        style="width: 100%; display: none"
+      ></div>
+
+      <!-- Begin help.html include -->
+      <div
+        class="group-frame5"
+        id="group-frame5"
+        include-html="pages/help.html"
+        style="width: 100%; display: none"
+      ></div>
     </div>
 
     <div class="footer">
       <!-- &copy; 2025 AdaptDL | Real-Time Object Detection with Voice Commands -->
-      <p>&copy; 2025 AdaptDL | Real-Time Object Detection</p>
+      <p>
+        &copy; 2025
+        <a
+          class="btn-link fw-bold"
+          href="https://ocr-tech.github.io/AdaptDL/"
+          target="_blank"
+          style="text-decoration: none; color: inherit"
+          >AdaptDL</a
+        >
+        | Real-Time Object Detection
+      </p>
     </div>
 
     <!-- Add JavaScript files -->
+
+    <script src="js/theme.js"></script>
     <script src="js/scripts.js"></script>
     <script src="js/object_detect.js"></script>
     <script src="js/command.js"></script>
     <script src="js/video.js"></script>
+    <script src="js/include-html.js"></script>
   </body>
 </html>

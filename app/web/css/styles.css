@@ -30,9 +30,10 @@ h1 {
 h2 {
   text-align: center;
   font-size: 2em;
-  margin-top: 20px;
+  margin-top: 5px;
   margin-bottom: 5px;
   color: #2980b9;
+  /* background-color: #f0f0f0; */
 }
 h3 {
   text-align: center;
@@ -40,7 +41,7 @@ h3 {
   /* background-color: #f0f0f0; */
   padding: 10px;
   border-radius: 5px;
-  margin-top: 15px;
+  margin-top: 5px;
   margin-bottom: 0px;
   color: #2980b9;
 }
@@ -191,7 +192,9 @@ input:checked + .slider:before {
 }
 .group-frame1,
 .group-frame2,
-.group-frame3 {
+.group-frame3,
+.group-frame4,
+.group-frame5 {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -208,10 +211,18 @@ input:checked + .slider:before {
 }
 .group-frame1 label,
 .group-frame2 label,
-.group-frame3 label {
+.group-frame3 label,
+.group-frame4 label,
+.group-frame5 label {
   font-weight: bold;
   margin-right: 10px;
 }
+/* .group-frame4,
+.group-frame5 {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+} */
 .checkbox-group,
 .voice-checkbox-group {
   flex-wrap: wrap;
@@ -379,8 +390,9 @@ body.dark-mode {
 .dark-mode .controls-section button:hover {
   background: #357ab8;
 }
-.dark-mode .controls-section button:disabled {
-  background: #555;
+
+body.dark-mode .controls-section button:disabled {
+  background: #585858;
   color: #888;
   cursor: not-allowed;
 }
@@ -389,6 +401,10 @@ body.dark-mode {
   background: #23272b;
   color: #e0e0e0;
   border-color: #4a90e2;
+}
+.dark-mode code {
+  background-color: #505050;
+  color: #e0e0e0;
 }
 
 /* Responsive font and layout for small screens */
