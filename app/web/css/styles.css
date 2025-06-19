@@ -15,7 +15,12 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 20px #bbb;
   box-sizing: border-box;
-  padding: 20px 10px;
+  padding: 20px 20px;
+}
+.container-section {
+  width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
 }
 h1 {
   text-align: center;
@@ -30,8 +35,8 @@ h1 {
 h2 {
   text-align: center;
   font-size: 2em;
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 0px;
+  margin-bottom: 15px;
   color: #2980b9;
   /* background-color: #f0f0f0; */
 }
@@ -52,6 +57,11 @@ h4 {
   margin-top: 0px;
   margin-bottom: 15px;
   color: #2980b9;
+}
+hr {
+  border: none;
+  border-top: 1px solid #d1d1d1;
+  margin: 20px 0;
 }
 code {
   background-color: #f0f0f0;
@@ -201,7 +211,6 @@ input:checked + .slider:before {
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 5px;
-  /* padding: 5px 5px; */
   padding-top: 10px;
   padding-bottom: 0px;
   border: 2px solid #2980b9;
@@ -420,6 +429,9 @@ body.dark-mode .controls-section button:disabled {
   h2 {
     font-size: 1.2em;
   }
+  h3 {
+    font-size: 1em;
+  }
   .status {
     font-size: 1em;
     color: aquamarine;
@@ -450,6 +462,12 @@ body.dark-mode .controls-section button:disabled {
   .group-frame {
     padding: 8px 2vw;
   }
+  ol,
+  li,
+  ul {
+    padding-left: 10px;
+    font-size: 0.95em;
+  }
 }
 
 @media (max-width: 500px) {
@@ -460,6 +478,12 @@ body.dark-mode .controls-section button:disabled {
   }
   h1 {
     font-size: 1.2em;
+  }
+  h2 {
+    font-size: 1.1em;
+  }
+  h3 {
+    font-size: 1em;
   }
   .status {
     font-size: 1em;
@@ -495,5 +519,11 @@ body.dark-mode .controls-section button:disabled {
   }
   .footer {
     font-size: 0.8em;
+  }
+  ol,
+  li,
+  ul {
+    padding-left: 5px;
+    font-size: 0.9em;
   }
 }
