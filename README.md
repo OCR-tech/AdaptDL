@@ -1,4 +1,4 @@
-# AdaptDL: Real-Time Object Detection with Voice Commands
+# AdaptDL: Real-Time Object Detection System with Voice Commands
 
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![TensorFlow](https://img.shields.io/badge/tensorflow-2.18%2B-blue)
