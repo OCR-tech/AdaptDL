@@ -14,8 +14,10 @@ function listAllCameras() {
         videoInputs.forEach((input) => {
           if (input.label.includes("Integrated")) {
             flag_videoSource0 = true;
+            // alert("Integrated camera found: " + input.label);
           } else if (input.label.includes("USB")) {
             flag_videoSource1 = true;
+            // alert("USB camera found: " + input.label);
           }
         });
       }
@@ -144,16 +146,16 @@ function CheckUSBCamera() {
   // Check if video feed is from an external webcam
   const btnStart = document.getElementById("btn-start");
   const btnStop = document.getElementById("btn-stop");
-  const btnCommand = document.getElementById("btn-command");
-  const btnVoice = document.getElementById("btn-voice");
+  // const btnCommand = document.getElementById("btn-command");
+  // const btnVoice = document.getElementById("btn-voice");
 
   // if the built-in camera is available, use the built-in camera in the video feed
   if (flag_videoSource1 === true) {
     // alert("USB camera is available");
     btnStart.disabled = true; // disable the start button
     btnStop.disabled = false; // enable the stop button
-    btnCommand.disabled = false; // enable the command button
-    btnVoice.disabled = false; // enable the voice button
+    // btnCommand.disabled = false; // enable the command button
+    // btnVoice.disabled = false; // enable the voice button
     startUSBCamera();
   } else {
     console.error("USB camera not available.");

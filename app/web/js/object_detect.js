@@ -19,9 +19,9 @@ window.addEventListener("DOMContentLoaded", function () {
       document.getElementById("status").innerText = "Ready!";
       document.getElementById("theme-switch").disabled = false;
       document.getElementById("btn-start").disabled = false;
-      // document.getElementById("btn-command").disabled = false;
-      // document.getElementById("btn-voice").disabled = false;
-      // document.getElementById("btn-settings").disabled = false;
+      document.getElementById("btn-command").disabled = false;
+      document.getElementById("btn-voice").disabled = false;
+      document.getElementById("btn-settings").disabled = false;
       document.getElementById("btn-stop").disabled = false;
     })
     .catch(function (err) {
