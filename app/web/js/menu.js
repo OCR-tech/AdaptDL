@@ -127,11 +127,11 @@ function setSpinboxValue() {
 
 // =========================================//
 // Optional: Prevent spinbox from going out of bounds
-document.getElementById("spinbox").addEventListener("change", function () {
-  let val = parseInt(this.value, 10);
-  if (isNaN(val) || val < 0) this.value = 0;
-  if (val > 100) this.value = 100;
-});
+// document.getElementById("spinbox").addEventListener("change", function () {
+//   let val = parseInt(this.value, 10);
+//   if (isNaN(val) || val < 0) this.value = 0;
+//   if (val > 100) this.value = 100;
+// });
 
 // =========================================//
 function showTutorial() {

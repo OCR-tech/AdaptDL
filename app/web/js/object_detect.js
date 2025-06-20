@@ -18,11 +18,13 @@ window.addEventListener("DOMContentLoaded", function () {
       listAllCameras();
       document.getElementById("status").innerText = "Ready!";
       document.getElementById("theme-switch").disabled = false;
+      document.getElementById("source-switch").disabled = false;
       document.getElementById("btn-start").disabled = false;
       document.getElementById("btn-command").disabled = false;
       document.getElementById("btn-voice").disabled = false;
       document.getElementById("btn-settings").disabled = false;
       document.getElementById("btn-stop").disabled = false;
+      document.getElementById("video-source").disabled = false;
     })
     .catch(function (err) {
       document.getElementById("status").innerText = "Model load error: " + err;
@@ -51,6 +53,35 @@ function initSystem() {
 }
 
 // =========================================//
+function listAllCameras() {
+  // alert("listAllCameras");
+
+  navigator.mediaDevices
+    .enumerateDevices()
+    .then(function (devices) {
+      const videoInputs = devices.filter(
+        (device) => device.kind === "videoinput"
+      );
+      if (videoInputs.length === 0) {
+        alert("No cameras found.");
+      } else {
+        videoInputs.forEach((input) => {
+          if (input.label.includes("Integrated")) {
+            flag_videoSource0 = true;
+            // alert("Integrated camera found: " + input.label);
+          } else if (input.label.includes("USB")) {
+            flag_videoSource1 = true;
+            // alert("USB camera found: " + input.label);
+          }
+        });
+      }
+    })
+    .catch(function (err) {
+      alert("Error enumerating devices: " + err);
+    });
+}
+
+// =========================================//
 function startButton() {
   // alert("StartButton");
 
@@ -70,13 +101,7 @@ function startButton() {
   } else if (videoSource === "stream") {
     startStream();
   } else if (videoSource === "video") {
-    const videoFile = document.getElementById("video-file").files[0];
-    if (!videoFile) {
-      document.getElementById("status").innerText =
-        "Please select a video file.";
-      return;
-    }
-    startVideoFile(videoFile);
+    startVideo(window.selectedVideoFilePath);
   }
 }
 
@@ -173,6 +198,7 @@ function startIntegratedCamera() {
 // =========================================//
 function startUSBCamera() {
   // alert("StartingUSBCamera");
+
   navigator.mediaDevices
     .enumerateDevices()
     .then(function (devices) {
@@ -420,8 +446,68 @@ function startStream() {
 }
 
 // =========================================//
-function startVideo() {
+function startVideo(filePath) {
+  // alert("StartVideo");
+  // alert("StartVideo: " + filePath);
   document.getElementById("status").innerText = "Starting Video file...";
+
+  // Clean up previous video/canvas if any
+  if (video) {
+    video.pause();
+    video.srcObject = null;
+    video.remove();
+    video = null;
+  }
+  if (canvas) {
+    canvas.remove();
+    canvas = null;
+  }
+
+  // Create video and canvas elements
+  video = document.createElement("video");
+  video.id = "video-file-player";
+  video.src = filePath;
+  video.autoplay = true;
+  video.controls = true;
+  video.playsInline = true;
+  video.muted = true;
+  video.style.width = "100%";
+  video.style.height = "100%";
+  video.style.objectFit = "contain";
+
+  canvas = document.createElement("canvas");
+  canvas.id = "overlay";
+  canvas.style.position = "absolute";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.pointerEvents = "none";
+
+  const videoFeed = document.getElementById("video-feed");
+  videoFeed.innerHTML = "";
+  videoFeed.appendChild(video);
+  videoFeed.appendChild(canvas);
+
+  const placeholder = document.getElementById("video-placeholder");
+  if (placeholder) placeholder.style.display = "none";
+
+  video.onloadedmetadata = function () {
+    video.play();
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    ctx = canvas.getContext("2d");
+    document.getElementById("status").innerText = "Detecting...";
+    document.getElementById("btn-start").style.display = "none";
+    document.getElementById("btn-stop").style.display = "inline-block";
+    detectFrame();
+  };
+
+  video.onended = function () {
+    document.getElementById("status").innerText = "Video ended.";
+    document.getElementById("btn-start").style.display = "inline-block";
+    document.getElementById("btn-stop").style.display = "none";
+  };
 }
 
 // =========================================//

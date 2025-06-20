@@ -36,3 +36,22 @@ function HideSource() {
   const groupFrame1 = document.getElementById("group-frame1");
   if (groupFrame1) groupFrame1.style.display = "none";
 }
+
+// function setSourceMode(mode) {
+//   // Ensure groupFrame1 exists before trying to set its display
+//   if (!document.getElementById("group-frame1")) {
+//     console.error("Missing #group-frame1");
+//     return;
+//   }
+//   // Set the display style based on the mode
+//   if (mode === "on") {
+//     document.getElementById("group-frame1").style.display = "flex";
+//     localStorage.setItem("sourceMode", "on");
+//   } else {
+//     document.getElementById("group-frame1").style.display = "none";
+//     localStorage.setItem("sourceMode", "off");
+//   }
+//   if (typeof updateVideoSource === "function") {
+//     updateVideoSource();
+//   }
+// }

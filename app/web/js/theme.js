@@ -44,7 +44,7 @@ function setTheme(mode) {
   const videoFeed = document.getElementById("video-feed");
   const controlsButtons = document.querySelectorAll(".controls-section button");
   const selects = document.querySelectorAll(".video_source_section select");
-  const themeModeText = document.getElementById("theme-mode-text");
+  // const themeModeText = document.getElementById("theme-mode-text");
   const groupFrame1 = document.getElementById("group-frame1");
 
   if (mode === "dark") {
