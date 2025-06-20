@@ -81,29 +81,29 @@ function listAllCameras() {
     });
 }
 
-// =========================================//
-function startButton() {
-  // alert("StartButton");
+// // =========================================//
+// function startButton() {
+//   // alert("StartButton");
 
-  // document.getElementById("status").innerText = "Start";
-  document.getElementById("btn-start").style.display = "none";
-  document.getElementById("btn-stop").style.display = "inline-block";
+//   // document.getElementById("status").innerText = "Start";
+//   document.getElementById("btn-start").style.display = "none";
+//   document.getElementById("btn-stop").style.display = "inline-block";
 
-  const videoSource = document.getElementById("video-source").value;
+//   const videoSource = document.getElementById("video-source").value;
 
-  // Check Video source selection
-  if (videoSource === "camera") {
-    startIntegratedCamera();
-  } else if (videoSource === "camera_usb") {
-    startUSBCamera();
-  } else if (videoSource === "camera_ip") {
-    startIPCamera();
-  } else if (videoSource === "stream") {
-    startStream();
-  } else if (videoSource === "video") {
-    startVideo(window.selectedVideoFilePath);
-  }
-}
+//   // Check Video source selection
+//   if (videoSource === "camera") {
+//     startIntegratedCamera();
+//   } else if (videoSource === "camera_usb") {
+//     startUSBCamera();
+//   } else if (videoSource === "camera_ip") {
+//     startIPCamera();
+//   } else if (videoSource === "stream") {
+//     startStream();
+//   } else if (videoSource === "video") {
+//     startVideo(window.selectedVideoFilePath);
+//   }
+// }
 
 // =========================================//
 function startIntegratedCamera() {
@@ -367,6 +367,7 @@ function startUSBCamera() {
 
 // =========================================//
 function startIPCamera() {
+  // function startIPCamera(ipCameraUrl) {
   document.getElementById("status").innerText = "Starting IP Camera...";
 
   // Get the base URL from the input field
@@ -428,7 +429,7 @@ function startIPCamera() {
     };
     img.onerror = function () {
       document.getElementById("status").innerText =
-        "Error loading IP camera frame. Check the URL and network.";
+        "Error loading IP camera. Check the URL and network.";
       setTimeout(fetchAndDetect, 1000);
     };
     img.src = shotUrl + "?t=" + Date.now();
@@ -510,33 +511,33 @@ function startVideo(filePath) {
   };
 }
 
-// =========================================//
-function stopButton() {
-  const placeholder = document.getElementById("video-placeholder");
+// // =========================================//
+// function stopButton() {
+//   const placeholder = document.getElementById("video-placeholder");
 
-  document.getElementById("btn-start").style.display = "inline-block";
-  document.getElementById("btn-stop").style.display = "none";
-  document.getElementById("status").innerText = "Stopped";
+//   document.getElementById("btn-start").style.display = "inline-block";
+//   document.getElementById("btn-stop").style.display = "none";
+//   document.getElementById("status").innerText = "Stopped";
 
-  if (animationId) {
-    cancelAnimationFrame(animationId);
-    animationId = null;
-  }
-  if (video) {
-    video.pause();
-    if (video.srcObject) {
-      video.srcObject.getTracks().forEach((track) => track.stop());
-    }
-    video.remove();
-    video = null;
-  }
-  if (canvas) {
-    canvas.remove();
-    canvas = null;
-  }
+//   if (animationId) {
+//     cancelAnimationFrame(animationId);
+//     animationId = null;
+//   }
+//   if (video) {
+//     video.pause();
+//     if (video.srcObject) {
+//       video.srcObject.getTracks().forEach((track) => track.stop());
+//     }
+//     video.remove();
+//     video = null;
+//   }
+//   if (canvas) {
+//     canvas.remove();
+//     canvas = null;
+//   }
 
-  if (placeholder) placeholder.style.display = "block";
-}
+//   if (placeholder) placeholder.style.display = "block";
+// }
 
 // =========================================//
 function detectFrame() {

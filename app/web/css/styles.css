@@ -167,6 +167,22 @@ input:checked + .slider {
 input:checked + .slider:before {
   transform: translateX(26px);
 }
+.video-url-input {
+  display: none;
+  width: 20%;
+  height: 40px;
+  margin: 0;
+  padding: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: #f9f9f9;
+  color: #333;
+  outline: none;
+  transition: border-color 0.3s ease;
+  /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+  font: 1em sans-serif;
+}
 .theme-label,
 .source-label {
   font-weight: bold;
@@ -191,8 +207,8 @@ input:checked + .slider:before {
   /* Adjusted for horizontal layout */
   /* Adjusted for horizontal layout */
   /* Adjusted for horizontal layout */
-  aspect-ratio: 16/9;
-  /* aspect-ratio: 16/1; */
+  /* aspect-ratio: 16/9; */
+  aspect-ratio: 16/1;
   /* Adjusted for horizontal layout */
   /* Adjusted for horizontal layout */
   /* Adjusted for horizontal layout */

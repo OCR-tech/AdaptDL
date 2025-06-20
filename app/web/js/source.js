@@ -1,5 +1,3 @@
-document.getElementById("group-frame1").style.display = "none";
-
 document.addEventListener("DOMContentLoaded", function () {
   const sourceSwitch = document.getElementById("source-switch");
   const sourceModeText = document.getElementById("source-mode-text");

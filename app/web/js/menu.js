@@ -1,17 +1,59 @@
 // =========================================//
-// Button controls for Command, Voice, and Settings
-const btnCommand = document.getElementById("btn-command");
-const btnVoice = document.getElementById("btn-voice");
-const btnSettings = document.getElementById("btn-settings");
-const btnHelp = document.getElementById("btn-help");
-const btnTutorial = document.getElementById("btn-tutorial");
+function startButton() {
+  // alert("StartButton");
 
-const groupFrame1 = document.getElementById("group-frame1");
-const groupFrame2 = document.getElementById("group-frame2");
-const groupFrame3 = document.getElementById("group-frame3");
-const groupFrame4 = document.getElementById("group-frame4");
-const groupFrame5 = document.getElementById("group-frame5");
-const groupFrame6 = document.getElementById("group-frame6");
+  // document.getElementById("status").innerText = "Start";
+  document.getElementById("btn-start").style.display = "none";
+  document.getElementById("btn-stop").style.display = "inline-block";
+
+  const videoSource = document.getElementById("video-source").value;
+
+  // Check Video source selection
+  if (videoSource === "camera") {
+    startIntegratedCamera();
+  } else if (videoSource === "camera_usb") {
+    startUSBCamera();
+  } else if (videoSource === "camera_ip") {
+    startIPCamera();
+  } else if (videoSource === "stream") {
+    startStream();
+  } else if (videoSource === "video") {
+    startVideo(window.selectedVideoFilePath);
+  }
+}
+
+// =========================================//
+function stopButton() {
+  const placeholder = document.getElementById("video-placeholder");
+
+  document.getElementById("btn-start").style.display = "inline-block";
+  document.getElementById("btn-stop").style.display = "none";
+  document.getElementById("status").innerText = "Stopped";
+
+  // Set all buttons to inactive
+  // btnCommand.classList.remove("active");
+  // btnVoice.classList.remove("active");
+  // btnSettings.classList.remove("active");
+
+  if (animationId) {
+    cancelAnimationFrame(animationId);
+    animationId = null;
+  }
+  if (video) {
+    video.pause();
+    if (video.srcObject) {
+      video.srcObject.getTracks().forEach((track) => track.stop());
+    }
+    video.remove();
+    video = null;
+  }
+  if (canvas) {
+    canvas.remove();
+    canvas = null;
+  }
+
+  if (placeholder) placeholder.style.display = "block";
+}
 
 // =========================================//
 function showCommand() {
@@ -24,14 +66,12 @@ btnCommand.addEventListener("click", () => {
   btnSettings.classList.remove("active");
 
   if (btnCommand.classList.contains("active")) {
-    groupFrame1.style.display = "none";
     groupFrame2.style.display = "flex";
     groupFrame3.style.display = "none";
     groupFrame4.style.display = "none";
     groupFrame5.style.display = "none";
     groupFrame6.style.display = "none";
   } else {
-    groupFrame1.style.display = "none";
     groupFrame2.style.display = "none";
     groupFrame3.style.display = "none";
     groupFrame4.style.display = "none";
@@ -52,14 +92,12 @@ btnVoice.addEventListener("click", () => {
   btnSettings.classList.remove("active");
 
   if (btnVoice.classList.contains("active")) {
-    groupFrame1.style.display = "none";
     groupFrame2.style.display = "none";
     groupFrame3.style.display = "flex";
     groupFrame4.style.display = "none";
     groupFrame5.style.display = "none";
     groupFrame6.style.display = "none";
   } else {
-    groupFrame1.style.display = "none";
     groupFrame2.style.display = "none";
     groupFrame3.style.display = "none";
     groupFrame4.style.display = "none";
@@ -80,7 +118,6 @@ btnSettings.addEventListener("click", () => {
   btnSettings.classList.toggle("active");
 
   if (btnSettings.classList.contains("active")) {
-    groupFrame1.style.display = "none";
     groupFrame2.style.display = "none";
     groupFrame3.style.display = "none";
     groupFrame4.style.display = "flex";
@@ -101,7 +138,6 @@ btnSettings.addEventListener("click", () => {
       // document.getElementById("ip-camera-url").style.display = "none";
     }
   } else {
-    groupFrame1.style.display = "none";
     groupFrame2.style.display = "none";
     groupFrame3.style.display = "none";
     groupFrame4.style.display = "none";
@@ -112,12 +148,12 @@ btnSettings.addEventListener("click", () => {
 
 // =========================================//
 // Spinbox control function
-function setSpinboxValue() {
-  const spinboxValue = document.getElementById("spinbox").value;
-  document.getElementById("status").innerText =
-    "Spinbox value set to: " + spinboxValue;
-  // Here you would typically send the value to the backend
-}
+// function setSpinboxValue() {
+//   const spinboxValue = document.getElementById("spinbox").value;
+//   document.getElementById("status").innerText =
+//     "Spinbox value set to: " + spinboxValue;
+//   // Here you would typically send the value to the backend
+// }
 
 // =========================================//
 // Mute function
@@ -142,7 +178,6 @@ function showTutorial() {
   btnSettings.classList.remove("active");
 
   // show the tutorial content
-  groupFrame1.style.display = "none";
   groupFrame2.style.display = "none";
   groupFrame3.style.display = "none";
   groupFrame4.style.display = "none";
@@ -158,7 +193,6 @@ function showTutorial() {
 // =========================================//
 function HideTutorial() {
   document.getElementById("status").innerText = "Ready!";
-  groupFrame1.style.display = "none";
   groupFrame2.style.display = "none";
   groupFrame3.style.display = "none";
   groupFrame4.style.display = "none";
@@ -174,7 +208,6 @@ function showHelp() {
   btnVoice.classList.remove("active");
   btnSettings.classList.remove("active");
 
-  groupFrame1.style.display = "none";
   groupFrame2.style.display = "none";
   groupFrame3.style.display = "none";
   groupFrame4.style.display = "none";
@@ -190,7 +223,6 @@ function showHelp() {
 // =========================================//
 function HideHelp() {
   document.getElementById("status").innerText = "Ready!";
-  groupFrame1.style.display = "none";
   groupFrame2.style.display = "none";
   groupFrame3.style.display = "none";
   groupFrame4.style.display = "none";
