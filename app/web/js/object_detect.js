@@ -366,12 +366,12 @@ function startUSBCamera() {
 // }
 
 // =========================================//
-function startIPCamera() {
+function startIPCamera(ipCameraUrl) {
   // function startIPCamera(ipCameraUrl) {
   document.getElementById("status").innerText = "Starting IP Camera...";
 
   // Get the base URL from the input field
-  const ipCameraUrl = document.getElementById("ip-camera-url").value;
+  // const ipCameraUrl = document.getElementById("ip-camera-url").value;
 
   // let baseUrl = "192.168.233.61:8080";
   // let baseUrl = "http://192.168.233.61:8080";
@@ -442,8 +442,59 @@ function startIPCamera() {
 }
 
 // =========================================//
-function startStream() {
+function startStream(ipCameraUrl) {
   document.getElementById("status").innerText = "Starting Streaming Video...";
+
+  // Clean up previous video/canvas if any
+  if (video) {
+    video.pause();
+    video.srcObject = null;
+    video.remove();
+    video = null;
+  }
+  if (canvas) {
+    canvas.remove();
+    canvas = null;
+  }
+
+  // Create video and canvas elements
+  video = document.createElement("video");
+  video.id = "stream-player";
+  video.src = ipCameraUrl;
+  video.autoplay = true;
+  video.controls = true;
+  video.playsInline = true;
+  video.style.width = "100%";
+  video.style.height = "100%";
+  video.style.objectFit = "contain";
+
+  canvas = document.createElement("canvas");
+  canvas.id = "overlay";
+  canvas.style.position = "absolute";
+  canvas.style.top = "0";
+  canvas.style.left = "0";
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+  canvas.style.pointerEvents = "none";
+
+  const videoFeed = document.getElementById("video-feed");
+  videoFeed.innerHTML = "";
+  videoFeed.appendChild(video);
+  videoFeed.appendChild(canvas);
+
+  video.onloadedmetadata = function () {
+    video.play();
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    ctx = canvas.getContext("2d");
+    document.getElementById("status").innerText = "Detecting...";
+    // Start detection loop if needed
+    // detectFrame();
+  };
+
+  video.onended = function () {
+    document.getElementById("status").innerText = "Stream ended.";
+  };
 }
 
 // =========================================//
