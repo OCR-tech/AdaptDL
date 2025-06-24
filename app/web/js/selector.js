@@ -50,8 +50,8 @@ function updateVideoSource() {
     // CheckIPCamera(); // Call the function to start the IP camera
     document.getElementById("status").innerText = "IP Camera (wifi)";
     btnStart.disabled = true; // Disable the start button
-    btnCommand.disabled = true; // Disable the command button
-    btnVoice.disabled = true; // Disable the voice button
+    btnCommand.disabled = false; // Disable the command button
+    btnVoice.disabled = false; // Disable the voice button
 
     btnBrowse.style.display = "none"; // Hide the browse button
     btnBrowse.disabled = true; // Disable the browse button
@@ -70,8 +70,8 @@ function updateVideoSource() {
     // CheckStream(); // Call the function to start the stream
     document.getElementById("status").innerText = "Stream (internet)";
     btnStart.disabled = true; // Disable the start button
-    btnCommand.disabled = true; // Disable the command button
-    btnVoice.disabled = true; // Disable the voice button
+    btnCommand.disabled = false; // Disable the command button
+    btnVoice.disabled = false; // Disable the voice button
 
     btnBrowse.style.display = "none"; // Hide the browse button
     btnBrowse.disabled = true; // Disable the browse button
@@ -88,8 +88,8 @@ function updateVideoSource() {
     // CheckVideo(); // Call the function to start the video file selection
     document.getElementById("status").innerText = "Video (file)";
     btnStart.disabled = true; // Disable the start button
-    btnCommand.disabled = true; // Disable the command button
-    btnVoice.disabled = true; // Disable the voice button
+    btnCommand.disabled = false; // Disable the command button
+    btnVoice.disabled = false; // Disable the voice button
 
     btnBrowse.style.display = "block"; // Enable the browse button
     btnBrowse.disabled = false; // Enable the browse button
