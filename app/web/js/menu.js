@@ -14,7 +14,8 @@ function startButton() {
   } else if (videoSource === "camera_usb") {
     startUSBCamera();
   } else if (videoSource === "camera_ip") {
-    startIPCamera();
+    okSourceCamera();
+    // startIPCamera();
   } else if (videoSource === "stream") {
     startStream();
   } else if (videoSource === "video") {
@@ -25,6 +26,8 @@ function startButton() {
 // =========================================//
 function stopButton() {
   const placeholder = document.getElementById("video-placeholder");
+  const btnOk = document.getElementById("btn-ok");
+  const videoSourceStatus = document.getElementById("video-source");
 
   document.getElementById("btn-start").style.display = "inline-block";
   document.getElementById("btn-stop").style.display = "none";
@@ -34,6 +37,13 @@ function stopButton() {
   // btnCommand.classList.remove("active");
   // btnVoice.classList.remove("active");
   // btnSettings.classList.remove("active");
+  btnOk.disabled = false; // Disable the OK button after setting the URL
+  document.getElementById("video-source").disabled = false;
+
+  // Stop calling fetchAndDetect() if used
+  if (typeof fetchAndDetect === "function") {
+    fetchAndDetect = null;
+  }
 
   if (animationId) {
     cancelAnimationFrame(animationId);

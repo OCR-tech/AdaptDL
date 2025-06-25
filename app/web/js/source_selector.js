@@ -61,9 +61,22 @@ function updateVideoSource() {
     ipCameraUrlInput.disabled = false; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "inline-block"; // Hide the input initially
     // ipCameraUrlInput.value = ""; // Clear previous value
-    // ipCameraUrlInput.value = "http://192.168.30.139:4747";
-    ipCameraUrlInput.value = "192.168.233.61:8080";
-    ipCameraUrlInput.focus();
+    // ipCameraUrlInput.value = "192.168.233.61:8080";
+
+    // Check if last used value is available
+    if (getLastUsedIP()) {
+      prefillLastUsedIP(); // Pre-fill the input with last used IP if available
+      ipCameraUrlInput.focus(); // Focus on the input field
+    } else {
+      // Get the local subnet and set the placeholder for the IP camera URL input
+      getLocalIPSubnet(function (subnet) {
+        if (subnet) {
+          // ipCameraUrlInput.placeholder = subnet + "XXX:8080";
+          ipCameraUrlInput.value = subnet + "XXX:8080";
+          ipCameraUrlInput.focus();
+        }
+      });
+    }
 
     //------------------------------//
   } else if (videoSource === "stream") {
@@ -176,6 +189,100 @@ function CheckIPCamera() {
   }
 }
 
+// Get user's local IP subnet (works only if WebRTC is allowed)
+function getLocalIPSubnet(callback) {
+  const RTCPeerConnection =
+    window.RTCPeerConnection || window.webkitRTCPeerConnection;
+  if (!RTCPeerConnection) return callback(null);
+
+  const pc = new RTCPeerConnection({ iceServers: [] });
+  pc.createDataChannel("");
+  pc.createOffer().then((offer) => pc.setLocalDescription(offer));
+  pc.onicecandidate = function (event) {
+    if (!event || !event.candidate) return;
+    const ipMatch = event.candidate.candidate.match(/(\d+\.\d+\.\d+\.\d+)/);
+    if (ipMatch) {
+      const ip = ipMatch[1];
+      const subnet = ip.split(".").slice(0, 3).join(".") + ".";
+      callback(subnet);
+      pc.close();
+    }
+  };
+}
+
+// Remember and restore the last used IP camera/stream URL using localStorage
+function saveLastUsedIP(url) {
+  if (url && typeof url === "string") {
+    localStorage.setItem("lastUsedIPCamURL", url);
+  }
+}
+
+function getLastUsedIP() {
+  return localStorage.getItem("lastUsedIPCamURL") || "";
+}
+
+// When showing the input, pre-fill with last used value if available:
+function prefillLastUsedIP() {
+  const lastIP = getLastUsedIP();
+  const ipCameraUrlInput = document.getElementById("ip-camera-url");
+  if (ipCameraUrlInput && lastIP) {
+    ipCameraUrlInput.value = lastIP;
+  }
+}
+
+function okSourceCamera() {
+  alert("okSourceCamera");
+
+  // Get the IP camera URL from the input field
+  const videoSource = document.getElementById("video-source").value;
+  const ipCameraUrl = document.getElementById("ip-camera-url").value;
+  const btnOk = document.getElementById("btn-ok");
+  const btnStart = document.getElementById("btn-start");
+  const btnCommand = document.getElementById("btn-command");
+  const btnVoice = document.getElementById("btn-voice");
+
+  if (videoSource === "camera_ip") {
+    CheckIPCamera(); // Validate the IP camera URL format
+  } else if (videoSource === "stream") {
+    CheckStream(); // Validate the stream URL format
+  }
+
+  alert("123");
+
+  if (
+    ipCameraUrl === "192.168.30.139:4747" ||
+    ipCameraUrl === "192.168.30.139:8080" ||
+    ipCameraUrl === "192.168.210.139:8080" ||
+    ipCameraUrl === "192.168.233.61:8080"
+  ) {
+    document.getElementById("status").innerText =
+      "IP Camera URL: " + ipCameraUrl;
+
+    document.getElementById("video-source").disabled = true;
+    alert("456");
+
+    btnOk.disabled = true; // Disable the OK button after setting the URL
+    btnStart.disabled = false; // Enable the start button
+    btnCommand.disabled = false; // Enable the command button
+    btnVoice.disabled = false; // Enable the voice button
+
+    // window.IPCameraUrl = ipCameraUrl; // Store the IP camera URL in a global variable
+    // startIPCamera(ipCameraUrl); // Start the IP camera with the provided URL
+
+    if (videoSource === "camera_ip") {
+      saveLastUsedIP(ipCameraUrl);
+      startIPCamera(ipCameraUrl); // Start the IP camera with the provided URL
+    } else if (videoSource === "stream") {
+      startStream(ipCameraUrl); // Start the stream with the provided URL
+      // startStream(ipCameraUrl); // Start the stream with the provided URL
+    }
+  } else {
+    document.getElementById("status").innerText =
+      "Please enter a valid IP camera URL.";
+    btnOk.disabled = false; // Disable the OK button after setting the URL
+  }
+}
+
 // ==========================================//
 function CheckStream() {
   alert("CheckStream");
@@ -201,52 +308,6 @@ function CheckStream() {
     video.play();
     document.getElementById("status").innerText = "Stream started.";
   };
-}
-
-// window.IPCameraUrl = null;
-// ==========================================//
-function okSourceCamera() {
-  alert("okSourceCamera ");
-
-  // Get the IP camera URL from the input field
-  const videoSource = document.getElementById("video-source").value;
-  const ipCameraUrl = document.getElementById("ip-camera-url").value;
-  const btnOk = document.getElementById("btn-ok");
-  const btnStart = document.getElementById("btn-start");
-  const btnCommand = document.getElementById("btn-command");
-  const btnVoice = document.getElementById("btn-voice");
-
-  if (videoSource === "camera_ip") {
-    CheckIPCamera(); // Validate the IP camera URL format
-  } else if (videoSource === "stream") {
-    CheckStream(); // Validate the stream URL format
-  }
-
-  if (
-    ipCameraUrl === "192.168.30.139:4747" ||
-    ipCameraUrl === "192.168.30.139:8080" ||
-    ipCameraUrl === "192.168.210.139:8080" ||
-    ipCameraUrl === "192.168.233.61:8080"
-  ) {
-    document.getElementById("status").innerText =
-      "IP Camera URL: " + ipCameraUrl;
-    btnOk.disabled = true; // Disable the OK button after setting the URL
-    btnStart.disabled = false; // Enable the start button
-    btnCommand.disabled = false; // Enable the command button
-    btnVoice.disabled = false; // Enable the voice button
-    // window.IPCameraUrl = ipCameraUrl; // Store the IP camera URL in a global variable
-    // startIPCamera(ipCameraUrl); // Start the IP camera with the provided URL
-
-    if (videoSource === "camera_ip") {
-      startIPCamera(ipCameraUrl); // Start the IP camera with the provided URL
-    } else if (videoSource === "stream") {
-      startStream(ipCameraUrl); // Start the stream with the provided URL
-      // startStream(ipCameraUrl); // Start the stream with the provided URL
-    }
-  } else {
-    document.getElementById("status").innerText =
-      "Please enter a valid IP camera URL.";
-  }
 }
 
 // =========================================//
