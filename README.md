@@ -26,7 +26,7 @@ The system detects target objects from a webcam in real-time using a deep learni
 - **Real-time Object Detection**: Detects objects in live video captured from a webcam using a deep learning model.
 - **Bounding Boxes and Labels**: Overlays bounding boxes and labels on the detected objects in the video stream.
 - **Voice Command Control**: Users can use voice commands to control the system.
-- **Adaptability**: The system adapts to user preferences over time based on input command history and surrounding environments.
+- **Adaptability**: Adapts to user preferences over time based on input command history and surrounding environments.
 - **Web Version**: A browser-based demo for real-time object detection is available.
      <!-- - **Voice Command Control**: Users can interact with the system through voice commands. -->
      <!-- - **Keyboard Shortcuts**: Users can use keyboard shortcuts to control the system. -->
