@@ -60,15 +60,15 @@ To install and run this project, follow these steps:
 1. Clone the repository:
 
    ```sh
-      git clone https://github.com/OCR-tech/AdaptDL.git
-      cd AdaptDL
+   git clone https://github.com/OCR-tech/AdaptDL.git
+   cd AdaptDL
    ```
 
 2. Create a virtual environment:
 
    ```sh
    python -m venv .venv
-      .\.venv\Scripts\Activate
+   .\.venv\Scripts\Activate
    ```
 
 3. Install the dependencies:
@@ -131,24 +131,34 @@ The system adapts to user preferences over time based on input voice command his
 
 ## Web Version
 
-<!-- Requirements:
-- A modern web browser (Chrome, Edge, Firefox, or Safari)
-- Webcam access permission (the browser will prompt you)
-- The page must be served via `localhost` or HTTPS for webcam access -->
+The web version is a browser-based demo for real-time object detection. It supports:
 
-Steps:
+- **Webcam Input**: Use built-in webcam or external USB webcam.
+- **Video File Input**: Upload video files for detection.
+- **IP Camera Input**: Connect to IP cameras or mobile devices.
+- **Internet Video Streams**: Stream video from compatible URLs.
 
-1. Ensure you have a modern web browser (Chrome, Edge, Firefox, or Safari) and webcam access permission.
-2. Open your terminal/ cmd prompt and change to the web directory `app/web`.
-3. Run a local server (e.g., using Python's built-in HTTP server):
+**Requirements:**
 
-   ```sh
+- Modern web browser (Chrome, Edge, Firefox, Safari)
+- Webcam access permission (browser will prompt you)
+- Must be served via Localhost or HTTPS
+
+**How to run:**
+
+1. Open a terminal and navigate to `app/web`.
+2. Run a local server: `python -m http.server 8000`
+   <!-- ```sh
    python -m http.server 8000
-   ```
+   ``` -->
+3. Open your browser at http://localhost:8000.
+4. Click **Start** to begin real-time object detection.
 
-4. Open your web browser and navigate to `http://localhost:8000`.
-5. Click **Start** to begin real-time object detection directly in your browser—no installation required!
-<!-- 2. The page must be served via `localhost` or HTTPS for webcam access. -->
+<!-- ![Demo Screenshot](docs/public/img/img1a.png) -->
+<!-- <br/>
+<p align="center">
+<img src="docs/public/img/img1b.png" style="width:35%; height:auto;">&emsp;
+</p> -->
 
 <!-- ## Customization
 
