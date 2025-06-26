@@ -26,8 +26,8 @@ The system detects target objects from a webcam in real-time using a deep learni
 - **Real-time Object Detection**: Detects objects in live video captured from a webcam using a deep learning model.
 - **Bounding Boxes and Labels**: Overlays bounding boxes and labels on the detected objects in the video stream.
 - **Voice Command Control**: Users can use voice commands to control the system.
-- **Adaptability**: The system adapts to user preferences over time based on input voice command history and surrounding environments.
-- **Web Version**: A browser-based demo for real-time object detection.
+- **Adaptability**: The system adapts to user preferences over time based on input command history and surrounding environments.
+- **Web Version**: A browser-based demo for real-time object detection is available.
      <!-- - **Voice Command Control**: Users can interact with the system through voice commands. -->
      <!-- - **Keyboard Shortcuts**: Users can use keyboard shortcuts to control the system. -->
      <!-- - **Object Selection**: Users can select target objects for detection. -->
@@ -129,26 +129,26 @@ To run this project:
 
 The system adapts to user preferences over time based on input voice command history, improving accuracy and user experience.
 
-<!-- ## Web Version
+## Web Version
 
-A browser-based demo is also available. **Requirements:**
-
+<!-- Requirements:
 - A modern web browser (Chrome, Edge, Firefox, or Safari)
 - Webcam access permission (the browser will prompt you)
-- The page must be served via `localhost` or HTTPS for webcam access
+- The page must be served via `localhost` or HTTPS for webcam access -->
 
-To try the web version, open `app/web/index.html` in your browser, and click **Start** to begin real-time object detection directly in your browser—no installation required! -->
-
-<!-- For the web version:
+Steps:
 
 1. Ensure you have a modern web browser (Chrome, Edge, Firefox, or Safari) and webcam access permission.
-2. The page must be served via `localhost` or HTTPS for webcam access.
-3. To try the web version, run a local server (e.g., using Python's built-in HTTP server):
+2. Open your terminal/ cmd prompt and change to the web directory `app/web`.
+3. Run a local server (e.g., using Python's built-in HTTP server):
+
    ```sh
    python -m http.server 8000
    ```
-4. Open your web browser and navigate to `http://localhost:8000/app/web/index.html`.
-5. Click **Start** to begin real-time object detection directly in your browser—no installation required! -->
+
+4. Open your web browser and navigate to `http://localhost:8000`.
+5. Click **Start** to begin real-time object detection directly in your browser—no installation required!
+<!-- 2. The page must be served via `localhost` or HTTPS for webcam access. -->
 
 <!-- ## Customization
 
