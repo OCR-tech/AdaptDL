@@ -21,6 +21,8 @@ function startButton() {
   } else if (videoSource === "video") {
     startVideo(window.selectedVideoFilePath);
   }
+
+  // displayDateTime();
 }
 
 // =========================================//

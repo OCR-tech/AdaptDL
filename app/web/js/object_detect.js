@@ -639,4 +639,24 @@ function drawPredictions(predictions) {
       prediction.bbox[1] - 4
     );
   });
+
+  // Draw date and time overlay
+  displayDateTime(); // <-- Add this line
+}
+
+// =========================================//
+// Display current date and time in on canvas
+function displayDateTime() {
+  if (!ctx || !canvas) return;
+  const now = new Date();
+  const dateTimeString = now.toLocaleString();
+  ctx.save();
+  ctx.font = "16px Arial";
+  ctx.fillStyle = "rgba(0,0,0,0.5)";
+  // Draw background rectangle for better readability
+  const textWidth = ctx.measureText(dateTimeString).width;
+  ctx.fillRect(8, 8, textWidth + 8, 24);
+  ctx.fillStyle = "#FFF";
+  ctx.fillText(dateTimeString, 12, 26);
+  ctx.restore();
 }
