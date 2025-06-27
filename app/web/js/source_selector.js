@@ -103,13 +103,13 @@ function updateVideoSource() {
     btnStart.disabled = true; // Disable the start button
     btnCommand.disabled = false; // Disable the command button
     btnVoice.disabled = false; // Disable the voice button
-
     btnBrowse.style.display = "inline-block"; // Enable the browse button
     btnBrowse.disabled = false; // Enable the browse button
     btnOk.disabled = true; // Disable the OK button
     btnOk.style.display = "none"; // Show the button initially
     ipCameraUrlInput.disabled = true; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "none"; // Hide the input initially
+    browseVideoFile(); // Call the function to browse video files
   }
 }
 
