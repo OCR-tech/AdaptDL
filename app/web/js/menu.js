@@ -29,7 +29,7 @@ function startButton() {
 function stopButton() {
   const placeholder = document.getElementById("video-placeholder");
   const btnOk = document.getElementById("btn-ok");
-  const videoSourceStatus = document.getElementById("video-source");
+  // const videoSourceStatus = document.getElementById("video-source");
 
   document.getElementById("btn-start").style.display = "inline-block";
   document.getElementById("btn-stop").style.display = "none";

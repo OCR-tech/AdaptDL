@@ -113,8 +113,20 @@ ul {
   align-items: center;
   justify-content: left;
   gap: 10px;
-  width: 98%;
+  width: 100%;
   max-width: 780px;
+  /* background-color: lightcyan; */
+}
+.screen-section {
+  margin: 5px auto 0 auto;
+  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  width: 100%;
+  max-width: 780px;
+  /* background-color: bisque; */
 }
 .theme-section {
   margin: 5px auto 0 auto;
@@ -123,8 +135,9 @@ ul {
   align-items: center;
   justify-content: right;
   gap: 10px;
-  width: 98%;
+  width: 100%;
   max-width: 780px;
+  /* background-color: aqua; */
 }
 /* Switch button styles */
 .switch {
@@ -180,11 +193,15 @@ input {
   transition: border-color 0.3s ease;
   font: 1em sans-serif;
 }
+
+.screen-label,
 .theme-label,
 .source-label {
   font-weight: bold;
   margin-right: 8px;
 }
+
+.screen-mode-text,
 .theme-mode-text,
 .source-mode-text {
   margin-left: 5px;
@@ -563,5 +580,13 @@ body.dark-mode .controls-section button:disabled {
   ul {
     padding-left: 5px;
     font-size: 0.9em;
+  }
+  .screen-mode-text,
+  .theme-mode-text,
+  .source-mode-text {
+    font-size: 0.8em;
+    margin: 0;
+    padding: 0;
+    gap: 0;
   }
 }
