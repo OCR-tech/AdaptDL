@@ -651,7 +651,8 @@ function displayDateTime() {
   const now = new Date();
   const dateTimeString = now.toLocaleString();
   ctx.save();
-  ctx.font = "16px Arial";
+  // ctx.font = "16px Arial";
+  ctx.font = "20px Arial";
   ctx.fillStyle = "rgba(0,0,0,0.5)";
   // Draw background rectangle for better readability
   const textWidth = ctx.measureText(dateTimeString).width;
