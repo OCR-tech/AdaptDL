@@ -14,7 +14,7 @@
 
 **AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance applications.
 
-The system detects target objects from a webcam in real-time using a deep learning model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system adapts to user preferences based on voice command history and surrounding environments.
+The system detects target objects from a webcam in real-time using a deep learning model, and overlays bounding boxes and labels on the detected objects in the video stream. It features functionality based on user-input voice commands, including selecting target objects, saving snapshots, and generating sound alerts. The system adapts to user preferences based on voice command history and environments.
 
 <br/>
 <p align="center">
@@ -141,7 +141,7 @@ The web version is a browser-based demo for real-time object detection. It suppo
 **Requirements:**
 
 - Modern web browser (Chrome, Edge, Firefox, Safari)
-- Webcam access permission (browser will prompt you)
+- Webcam access permission
 - Must be served via Localhost or HTTPS
 
 **How to run:**
