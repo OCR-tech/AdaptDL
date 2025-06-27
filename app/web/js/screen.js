@@ -23,6 +23,13 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener("keydown", function (e) {
   if (e.key === "Escape") {
     normalScreen();
+
+    // Remove the exit text if it exists
+    const exitTextPrev = document.getElementById("exit-fullscreen-text");
+    if (exitTextPrev) {
+      exitTextPrev.remove();
+    }
+
     const screenSwitch = document.getElementById("screen-switch");
     // set screenSwitch to unchecked
     if (screenSwitch) {
@@ -37,9 +44,6 @@ function normalScreen() {
   const videoFeed = document.getElementById("video-feed");
   const video = videoFeed ? videoFeed.querySelector("video") : null;
   const canvas = document.getElementById("overlay");
-
-  // Show other UI sections if needed
-  if (groupFrame1) groupFrame1.style.display = "flex";
 
   // Restore video feed to normal layout
   if (videoFeed) {
@@ -111,8 +115,14 @@ function fullScreen() {
     canvas.height = window.innerHeight;
   }
 
-  // Display text on the screen to exit full screen mode for Esc Key
+  // Remove the exit text if it exists
+  const exitTextElem = document.getElementById("exit-fullscreen-text");
+  if (exitTextElem) {
+    exitTextElem.remove();
+  }
+
   const exitText = document.createElement("div");
+  exitText.id = "exit-fullscreen-text";
   exitText.textContent = "Press Esc to exit full screen";
   exitText.style.position = "fixed";
   exitText.style.top = "10px";
