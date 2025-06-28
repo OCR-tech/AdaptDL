@@ -11,10 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
     screenSwitch.addEventListener("change", function () {
       if (this.checked) {
         fullScreen();
-        // localStorage.setItem("screenMode", "normal");
       } else {
         normalScreen();
-        // localStorage.setItem("screenMode", "full");
       }
     });
   }
@@ -34,7 +32,6 @@ document.addEventListener("keydown", function (e) {
     // set screenSwitch to unchecked
     if (screenSwitch) {
       screenSwitch.checked = false;
-      // localStorage.setItem("screenMode", "full");
     }
   }
 });
