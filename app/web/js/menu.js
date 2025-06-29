@@ -68,6 +68,40 @@ function stopButton() {
 }
 
 // =========================================//
+// Store the selection status of a command button in localStorage
+function saveButtonStatus(buttonId, isActive) {
+  localStorage.setItem(
+    `btnStatus_${buttonId}`,
+    isActive ? "active" : "inactive"
+  );
+}
+
+// Retrieve the selection status of a command button from localStorage
+function getButtonStatus(buttonId) {
+  return localStorage.getItem(`btnStatus_${buttonId}`) === "active";
+}
+
+// Restore button status on startup
+document.addEventListener("DOMContentLoaded", function () {
+  const buttons = [
+    { btn: btnCommand, group: groupFrame2 },
+    { btn: btnVoice, group: groupFrame3 },
+    { btn: btnSettings, group: groupFrame4 },
+    // Add more buttons/groups as needed
+  ];
+
+  buttons.forEach(({ btn, group }) => {
+    if (btn && getButtonStatus(btn.id)) {
+      btn.classList.add("active");
+      if (group) group.style.display = "flex";
+    } else {
+      btn.classList.remove("active");
+      if (group) group.style.display = "none";
+    }
+  });
+});
+
+// =========================================//
 function showCommand() {
   document.getElementById("status").innerText = "Command";
 }
@@ -90,6 +124,11 @@ btnCommand.addEventListener("click", () => {
     groupFrame5.style.display = "none";
     groupFrame6.style.display = "none";
   }
+
+  // Save status for all buttons
+  saveButtonStatus(btnCommand.id, btnCommand.classList.contains("active"));
+  saveButtonStatus(btnVoice.id, btnVoice.classList.contains("active"));
+  saveButtonStatus(btnSettings.id, btnSettings.classList.contains("active"));
 });
 
 // =========================================//
@@ -116,6 +155,9 @@ btnVoice.addEventListener("click", () => {
     groupFrame5.style.display = "none";
     groupFrame6.style.display = "none";
   }
+  saveButtonStatus(btnCommand.id, btnCommand.classList.contains("active"));
+  saveButtonStatus(btnVoice.id, btnVoice.classList.contains("active"));
+  saveButtonStatus(btnSettings.id, btnSettings.classList.contains("active"));
 });
 
 // =========================================//
@@ -156,6 +198,9 @@ btnSettings.addEventListener("click", () => {
     groupFrame5.style.display = "none";
     groupFrame6.style.display = "none";
   }
+  saveButtonStatus(btnCommand.id, btnCommand.classList.contains("active"));
+  saveButtonStatus(btnVoice.id, btnVoice.classList.contains("active"));
+  saveButtonStatus(btnSettings.id, btnSettings.classList.contains("active"));
 });
 
 // =========================================//
