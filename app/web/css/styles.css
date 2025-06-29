@@ -446,7 +446,7 @@ body.dark-mode {
 }
 body.dark-mode .controls-section button:disabled {
   background: #585858;
-  color: #888;
+  color: #494949;
   cursor: not-allowed;
 }
 .video_source_section select.dark-mode {
