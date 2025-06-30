@@ -459,34 +459,6 @@ function startVideo(filePath) {
   };
 }
 
-// // =========================================//
-// function stopButton() {
-//   const placeholder = document.getElementById("video-placeholder");
-
-//   document.getElementById("btn-start").style.display = "inline-block";
-//   document.getElementById("btn-stop").style.display = "none";
-//   document.getElementById("status").innerText = "Stopped";
-
-//   if (animationId) {
-//     cancelAnimationFrame(animationId);
-//     animationId = null;
-//   }
-//   if (video) {
-//     video.pause();
-//     if (video.srcObject) {
-//       video.srcObject.getTracks().forEach((track) => track.stop());
-//     }
-//     video.remove();
-//     video = null;
-//   }
-//   if (canvas) {
-//     canvas.remove();
-//     canvas = null;
-//   }
-
-//   if (placeholder) placeholder.style.display = "block";
-// }
-
 // =========================================//
 function detectFrame() {
   if (!model || !video || video.paused || video.ended) {

@@ -30,6 +30,8 @@ window.addEventListener("DOMContentLoaded", function () {
       document.getElementById("btn-record").disabled = false;
       document.getElementById("btn-detect").disabled = false;
       document.getElementById("video-source").disabled = false;
+      document.getElementById("volume-slider1").disabled = false;
+      document.getElementById("volume-slider2").disabled = false;
     })
     .catch(function (err) {
       document.getElementById("status").innerText = "Model load error: " + err;

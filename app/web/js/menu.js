@@ -204,29 +204,6 @@ btnSettings.addEventListener("click", () => {
 });
 
 // =========================================//
-// Spinbox control function
-// function setSpinboxValue() {
-//   const spinboxValue = document.getElementById("spinbox").value;
-//   document.getElementById("status").innerText =
-//     "Spinbox value set to: " + spinboxValue;
-//   // Here you would typically send the value to the backend
-// }
-
-// =========================================//
-// Mute function
-// function mute() {
-//   document.getElementById("status").innerText = "Mute";
-// }
-
-// =========================================//
-// Optional: Prevent spinbox from going out of bounds
-// document.getElementById("spinbox").addEventListener("change", function () {
-//   let val = parseInt(this.value, 10);
-//   if (isNaN(val) || val < 0) this.value = 0;
-//   if (val > 100) this.value = 100;
-// });
-
-// =========================================//
 function showTutorial() {
   document.getElementById("status").innerText = "Tutorial";
 
