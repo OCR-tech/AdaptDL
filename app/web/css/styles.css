@@ -522,6 +522,11 @@ body.dark-mode .controls-section button:disabled {
     padding-left: 10px;
     font-size: 0.95em;
   }
+  .screen-mode-text,
+  .theme-mode-text,
+  .source-mode-text {
+    font-size: 0.9em;
+  }
 }
 
 @media (max-width: 500px) {
@@ -585,8 +590,9 @@ body.dark-mode .controls-section button:disabled {
   .theme-mode-text,
   .source-mode-text {
     font-size: 0.8em;
-    margin: 0;
-    padding: 0;
-    gap: 0;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 3px;
+    gap: 0px;
   }
 }
