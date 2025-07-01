@@ -82,6 +82,8 @@ function requestCameraPermission() {
     });
 }
 
+flag_videoSource0 = false; // Integrated camera
+flag_videoSource1 = false; // USB camera
 // =========================================//
 function listAllCameras() {
   // alert("listAllCameras");

@@ -32,6 +32,7 @@ function updateVideoSource() {
 
     //------------------------------//
   } else if (videoSource === "camera_usb") {
+    // alert("CheckUSBCamera");
     CheckUSBCamera(); // Call the function to start the webcam
     document.getElementById("status").innerText = "USB Camera (external)";
     btnStart.disabled = false; // Disable the start button
