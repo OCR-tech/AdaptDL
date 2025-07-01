@@ -22,7 +22,7 @@ window.addEventListener("DOMContentLoaded", function () {
       document.getElementById("source-switch").disabled = false;
       document.getElementById("video-source").disabled = false;
       document.getElementById("btn-start").disabled = false;
-      // document.getElementById("btn-stop").disabled = false;
+      document.getElementById("btn-stop").disabled = false;
       document.getElementById("btn-command").disabled = false;
       document.getElementById("btn-voice").disabled = false;
       document.getElementById("btn-settings").disabled = false;
