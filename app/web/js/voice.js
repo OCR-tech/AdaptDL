@@ -9,6 +9,11 @@ function updateValue2(val) {
 }
 
 // =========================================//
+function updateValue3(val) {
+  document.getElementById("volume-value3").textContent = val;
+}
+
+// =========================================//
 function voiceCommand() {
   // Example command handling logic
   if (commandText.includes("volume")) {
@@ -70,3 +75,12 @@ function startVoiceCommand(onCommand) {
 
   recognition.start();
 }
+
+// =========================================//
+function speak(text) {
+  if ("speechSynthesis" in window) {
+    const utter = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(utter);
+  }
+}
+// Call speak("Command received") after a command is recognized.

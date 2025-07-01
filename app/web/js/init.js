@@ -20,16 +20,17 @@ window.addEventListener("DOMContentLoaded", function () {
       document.getElementById("theme-switch").disabled = false;
       document.getElementById("screen-switch").disabled = false;
       document.getElementById("source-switch").disabled = false;
+      document.getElementById("video-source").disabled = false;
       document.getElementById("btn-start").disabled = false;
+      // document.getElementById("btn-stop").disabled = false;
       document.getElementById("btn-command").disabled = false;
       document.getElementById("btn-voice").disabled = false;
       document.getElementById("btn-settings").disabled = false;
-      document.getElementById("btn-stop").disabled = false;
       document.getElementById("btn-pause").disabled = false;
       document.getElementById("btn-capture").disabled = false;
       document.getElementById("btn-record").disabled = false;
-      document.getElementById("btn-detect").disabled = false;
-      document.getElementById("video-source").disabled = false;
+      document.getElementById("btn-mute").disabled = false;
+      document.getElementById("btn-unmute").disabled = false;
       document.getElementById("volume-slider1").disabled = false;
       document.getElementById("volume-slider2").disabled = false;
     })
