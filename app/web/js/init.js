@@ -28,9 +28,12 @@ window.addEventListener("DOMContentLoaded", function () {
       document.getElementById("btn-settings").disabled = false;
       document.getElementById("btn-pause").disabled = false;
       document.getElementById("btn-capture").disabled = false;
+      document.getElementById("btn-overlay1").disabled = false;
+      document.getElementById("btn-overlay2").disabled = false;
       document.getElementById("btn-record").disabled = false;
       document.getElementById("btn-mute").disabled = false;
       document.getElementById("btn-unmute").disabled = false;
+      document.getElementById("btn-reset").disabled = false;
       document.getElementById("volume-slider1").disabled = false;
       document.getElementById("volume-slider2").disabled = false;
     })
