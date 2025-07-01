@@ -1,32 +1,29 @@
+// =========================================//
+// Set toggle state from localStorage on page load
 document.addEventListener("DOMContentLoaded", function () {
   const sourceSwitch = document.getElementById("source-switch");
-  const sourceModeText = document.getElementById("source-mode-text");
   const groupFrame1 = document.getElementById("group-frame1");
+  if (!sourceSwitch) return;
 
-  if (sourceSwitch && sourceModeText && groupFrame1) {
-    sourceSwitch.checked = localStorage.getItem("sourceMode") === "on";
-    sourceModeText.textContent = sourceSwitch.checked ? "Source" : "Source";
+  // Set the switch state from localStorage
+  sourceSwitch.checked = localStorage.getItem("sourceMode") === "on";
+  if (groupFrame1)
     groupFrame1.style.display = sourceSwitch.checked ? "flex" : "none";
-    sourceSwitch.addEventListener("change", function () {
-      if (this.checked) {
-        showSource();
-        // sourceModeText.textContent = "On";
-        localStorage.setItem("sourceMode", "on");
-      } else {
-        HideSource();
-        // sourceModeText.textContent = "Off";
-        localStorage.setItem("sourceMode", "off");
-      }
-    });
-  }
+
+  // Add event listener
+  sourceSwitch.addEventListener("change", toggleSource);
 });
 
-function showSource() {
+// =========================================//
+function toggleSource() {
+  const sourceSwitch = document.getElementById("source-switch");
   const groupFrame1 = document.getElementById("group-frame1");
-  if (groupFrame1) groupFrame1.style.display = "flex";
-}
+  if (!sourceSwitch) return;
 
-function HideSource() {
-  const groupFrame1 = document.getElementById("group-frame1");
-  if (groupFrame1) groupFrame1.style.display = "none";
+  // Save the toggle state to localStorage
+  localStorage.setItem("sourceMode", sourceSwitch.checked ? "on" : "off");
+
+  // Show or hide the group based on toggle
+  if (groupFrame1)
+    groupFrame1.style.display = sourceSwitch.checked ? "flex" : "none";
 }

@@ -15,6 +15,31 @@ function toggleEmailInput() {
 }
 
 // =========================================//
+// Function to handle the email alert submission
+function okEmailAlert() {
+  alert("OkEmailAlert");
+
+  const emailInput = document.getElementById("email-user");
+  const email = emailInput ? emailInput.value.trim() : "";
+
+  if (email) {
+    // Validate email format
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+      document.getElementById("status").innerText =
+        "Please enter a valid email address.";
+      return;
+    }
+
+    // Send the email alert
+    sendEmailAlert(email, "Alert Notification", "This is a test alert.");
+  } else {
+    document.getElementById("status").innerText =
+      "Email address cannot be empty.";
+  }
+}
+
+// =========================================//
 /**
  * Send an email alert using a backend API endpoint.
  * @param {string} toEmail - Recipient email address.
@@ -22,6 +47,8 @@ function toggleEmailInput() {
  * @param {string} message - Email body content.
  */
 function sendEmailAlert(toEmail, subject, message) {
+  alert("SendEmailAlert");
+
   // Example: POST to your backend API that sends the email
   fetch("/api/send-email", {
     method: "POST",
