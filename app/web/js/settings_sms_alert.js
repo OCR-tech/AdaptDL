@@ -1,4 +1,19 @@
 // =========================================//
+function toggleSmsInput() {
+  const smsAlertSwitch = document.getElementById("sms-switch");
+  const smsInput = document.getElementById("sms-user");
+  const btnOkSms = document.getElementById("btn-ok-sms");
+
+  if (smsAlertSwitch && smsAlertSwitch.checked) {
+    if (smsInput) smsInput.style.display = "inline-block";
+    if (btnOkSms) btnOkSms.style.display = "inline-block";
+  } else {
+    if (smsInput) smsInput.style.display = "none";
+    if (btnOkSms) btnOkSms.style.display = "none";
+  }
+}
+
+// =========================================//
 /**
  * Send an SMS mobile alert using a backend API endpoint.
  * @param {string} phoneNumber - The recipient's phone number (in international format).

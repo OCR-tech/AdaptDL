@@ -1,16 +1,16 @@
 // =========================================//
-function updateValue1(val) {
-  document.getElementById("volume-value1").textContent = val;
+function updateValueCommand(val) {
+  document.getElementById("volume-value-command").textContent = val;
 }
 
 // =========================================//
-function updateValue2(val) {
-  document.getElementById("volume-value2").textContent = val;
+function updateValueAlert(val) {
+  document.getElementById("volume-value-alert").textContent = val;
 }
 
 // =========================================//
-function updateValue3(val) {
-  document.getElementById("volume-value3").textContent = val;
+function updateValueStatus(val) {
+  document.getElementById("volume-value-status").textContent = val;
 }
 
 // =========================================//

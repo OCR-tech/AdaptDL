@@ -3,10 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
   const sourceModeText = document.getElementById("source-mode-text");
   const groupFrame1 = document.getElementById("group-frame1");
 
-  if (!sourceSwitch) console.error("Missing #source-switch");
-  if (!sourceModeText) console.error("Missing #source-mode-text");
-  if (!groupFrame1) console.error("Missing #group-frame1");
-
   if (sourceSwitch && sourceModeText && groupFrame1) {
     sourceSwitch.checked = localStorage.getItem("sourceMode") === "on";
     sourceModeText.textContent = sourceSwitch.checked ? "Source" : "Source";
@@ -34,4 +30,3 @@ function HideSource() {
   const groupFrame1 = document.getElementById("group-frame1");
   if (groupFrame1) groupFrame1.style.display = "none";
 }
-

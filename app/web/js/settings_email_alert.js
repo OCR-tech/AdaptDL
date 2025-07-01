@@ -1,3 +1,20 @@
+// =========================================//
+function toggleEmailInput() {
+  // alert("ToggleEmailInput");
+  const emailAlertSwitch = document.getElementById("email-switch");
+  const emailInput = document.getElementById("email-user");
+  const btnOkEmail = document.getElementById("btn-ok-email");
+
+  if (emailAlertSwitch && emailAlertSwitch.checked) {
+    if (emailInput) emailInput.style.display = "inline-block";
+    if (btnOkEmail) btnOkEmail.style.display = "inline-block";
+  } else {
+    if (emailInput) emailInput.style.display = "none";
+    if (btnOkEmail) btnOkEmail.style.display = "none";
+  }
+}
+
+// =========================================//
 /**
  * Send an email alert using a backend API endpoint.
  * @param {string} toEmail - Recipient email address.

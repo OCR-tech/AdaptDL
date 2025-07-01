@@ -34,8 +34,9 @@ window.addEventListener("DOMContentLoaded", function () {
       document.getElementById("btn-mute").disabled = false;
       document.getElementById("btn-unmute").disabled = false;
       document.getElementById("btn-reset").disabled = false;
-      document.getElementById("volume-slider1").disabled = false;
-      document.getElementById("volume-slider2").disabled = false;
+      document.getElementById("volume-slider-command").disabled = false;
+      document.getElementById("volume-slider-alert").disabled = false;
+      document.getElementById("volume-slider-status").disabled = false;
     })
     .catch(function (err) {
       document.getElementById("status").innerText = "Model load error: " + err;
