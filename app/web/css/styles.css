@@ -488,6 +488,15 @@ body.dark-mode .controls-section button:disabled {
   color: #e0e0e0;
   border: 2px solid #4a90e2;
 }
+.dark-mode .slider {
+  background-color: #8f8f8f;
+}
+.dark-mode .slider:before {
+  background-color: rgb(80, 80, 80);
+}
+.dark-mode input:checked + .slider {
+  background-color: #2980b9;
+}
 
 /* Responsive font and layout for small screens */
 @media (max-width: 800px) {
