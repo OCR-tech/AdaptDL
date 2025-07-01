@@ -135,7 +135,7 @@ The web version is a browser-based demo for real-time object detection. It suppo
 
 1. Open a terminal and navigate to `app/web`.
 2. Run a local server: `python -m http.server 8000`.
-3. Open your browser at `http://localhost:8000`.
+3. Open your browser: `http://localhost:8000` or `http://<ip-address>:8000/`.
 4. Click **Start** to begin real-time object detection.
 
 <!-- ![Demo Screenshot](docs/public/img/img1a.png) -->
