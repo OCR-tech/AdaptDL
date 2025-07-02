@@ -264,12 +264,12 @@ input {
   font-size: 1.3em;
   z-index: 1;
 }
-.group-frame1,
-.group-frame2,
-.group-frame3,
-.group-frame4,
-.group-frame5,
-.group-frame6 {
+.group-frame-source,
+.group-frame-command,
+.group-frame-voice,
+.group-frame-settings,
+.group-frame-tutorial,
+.group-frame-help {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -283,12 +283,12 @@ input {
   margin: 5px 0px;
   transition: background 0.3s, color 0.3s;
 }
-.group-frame1 label,
-.group-frame2 label,
-.group-frame3 label,
-.group-frame4 label,
-.group-frame5 label,
-.group-frame6 label {
+.group-frame-source label,
+.group-frame-command label,
+.group-frame-voice label,
+.group-frame-settings label,
+.group-frame-tutorial label,
+.group-frame-help label {
   font-weight: bold;
   margin-right: 10px;
 }
@@ -486,11 +486,6 @@ body.dark-mode .controls-section button:disabled {
   background-color: #505050;
   color: #e0e0e0;
 }
-.group-frame1.dark-mode {
-  background: #23272b;
-  color: #e0e0e0;
-  border-color: #4a90e2;
-}
 .dark-mode input {
   background-color: #2c2f33;
   color: #e0e0e0;
@@ -607,9 +602,10 @@ body.dark-mode .controls-section button:disabled {
     font-size: 0.8em;
     width: 75%;
   }
-  .group-frame1,
-  .group-frame2,
-  .group-frame3 {
+  .group-frame-source,
+  .group-frame-command,
+  .group-frame-voice,
+  .group-frame-settings {
     padding: 4px 1vw;
     margin: 3px 0;
   }

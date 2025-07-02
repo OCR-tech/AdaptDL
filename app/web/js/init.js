@@ -34,9 +34,9 @@ window.addEventListener("DOMContentLoaded", function () {
       document.getElementById("btn-mute").disabled = false;
       document.getElementById("btn-unmute").disabled = false;
       document.getElementById("btn-reset").disabled = false;
-      document.getElementById("volume-slider-command").disabled = false;
-      document.getElementById("volume-slider-alert").disabled = false;
-      document.getElementById("volume-slider-status").disabled = false;
+      // document.getElementById("volume-slider-command").disabled = false;
+      // document.getElementById("volume-slider-alert").disabled = false;
+      // document.getElementById("volume-slider-status").disabled = false;
     })
     .catch(function (err) {
       document.getElementById("status").innerText = "Model load error: " + err;
@@ -121,12 +121,12 @@ const btnHelp = document.getElementById("btn-help");
 const btnTutorial = document.getElementById("btn-tutorial");
 const btnStart = document.getElementById("btn-start");
 const btnStop = document.getElementById("btn-stop");
-const groupFrame1 = document.getElementById("group-frame1");
-const groupFrame2 = document.getElementById("group-frame2");
-const groupFrame3 = document.getElementById("group-frame3");
-const groupFrame4 = document.getElementById("group-frame4");
-const groupFrame5 = document.getElementById("group-frame5");
-const groupFrame6 = document.getElementById("group-frame6");
+const groupFrameSource = document.getElementById("group-frame-source");
+const groupFrameCommand = document.getElementById("group-frame-command");
+const groupFrameVoice = document.getElementById("group-frame-voice");
+const groupFrameSettings = document.getElementById("group-frame-settings");
+const groupFrameTutorial = document.getElementById("group-frame-tutorial");
+const groupFrameHelp = document.getElementById("group-frame-help");
 
 // // document.getElementById("btn-command").disabled = true;
 // // document.getElementById("btn-voice").disabled = true;

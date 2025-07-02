@@ -5,13 +5,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const savedTheme = localStorage.getItem("theme") || "light";
   setTheme(savedTheme);
 
-  // After loading content into group-frame1
-  const groupFrame1 = document.getElementById("group-frame1");
-  if (groupFrame1) {
+  // After loading content into group-frame-source, apply the theme
+  const groupFrameSource = document.getElementById("group-frame-source");
+  if (groupFrameSource) {
     if (savedTheme === "dark") {
-      groupFrame1.classList.add("dark-mode");
+      groupFrameSource.classList.add("dark-mode");
     } else {
-      groupFrame1.classList.remove("dark-mode");
+      groupFrameSource.classList.remove("dark-mode");
     }
   }
 
@@ -40,28 +40,28 @@ document.addEventListener("DOMContentLoaded", function () {
 function setTheme(mode) {
   const body = document.body;
   const container = document.getElementById("container");
-  const groupFrame = document.getElementById("group-frame");
+  const groupFrameTheme = document.getElementById("group-frame-theme");
   const videoFeed = document.getElementById("video-feed");
   const controlsButtons = document.querySelectorAll(".controls-section button");
   const selects = document.querySelectorAll(".video_source_section select");
   // const themeModeText = document.getElementById("theme-mode-text");
-  const groupFrame1 = document.getElementById("group-frame1");
+  const groupFrameSource = document.getElementById("group-frame-source");
 
   if (mode === "dark") {
     body.classList.add("dark-mode");
     if (container) container.classList.add("dark-mode");
-    if (groupFrame) groupFrame.classList.add("dark-mode");
+    if (groupFrameTheme) groupFrameTheme.classList.add("dark-mode");
     if (videoFeed) videoFeed.classList.add("dark-mode");
-    if (groupFrame1) groupFrame1.classList.add("dark-mode");
+    if (groupFrameSource) groupFrameSource.classList.add("dark-mode");
     selects.forEach((sel) => sel.classList.add("dark-mode"));
     controlsButtons.forEach((btn) => btn.classList.add("dark-mode"));
     // if (themeModeText) themeModeText.textContent = "Dark";
   } else {
     body.classList.remove("dark-mode");
     if (container) container.classList.remove("dark-mode");
-    if (groupFrame) groupFrame.classList.remove("dark-mode");
+    if (groupFrameTheme) groupFrameTheme.classList.remove("dark-mode");
     if (videoFeed) videoFeed.classList.remove("dark-mode");
-    if (groupFrame1) groupFrame1.classList.remove("dark-mode");
+    if (groupFrameSource) groupFrameSource.classList.remove("dark-mode");
     selects.forEach((sel) => sel.classList.remove("dark-mode"));
     controlsButtons.forEach((btn) => btn.classList.remove("dark-mode"));
     // if (themeModeText) themeModeText.textContent = "Light";

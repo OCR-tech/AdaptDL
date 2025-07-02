@@ -84,9 +84,9 @@ function getButtonStatus(buttonId) {
 // Restore button status on startup
 document.addEventListener("DOMContentLoaded", function () {
   const buttons = [
-    { btn: btnCommand, group: groupFrame2 },
-    { btn: btnVoice, group: groupFrame3 },
-    { btn: btnSettings, group: groupFrame4 },
+    { btn: btnCommand, group: groupFrameCommand },
+    { btn: btnVoice, group: groupFrameVoice },
+    { btn: btnSettings, group: groupFrameSettings },
     // Add more buttons/groups as needed
   ];
 
@@ -112,17 +112,17 @@ btnCommand.addEventListener("click", () => {
   btnSettings.classList.remove("active");
 
   if (btnCommand.classList.contains("active")) {
-    groupFrame2.style.display = "flex";
-    groupFrame3.style.display = "none";
-    groupFrame4.style.display = "none";
-    groupFrame5.style.display = "none";
-    groupFrame6.style.display = "none";
+    groupFrameCommand.style.display = "flex";
+    groupFrameVoice.style.display = "none";
+    groupFrameSettings.style.display = "none";
+    groupFrameTutorial.style.display = "none";
+    groupFrameHelp.style.display = "none";
   } else {
-    groupFrame2.style.display = "none";
-    groupFrame3.style.display = "none";
-    groupFrame4.style.display = "none";
-    groupFrame5.style.display = "none";
-    groupFrame6.style.display = "none";
+    groupFrameCommand.style.display = "none";
+    groupFrameVoice.style.display = "none";
+    groupFrameSettings.style.display = "none";
+    groupFrameTutorial.style.display = "none";
+    groupFrameHelp.style.display = "none";
   }
 
   // Save status for all buttons
@@ -143,17 +143,17 @@ btnVoice.addEventListener("click", () => {
   btnSettings.classList.remove("active");
 
   if (btnVoice.classList.contains("active")) {
-    groupFrame2.style.display = "none";
-    groupFrame3.style.display = "flex";
-    groupFrame4.style.display = "none";
-    groupFrame5.style.display = "none";
-    groupFrame6.style.display = "none";
+    groupFrameCommand.style.display = "none";
+    groupFrameVoice.style.display = "flex";
+    groupFrameSettings.style.display = "none";
+    groupFrameTutorial.style.display = "none";
+    groupFrameHelp.style.display = "none";
   } else {
-    groupFrame2.style.display = "none";
-    groupFrame3.style.display = "none";
-    groupFrame4.style.display = "none";
-    groupFrame5.style.display = "none";
-    groupFrame6.style.display = "none";
+    groupFrameCommand.style.display = "none";
+    groupFrameVoice.style.display = "none";
+    groupFrameSettings.style.display = "none";
+    groupFrameTutorial.style.display = "none";
+    groupFrameHelp.style.display = "none";
   }
   saveButtonStatus(btnCommand.id, btnCommand.classList.contains("active"));
   saveButtonStatus(btnVoice.id, btnVoice.classList.contains("active"));
@@ -172,11 +172,11 @@ btnSettings.addEventListener("click", () => {
   btnSettings.classList.toggle("active");
 
   if (btnSettings.classList.contains("active")) {
-    groupFrame2.style.display = "none";
-    groupFrame3.style.display = "none";
-    groupFrame4.style.display = "flex";
-    groupFrame5.style.display = "none";
-    groupFrame6.style.display = "none";
+    groupFrameCommand.style.display = "none";
+    groupFrameVoice.style.display = "none";
+    groupFrameSettings.style.display = "flex";
+    groupFrameTutorial.style.display = "none";
+    groupFrameHelp.style.display = "none";
 
     const videoSource = document.getElementById("video-source").value;
     const btnOk = document.getElementById("btn-ok");
@@ -192,11 +192,11 @@ btnSettings.addEventListener("click", () => {
       // document.getElementById("ip-camera-url").style.display = "none";
     }
   } else {
-    groupFrame2.style.display = "none";
-    groupFrame3.style.display = "none";
-    groupFrame4.style.display = "none";
-    groupFrame5.style.display = "none";
-    groupFrame6.style.display = "none";
+    groupFrameCommand.style.display = "none";
+    groupFrameVoice.style.display = "none";
+    groupFrameSettings.style.display = "none";
+    groupFrameTutorial.style.display = "none";
+    groupFrameHelp.style.display = "none";
   }
   saveButtonStatus(btnCommand.id, btnCommand.classList.contains("active"));
   saveButtonStatus(btnVoice.id, btnVoice.classList.contains("active"));
@@ -212,26 +212,26 @@ function showTutorial() {
   btnSettings.classList.remove("active");
 
   // show the tutorial content
-  groupFrame2.style.display = "none";
-  groupFrame3.style.display = "none";
-  groupFrame4.style.display = "none";
-  groupFrame5.style.display = "flex";
-  groupFrame6.style.display = "none";
+  groupFrameCommand.style.display = "none";
+  groupFrameVoice.style.display = "none";
+  groupFrameSettings.style.display = "none";
+  groupFrameTutorial.style.display = "flex";
+  groupFrameHelp.style.display = "none";
 
   // move the cursor to the tutorial section
   document
-    .getElementById("group-frame4")
+    .getElementById("group-frame-tutorial")
     .scrollIntoView({ behavior: "smooth" });
 }
 
 // =========================================//
 function HideTutorial() {
   document.getElementById("status").innerText = "Ready!";
-  groupFrame2.style.display = "none";
-  groupFrame3.style.display = "none";
-  groupFrame4.style.display = "none";
-  groupFrame5.style.display = "none";
-  groupFrame6.style.display = "none";
+  groupFrameCommand.style.display = "none";
+  groupFrameVoice.style.display = "none";
+  groupFrameSettings.style.display = "none";
+  groupFrameTutorial.style.display = "none";
+  groupFrameHelp.style.display = "none";
 }
 
 // =========================================//
@@ -242,24 +242,24 @@ function showHelp() {
   btnVoice.classList.remove("active");
   btnSettings.classList.remove("active");
 
-  groupFrame2.style.display = "none";
-  groupFrame3.style.display = "none";
-  groupFrame4.style.display = "none";
-  groupFrame5.style.display = "none";
-  groupFrame6.style.display = "flex";
+  groupFrameCommand.style.display = "none";
+  groupFrameVoice.style.display = "none";
+  groupFrameSettings.style.display = "none";
+  groupFrameTutorial.style.display = "none";
+  groupFrameHelp.style.display = "flex";
 
   // move the cursor to the help section
   document
-    .getElementById("group-frame5")
+    .getElementById("group-frame-help")
     .scrollIntoView({ behavior: "smooth" });
 }
 
 // =========================================//
 function HideHelp() {
   document.getElementById("status").innerText = "Ready!";
-  groupFrame2.style.display = "none";
-  groupFrame3.style.display = "none";
-  groupFrame4.style.display = "none";
-  groupFrame5.style.display = "none";
-  groupFrame6.style.display = "none";
+  groupFrameCommand.style.display = "none";
+  groupFrameVoice.style.display = "none";
+  groupFrameSettings.style.display = "none";
+  groupFrameTutorial.style.display = "none";
+  groupFrameHelp.style.display = "none";
 }

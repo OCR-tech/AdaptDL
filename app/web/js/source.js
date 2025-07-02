@@ -2,13 +2,13 @@
 // Set toggle state from localStorage on page load
 document.addEventListener("DOMContentLoaded", function () {
   const sourceSwitch = document.getElementById("source-switch");
-  const groupFrame1 = document.getElementById("group-frame1");
+  const groupFrameSource = document.getElementById("group-frame-source");
   if (!sourceSwitch) return;
 
   // Set the switch state from localStorage
   sourceSwitch.checked = localStorage.getItem("sourceMode") === "on";
-  if (groupFrame1)
-    groupFrame1.style.display = sourceSwitch.checked ? "flex" : "none";
+  if (groupFrameSource)
+    groupFrameSource.style.display = sourceSwitch.checked ? "flex" : "none";
 
   // Add event listener
   sourceSwitch.addEventListener("change", toggleSource);
@@ -17,13 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
 // =========================================//
 function toggleSource() {
   const sourceSwitch = document.getElementById("source-switch");
-  const groupFrame1 = document.getElementById("group-frame1");
+  const groupFrameSource = document.getElementById("group-frame-source");
   if (!sourceSwitch) return;
 
   // Save the toggle state to localStorage
   localStorage.setItem("sourceMode", sourceSwitch.checked ? "on" : "off");
 
   // Show or hide the group based on toggle
-  if (groupFrame1)
-    groupFrame1.style.display = sourceSwitch.checked ? "flex" : "none";
+  if (groupFrameSource)
+    groupFrameSource.style.display = sourceSwitch.checked ? "flex" : "none";
 }

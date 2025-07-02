@@ -26,8 +26,13 @@
         <div class="column" style="flex: 1">
           <div class="source-section">
             <span class="source-mode-text" id="source-mode-text">Source</span>
-            <label class="switch">
-              <input type="checkbox" id="source-switch" disabled="false"  onclick="toggleSource()"/>
+            <label class="switch" for="source-switch">
+              <input
+                type="checkbox"
+                id="source-switch"
+                disabled="false"
+                onclick="toggleSource()"
+              />
               <span class="slider"></span>
             </label>
           </div>
@@ -45,7 +50,7 @@
 
         <div class="screen-section">
           <span class="screen-mode-text" id="screen-mode-text">Screen</span>
-          <label class="switch">
+          <label class="switch" for="screen-switch">
             <input type="checkbox" id="screen-switch" disabled="false" />
             <span class="slider"></span>
           </label>
@@ -54,7 +59,7 @@
         <div class="column" style="flex: 1">
           <div class="theme-section">
             <span class="theme-mode-text" id="theme-mode-text">Theme</span>
-            <label class="switch">
+            <label class="switch" for="theme-switch">
               <input type="checkbox" id="theme-switch" disabled="false" />
               <span class="slider"></span>
             </label>
@@ -64,8 +69,8 @@
 
       <!-- include source.html  -->
       <div
-        class="group-frame1"
-        id="group-frame1"
+        class="group-frame-source"
+        id="group-frame-source"
         include-html="pages/source.html"
         style="display: none; padding: 0"
       ></div>
@@ -129,24 +134,24 @@
 
       <!-- include command.html  -->
       <div
-        class="group-frame2"
-        id="group-frame2"
+        class="group-frame-command"
+        id="group-frame-command"
         include-html="pages/command.html"
         style="display: none; padding: 0"
       ></div>
 
       <!-- include voice.html  -->
       <div
-        class="group-frame3"
-        id="group-frame3"
+        class="group-frame-voice"
+        id="group-frame-voice"
         include-html="pages/voice.html"
         style="display: none; padding: 0"
       ></div>
 
       <!-- include settings.html  -->
       <div
-        class="group-frame4"
-        id="group-frame4"
+        class="group-frame-settings"
+        id="group-frame-settings"
         include-html="pages/settings.html"
         style="display: none; padding: 0"
       ></div>
@@ -183,16 +188,16 @@
 
       <!-- Begin tutorial.html include -->
       <div
-        class="group-frame5"
-        id="group-frame5"
+        class="group-frame-tutorial"
+        id="group-frame-tutorial"
         include-html="pages/tutorial.html"
         style="display: none"
       ></div>
 
       <!-- Begin help.html include -->
       <div
-        class="group-frame6"
-        id="group-frame6"
+        class="group-frame-help"
+        id="group-frame-help"
         include-html="pages/help.html"
         style="display: none"
       ></div>
@@ -226,6 +231,7 @@
     <script src="js/source_selector.js"></script>
     <script src="js/command.js"></script>
     <script src="js/voice.js"></script>
+    <script src="js/voice_command.js"></script>
     <script src="js/settings.js"></script>
     <script src="js/settings_sms_alert.js"></script>
     <script src="js/settings_email_alert.js"></script>
