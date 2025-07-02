@@ -333,11 +333,7 @@ input {
   border-style: inset;
   background-color: #346297;
 }
-/* #btn-browse:disabled {
-  background: #bdbdbd;
-  color: #888;
-  cursor: auto;
-} */
+
 .controls-section button:disabled {
   background: #bdbdbd;
   color: #888;
@@ -359,14 +355,12 @@ input {
   gap: 12px;
   margin-bottom: 10px;
 }
-.video_source_section {
+.video-source-section {
   margin-left: auto;
   margin-right: auto;
-  /* align-items: center; */
-  /* justify-content: center; */
   gap: 10px;
 }
-.video_source_section select {
+.video-source-section select {
   flex: none;
   align-self: flex-start;
   text-align: left;
@@ -379,50 +373,50 @@ input {
   color: #333;
   transition: border-color 0.2s, background-color 0.2s;
 }
-.video_source_section select:hover {
+.video-source-section select:hover {
   border-color: #3498db;
   background-color: #f0f0f0;
 }
-.video_source_section select:focus {
+.video-source-section select:focus {
   outline: none;
   border-color: #2980b9;
   background-color: #fff;
 }
-.video_source_section select option {
+.video-source-section select option {
   padding: 10px;
   background-color: #fff;
   color: #333;
 }
-.video_source_section select option:hover {
+.video-source-section select option:hover {
   background-color: #f0f0f0;
 }
-.video_source_section select:disabled {
+.video-source-section select:disabled {
   background-color: #e0e0e0;
   color: #aaa;
   cursor: not-allowed;
 }
-.video_source_section select.dark-mode {
+.video-source-section select.dark-mode {
   background: #23272b;
   color: #e0e0e0;
   border-color: #4a90e2;
 }
-.video_source_section select.dark-mode:hover {
+.video-source-section select.dark-mode:hover {
   border-color: #357ab8;
   background-color: #2c2f33;
 }
-.video_source_section select.dark-mode:focus {
+.video-source-section select.dark-mode:focus {
   outline: none;
   border-color: #4a90e2;
   background-color: #23272b;
 }
-.video_source_section select.dark-mode option {
+.video-source-section select.dark-mode option {
   background-color: #23272b;
   color: #e0e0e0;
 }
-.video_source_section select.dark-mode option:hover {
+.video-source-section select.dark-mode option:hover {
   background-color: #2c2f33;
 }
-.video_source_section select.dark-mode:disabled {
+.video-source-section select.dark-mode:disabled {
   background-color: #2c2f33;
   color: #aaa;
   cursor: not-allowed;
@@ -477,7 +471,7 @@ body.dark-mode .controls-section button:disabled {
   color: #494949;
   cursor: not-allowed;
 }
-.video_source_section select.dark-mode {
+.video-source-section select.dark-mode {
   background: #23272b;
   color: #e0e0e0;
   border-color: #4a90e2;
