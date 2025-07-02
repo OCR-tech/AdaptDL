@@ -1,8 +1,7 @@
 // =========================================//
 function setSourceMode(mode) {
   const sourceSwitch = document.getElementById("source-switch");
-
-  alert("setSourceMode called, sourceSwitch:", sourceSwitch, "mode:", mode);
+  // alert("setSourceMode called, sourceSwitch:", sourceSwitch, "mode:", mode);
 
   if (sourceSwitch) {
     sourceSwitch.checked = mode === "on";
@@ -10,22 +9,58 @@ function setSourceMode(mode) {
   }
 }
 
+// =========================================//
 function setVoiceCommandMode(mode) {
   const voiceCommandSwitch = document.getElementById("voice-command-switch");
+
   if (voiceCommandSwitch) {
     voiceCommandSwitch.checked = mode === "on";
+
     // Optionally trigger change event if needed
     voiceCommandSwitch.dispatchEvent(new Event("change"));
   }
 }
 
-function setVolumeSliderValue(value) {
-  const volumeSlider = document.getElementById("volume-slider-command");
-  if (volumeSlider) {
-    volumeSlider.value = value;
-    // Optionally trigger input event if needed
-    volumeSlider.dispatchEvent(new Event("input"));
+function setVolumeSliderCommandValue(value) {
+  const voiceCommandSwitch = document.getElementById("voice-command-switch");
+  const volumeSliderCommand = document.getElementById("volume-slider-command");
+  if (!volumeSliderCommand) return;
+
+  // Enable or disable the slider based on the switch state
+  volumeSliderCommand.disabled = !(
+    voiceCommandSwitch && voiceCommandSwitch.checked
+  );
+
+  // Set the slider value
+  volumeSliderCommand.value = value;
+
+  // Optionally trigger input event if needed
+  volumeSliderCommand.dispatchEvent(new Event("input"));
+}
+
+// =========================================//
+function setVoiceAlertMode(mode) {
+  const voiceAlertSwitch = document.getElementById("voice-alert-switch");
+
+  if (voiceAlertSwitch) {
+    voiceAlertSwitch.checked = mode === "on";
+    voiceAlertSwitch.dispatchEvent(new Event("change"));
   }
+}
+
+function setVolumeSliderAlertValue(value) {
+  const voiceAlertSwitch = document.getElementById("voice-alert-switch");
+  const volumeSliderAlert = document.getElementById("volume-slider-alert");
+  if (!volumeSliderAlert) return;
+
+  // Enable or disable the slider based on the switch state
+  volumeSliderAlert.disabled = !(voiceAlertSwitch && voiceAlertSwitch.checked);
+
+  // Set the slider value
+  volumeSliderAlert.value = value;
+
+  // Optionally trigger input event if needed
+  volumeSliderAlert.dispatchEvent(new Event("input"));
 }
 
 // =========================================//
@@ -59,10 +94,20 @@ document.addEventListener("DOMContentLoaded", function () {
         if (typeof setVoiceCommandMode === "function")
           setVoiceCommandMode(voiceCommandMode);
 
-        const volumeSliderValue =
+        const volumeSliderCommandValue =
           localStorage.getItem("volumeSliderCommandValue") || 50;
-        if (typeof setVolumeSliderValue === "function")
-          setVolumeSliderValue(volumeSliderValue);
+        if (typeof setVolumeSliderCommandValue === "function")
+          setVolumeSliderCommandValue(volumeSliderCommandValue);
+
+        // Re-apply voice alert and volume slider after content is loaded
+        const voiceAlertMode = localStorage.getItem("voiceAlertMode") || "off";
+        if (typeof setVoiceAlertMode === "function")
+          setVoiceAlertMode(voiceAlertMode);
+
+        const volumeSliderAlertValue =
+          localStorage.getItem("volumeSliderAlertValue") || 50;
+        if (typeof setVolumeSliderAlertValue === "function")
+          setVolumeSliderAlertValue(volumeSliderAlertValue);
       })
 
       .catch(() => {

@@ -14,6 +14,7 @@ window.addEventListener("DOMContentLoaded", function () {
     .load()
     .then(function (loadedModel) {
       model = loadedModel;
+      // initUI();
       // initSystem();
       // listAllCameras();
       document.getElementById("status").innerText = "Ready!";
@@ -34,6 +35,9 @@ window.addEventListener("DOMContentLoaded", function () {
       document.getElementById("btn-mute").disabled = false;
       document.getElementById("btn-unmute").disabled = false;
       document.getElementById("btn-reset").disabled = false;
+      // document.getElementById("voice-command-switch").disabled = false;
+      // document.getElementById("voice-alert-switch").disabled = false;
+      // document.getElementById("voice-status-switch").disabled = false;
       // document.getElementById("volume-slider-command").disabled = false;
       // document.getElementById("volume-slider-alert").disabled = false;
       // document.getElementById("volume-slider-status").disabled = false;
@@ -42,6 +46,17 @@ window.addEventListener("DOMContentLoaded", function () {
       document.getElementById("status").innerText = "Model load error: " + err;
     });
 });
+
+// =========================================//
+function initUI() {
+  alert("InitializeUI");
+  document.getElementById("voice-command-switch").disabled = true;
+  document.getElementById("voice-alert-switch").disabled = true;
+  document.getElementById("voice-status-switch").disabled = true;
+  document.getElementById("volume-slider-command").disabled = true;
+  document.getElementById("volume-slider-alert").disabled = true;
+  document.getElementById("volume-slider-status").disabled = true;
+}
 
 // =========================================//
 function initSystem() {
