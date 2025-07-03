@@ -23,47 +23,31 @@
 
       <!-- create a row with two columns on the same row -->
       <div class="row" style="display: flex">
-        <div class="column" style="flex: 1">
-          <div class="source-section">
-            <span class="source-mode-text" id="source-mode-text">Source</span>
-            <label class="switch" for="source-switch">
-              <input
-                type="checkbox"
-                id="source-switch"
-                disabled="false"
-                onclick="toggleSource()"
-              />
-              <span class="slider"></span>
-            </label>
-          </div>
+        <div class="title-section" style="justify-content: flex-start">
+          <span class="source-mode-text" id="source-mode-text">Source</span>
+          <label class="switch" for="source-switch">
+            <input
+              type="checkbox"
+              id="source-switch"
+              disabled="false"
+              onclick="toggleSource()"
+            />
+            <span class="slider"></span>
+          </label>
         </div>
 
-        <!-- <div class="column" style="flex: 1">
-          <div class="menu-section">
-            <span class="menu-mode-text" id="menu-mode-text">Menu</span>
-            <label class="switch">
-              <input type="checkbox" id="menu-switch" disabled="false" />
-              <span class="slider"></span>
-            </label>
-          </div>
-        </div> -->
-
-        <div class="screen-section">
+        <div class="title-section">
           <span class="screen-mode-text" id="screen-mode-text">Screen</span>
           <label class="switch" for="screen-switch">
             <input type="checkbox" id="screen-switch" disabled="false" />
             <span class="slider"></span>
           </label>
-        </div>
 
-        <div class="column" style="flex: 1">
-          <div class="theme-section">
-            <span class="theme-mode-text" id="theme-mode-text">Theme</span>
-            <label class="switch" for="theme-switch">
-              <input type="checkbox" id="theme-switch" disabled="false" />
-              <span class="slider"></span>
-            </label>
-          </div>
+          <span class="theme-mode-text" id="theme-mode-text">Theme</span>
+          <label class="switch" for="theme-switch">
+            <input type="checkbox" id="theme-switch" disabled="false" />
+            <span class="slider"></span>
+          </label>
         </div>
       </div>
 
