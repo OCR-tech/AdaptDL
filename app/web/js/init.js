@@ -50,6 +50,7 @@ window.addEventListener("DOMContentLoaded", function () {
 // =========================================//
 function initUI() {
   alert("InitializeUI");
+  // document.getElementById("video-source").disabled = true;
   document.getElementById("voice-command-switch").disabled = true;
   document.getElementById("voice-alert-switch").disabled = true;
   document.getElementById("voice-status-switch").disabled = true;
