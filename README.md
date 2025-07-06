@@ -153,6 +153,8 @@ The system's behavior can be customized by modifying the default settings in the
 - **Alert Settings**: Adjust sound alert thresholds and preferences.
 - **Voice Command History**: Configure how the system adapts to voice command history. -->
 
+**Note**: For low-cost solutions, unused/broken screen mobile phones can be used as a webcam for real-time object detection.
+
 ## Contributing
 
 - See the [CONTRIBUTING](CONTRIBUTING.md) for detailed guidelines.
