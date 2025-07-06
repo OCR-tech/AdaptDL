@@ -10,6 +10,9 @@ app/src/gui/
 app/tests/
 app/trains/
 app/web/pages/
+app/web/backend/node_modules/
+app/web/backend/package-lock.json
+app/web/backend/package.json
 app/web/js/command.js
 project_structure.txt
 app/main0.py

@@ -1,14 +1,4 @@
 // =========================================//
-function updateValueCommand(val) {
-  document.getElementById("volume-value-command").textContent = val;
-}
-
-// =========================================//
-function updateValueAlert(val) {
-  document.getElementById("volume-value-alert").textContent = val;
-}
-
-// =========================================//
 function updateValueStatus(val) {
   document.getElementById("volume-value-status").textContent = val;
 }

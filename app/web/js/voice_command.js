@@ -34,3 +34,13 @@ function toggleVoiceCommand() {
     localStorage.setItem("volumeSliderCommandValue", volumeSliderCommand.value);
   }
 }
+
+// =========================================//
+function updateValueCommand(val) {
+  document.getElementById("volume-value-command").textContent = val;
+
+  // change the volume of the user microphone input based on the slider value
+  if (typeof window.microphoneVolume !== "undefined") {
+    window.microphoneVolume = Math.max(0, Math.min(1, val / 100));
+  }
+}

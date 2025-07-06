@@ -8,6 +8,8 @@ function startButton() {
 
   const videoSource = document.getElementById("video-source").value;
 
+  window.voiceAlertEnabled = true;
+
   // Check Video source selection
   if (videoSource === "camera") {
     startIntegratedCamera();
@@ -41,6 +43,14 @@ function stopButton() {
   // btnSettings.classList.remove("active");
   btnOk.disabled = false; // Disable the OK button after setting the URL
   document.getElementById("video-source").disabled = false;
+
+  // Stop calling playVoiceAlertOnDetection() if used
+  window.voiceAlertEnabled = false;
+  window.speechSynthesis.cancel();
+
+  // if (typeof playVoiceAlertOnDetection === "function") {
+  //   playVoiceAlertOnDetection("Object detection stopped.");
+  // }
 
   // Stop calling fetchAndDetect() if used
   if (typeof fetchAndDetect === "function") {
