@@ -19,7 +19,6 @@ window.addEventListener("DOMContentLoaded", function () {
       // listAllCameras();
       document.getElementById("status").innerText = "Ready!";
       document.getElementById("theme-switch").disabled = false;
-      document.getElementById("stream-switch").disabled = false;
       document.getElementById("screen-switch").disabled = false;
       document.getElementById("source-switch").disabled = false;
       document.getElementById("video-source").disabled = false;
