@@ -16,17 +16,17 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         //==========================================//
-        // Re-apply source mode
+        // source mode
         const sourceMode = localStorage.getItem("sourceMode") || "off";
         if (typeof setSourceMode === "function") setSourceMode(sourceMode);
 
         //==========================================//
-        // Re-apply theme mode
+        // theme mode
         const savedTheme = localStorage.getItem("theme") || "light";
         if (typeof setTheme === "function") setTheme(savedTheme);
 
         //==========================================//
-        // Re-apply voice command
+        // voice command
         const voiceCommandMode =
           localStorage.getItem("voiceCommandMode") || "off";
         if (typeof setVoiceCommandMode === "function")
@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
           setVolumeSliderCommandValue(volumeSliderCommandValue);
 
         //==========================================//
-        // Re-apply voice alert
+        // voice alert
         const voiceAlertMode = localStorage.getItem("voiceAlertMode") || "off";
         if (typeof setVoiceAlertMode === "function")
           setVoiceAlertMode(voiceAlertMode);
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
           setVolumeSliderAlertValue(volumeSliderAlertValue);
 
         //==========================================//
-        // Re-apply voice status
+        // voice status
         const voiceStatusMode =
           localStorage.getItem("voiceStatusMode") || "off";
         if (typeof setVoiceStatusMode === "function")

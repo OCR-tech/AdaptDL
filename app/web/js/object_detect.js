@@ -11,6 +11,7 @@ function detectFrame() {
     if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
       playVoiceAlert("Object detected.");
     }
+
     // Draw predictions on the canvas
     drawPredictions(predictions);
     animationId = requestAnimationFrame(detectFrame);

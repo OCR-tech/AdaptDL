@@ -305,6 +305,8 @@ function startIPCamera(ipCameraUrl) {
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
 
+
+
   function fetchAndDetect() {
     const img = new window.Image();
     img.crossOrigin = "Anonymous";

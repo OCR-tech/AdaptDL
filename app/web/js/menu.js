@@ -11,7 +11,8 @@ function startButton() {
   window.voiceAlertEnabled = true;
 
   if (window.voiceStatusEnabled) {
-    playVoiceStatus("Start, Detecting...");
+    playVoiceStatus("Start");
+    // playVoiceStatus("Start, Detecting...");
   }
 
   // Check Video source selection
@@ -52,23 +53,14 @@ function stopButton() {
   btnOk.disabled = false; // Disable the OK button after setting the URL
   document.getElementById("video-source").disabled = false;
 
-  // Stop calling playVoiceAlertOnDetection() if used
+  // Stop calling playVoiceAlert()
   window.voiceAlertEnabled = false;
-  window.speechSynthesis.cancel();
+  // window.speechSynthesis.cancel();
 
-  // if (typeof playVoiceAlertOnDetection === "function") {
-  //   playVoiceAlertOnDetection("Object detection stopped.");
-  // }
+  // Stop calling detectFrame()
 
-  // Stop calling fetchAndDetect() if used
-  if (typeof fetchAndDetect === "function") {
-    fetchAndDetect = null;
-  }
+  // Stop calling fetchAndDetect()
 
-  if (animationId) {
-    cancelAnimationFrame(animationId);
-    animationId = null;
-  }
   if (video) {
     video.pause();
     if (video.srcObject) {
