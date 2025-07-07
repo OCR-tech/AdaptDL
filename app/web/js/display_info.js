@@ -8,7 +8,8 @@ if (navigator.geolocation) {
       cachedGPS.longitude = position.coords.longitude;
     },
     function (err) {
-      alert("Geolocation error:", err);
+      // alert("Geolocation error:", err);
+      console.log("Geolocation error:", err);
     }
   );
 } else {

@@ -2,7 +2,8 @@ window.voiceStatusEnabled = true;
 
 // =========================================//
 document.getElementById("btn-voice").onclick = function () {
-  window.speechSynthesis.speak(new SpeechSynthesisUtterance("Hello world"));
+  // window.speechSynthesis.speak(new SpeechSynthesisUtterance("Hello world"));
+
   // Only call playVoiceStatus if required DOM elements exist
   if (
     document.getElementById("voice-status-switch") &&

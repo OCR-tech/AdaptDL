@@ -16,14 +16,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         //==========================================//
-        // Re-apply theme mode
-        const savedTheme = localStorage.getItem("theme") || "light";
-        if (typeof setTheme === "function") setTheme(savedTheme);
-
-        //==========================================//
         // Re-apply source mode
         const sourceMode = localStorage.getItem("sourceMode") || "off";
         if (typeof setSourceMode === "function") setSourceMode(sourceMode);
+
+        //==========================================//
+        // Re-apply theme mode
+        const savedTheme = localStorage.getItem("theme") || "light";
+        if (typeof setTheme === "function") setTheme(savedTheme);
 
         //==========================================//
         // Re-apply voice command
