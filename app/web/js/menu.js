@@ -10,6 +10,10 @@ function startButton() {
 
   window.voiceAlertEnabled = true;
 
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Start, Detecting...");
+  }
+
   // Check Video source selection
   if (videoSource === "camera") {
     startIntegratedCamera();
@@ -36,6 +40,10 @@ function stopButton() {
   document.getElementById("btn-start").style.display = "inline-block";
   document.getElementById("btn-stop").style.display = "none";
   document.getElementById("status").innerText = "Stopped";
+
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Stop");
+  }
 
   // Set all buttons to inactive
   // btnCommand.classList.remove("active");

@@ -1,19 +1,6 @@
 window.voiceStatusEnabled = true;
 
 // =========================================//
-document.getElementById("btn-voice").onclick = function () {
-  // window.speechSynthesis.speak(new SpeechSynthesisUtterance("Hello world"));
-
-  // Only call playVoiceStatus if required DOM elements exist
-  if (
-    document.getElementById("voice-status-switch") &&
-    document.getElementById("volume-slider-status")
-  ) {
-    playVoiceStatus("Command executed!");
-  }
-};
-
-// =========================================//
 function toggleVoiceStatus() {
   // alert("ToggleVoiceStatus");
   const voiceStatusSwitch = document.getElementById("voice-status-switch");
@@ -92,3 +79,69 @@ function setVolumeSliderStatusValue(value) {
   // Optionally trigger input event if needed
   volumeSliderStatus.dispatchEvent(new Event("input"));
 }
+
+// =========================================//
+document.getElementById("source-switch").onclick = function () {
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Source");
+  }
+};
+document.getElementById("screen-switch").onclick = function () {
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Screen");
+  }
+};
+document.getElementById("theme-switch").onclick = function () {
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Theme");
+  }
+};
+// =========================================//
+document.getElementById("btn-command").onclick = function () {
+  // window.speechSynthesis.speak(new SpeechSynthesisUtterance("Hello world"));
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Command");
+  }
+};
+document.getElementById("btn-voice").onclick = function () {
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Voice");
+  }
+};
+document.getElementById("btn-settings").onclick = function () {
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Settings");
+  }
+};
+
+// // =========================================//
+// document.getElementById("btn-resume").onclick = function () {
+//   if (window.voiceStatusEnabled) {
+//     playVoiceStatus("Resume");
+//   }
+// };
+// document.getElementById("btn-pause").onclick = function () {
+//   if (window.voiceStatusEnabled) {
+//     playVoiceStatus("Pause");
+//   }
+// };
+// document.getElementById("btn-capture").onclick = function () {
+//   if (window.voiceStatusEnabled) {
+//     playVoiceStatus("Capture");
+//   }
+// };
+// document.getElementById("btn-overlay1").onclick = function () {
+//   if (window.voiceStatusEnabled) {
+//     playVoiceStatus("No Overlay");
+//   }
+// };
+// document.getElementById("btn-overlay2").onclick = function () {
+//   if (window.voiceStatusEnabled) {
+//     playVoiceStatus("Overlay");
+//   }
+// };
+// document.getElementById("btn-record").onclick = function () {
+//   if (window.voiceStatusEnabled) {
+//     playVoiceStatus("Record");
+//   }
+// };
