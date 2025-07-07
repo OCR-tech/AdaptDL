@@ -42,7 +42,7 @@ function stopButton() {
   document.getElementById("status").innerText = "Stopped";
 
   if (window.voiceStatusEnabled) {
-    playVoiceStatus("Stop");
+    playVoiceStatus("Stopped");
   }
 
   // Set all buttons to inactive

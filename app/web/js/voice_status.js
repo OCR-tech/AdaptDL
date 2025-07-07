@@ -8,7 +8,7 @@ function toggleVoiceStatus() {
 
   if (voiceStatusSwitch && volumeSliderStatus) {
     volumeSliderStatus.disabled = !voiceStatusSwitch.checked;
-    window.voiceStatusEnabled = voiceStatusSwitch.checked;
+    window.voiceStatusEnabled = voiceStatusSwitch && voiceStatusSwitch.checked;
     window.speechSynthesis.cancel();
     localStorage.setItem(
       "voiceStatusMode",
@@ -114,34 +114,4 @@ document.getElementById("btn-settings").onclick = function () {
   }
 };
 
-// // =========================================//
-// document.getElementById("btn-resume").onclick = function () {
-//   if (window.voiceStatusEnabled) {
-//     playVoiceStatus("Resume");
-//   }
-// };
-// document.getElementById("btn-pause").onclick = function () {
-//   if (window.voiceStatusEnabled) {
-//     playVoiceStatus("Pause");
-//   }
-// };
-// document.getElementById("btn-capture").onclick = function () {
-//   if (window.voiceStatusEnabled) {
-//     playVoiceStatus("Capture");
-//   }
-// };
-// document.getElementById("btn-overlay1").onclick = function () {
-//   if (window.voiceStatusEnabled) {
-//     playVoiceStatus("No Overlay");
-//   }
-// };
-// document.getElementById("btn-overlay2").onclick = function () {
-//   if (window.voiceStatusEnabled) {
-//     playVoiceStatus("Overlay");
-//   }
-// };
-// document.getElementById("btn-record").onclick = function () {
-//   if (window.voiceStatusEnabled) {
-//     playVoiceStatus("Record");
-//   }
-// };
+// =========================================//
