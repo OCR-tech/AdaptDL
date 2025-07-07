@@ -9,7 +9,7 @@ function detectFrame() {
   }
   model.detect(video).then(function (predictions) {
     if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
-      playVoiceAlertOnDetection("Object detected.");
+      playVoiceAlert("Object detected.");
     }
     // Draw predictions on the canvas
     drawPredictions(predictions);

@@ -1,69 +1,4 @@
 // =========================================//
-function setSourceMode(mode) {
-  const sourceSwitch = document.getElementById("source-switch");
-  // alert("setSourceMode called, sourceSwitch:", sourceSwitch, "mode:", mode);
-
-  if (sourceSwitch) {
-    sourceSwitch.checked = mode === "on";
-    sourceSwitch.dispatchEvent(new Event("change"));
-  }
-}
-
-// =========================================//
-function setVoiceCommandMode(mode) {
-  const voiceCommandSwitch = document.getElementById("voice-command-switch");
-
-  if (voiceCommandSwitch) {
-    voiceCommandSwitch.checked = mode === "on";
-
-    // Optionally trigger change event if needed
-    voiceCommandSwitch.dispatchEvent(new Event("change"));
-  }
-}
-
-function setVolumeSliderCommandValue(value) {
-  const voiceCommandSwitch = document.getElementById("voice-command-switch");
-  const volumeSliderCommand = document.getElementById("volume-slider-command");
-  if (!volumeSliderCommand) return;
-
-  // Enable or disable the slider based on the switch state
-  volumeSliderCommand.disabled = !(
-    voiceCommandSwitch && voiceCommandSwitch.checked
-  );
-
-  // Set the slider value
-  volumeSliderCommand.value = value;
-
-  // Optionally trigger input event if needed
-  volumeSliderCommand.dispatchEvent(new Event("input"));
-}
-
-// =========================================//
-function setVoiceAlertMode(mode) {
-  const voiceAlertSwitch = document.getElementById("voice-alert-switch");
-
-  if (voiceAlertSwitch) {
-    voiceAlertSwitch.checked = mode === "on";
-    voiceAlertSwitch.dispatchEvent(new Event("change"));
-  }
-}
-
-function setVolumeSliderAlertValue(value) {
-  const voiceAlertSwitch = document.getElementById("voice-alert-switch");
-  const volumeSliderAlert = document.getElementById("volume-slider-alert");
-  if (!volumeSliderAlert) return;
-
-  // Enable or disable the slider based on the switch state
-  volumeSliderAlert.disabled = !(voiceAlertSwitch && voiceAlertSwitch.checked);
-
-  // Set the slider value
-  volumeSliderAlert.value = value;
-
-  // Optionally trigger input event if needed
-  volumeSliderAlert.dispatchEvent(new Event("input"));
-}
-
-// =========================================//
 document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll("[include-html]").forEach(function (el) {
     const file = el.getAttribute("include-html");
@@ -80,15 +15,18 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
 
-        // Re-apply theme after content is loaded
+        //==========================================//
+        // Re-apply theme mode
         const savedTheme = localStorage.getItem("theme") || "light";
         if (typeof setTheme === "function") setTheme(savedTheme);
 
-        // Re-apply source mode after content is loaded
+        //==========================================//
+        // Re-apply source mode
         const sourceMode = localStorage.getItem("sourceMode") || "off";
         if (typeof setSourceMode === "function") setSourceMode(sourceMode);
 
-        // Re-apply voice command and volume slider after content is loaded
+        //==========================================//
+        // Re-apply voice command
         const voiceCommandMode =
           localStorage.getItem("voiceCommandMode") || "off";
         if (typeof setVoiceCommandMode === "function")
@@ -99,7 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (typeof setVolumeSliderCommandValue === "function")
           setVolumeSliderCommandValue(volumeSliderCommandValue);
 
-        // Re-apply voice alert and volume slider after content is loaded
+        //==========================================//
+        // Re-apply voice alert
         const voiceAlertMode = localStorage.getItem("voiceAlertMode") || "off";
         if (typeof setVoiceAlertMode === "function")
           setVoiceAlertMode(voiceAlertMode);
@@ -108,6 +47,18 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.getItem("volumeSliderAlertValue") || 50;
         if (typeof setVolumeSliderAlertValue === "function")
           setVolumeSliderAlertValue(volumeSliderAlertValue);
+
+        //==========================================//
+        // Re-apply voice status
+        const voiceStatusMode =
+          localStorage.getItem("voiceStatusMode") || "off";
+        if (typeof setVoiceStatusMode === "function")
+          setVoiceStatusMode(voiceStatusMode);
+
+        const volumeSliderStatusValue =
+          localStorage.getItem("volumeSliderStatusValue") || 50;
+        if (typeof setVolumeSliderStatusValue === "function")
+          setVolumeSliderStatusValue(volumeSliderStatusValue);
       })
 
       .catch(() => {

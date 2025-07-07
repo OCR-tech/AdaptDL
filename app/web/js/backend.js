@@ -1,5 +1,5 @@
-let mediaRecorder,
-  recordedChunks = [];
+let mediaRecorder = [];
+let recordedChunks = [];
 let objectsDetected = false;
 
 // Start webcam and detection when Start button is pressed

@@ -1,32 +1,11 @@
 // =========================================//
-// Set toggle state from localStorage on page load
-document.addEventListener("DOMContentLoaded", function () {
-  const voiceAlertSwitch = document.getElementById("voice-alert-switch");
-  const volumeSliderAlert = document.getElementById("volume-slider-alert");
-
-  if (!voiceAlertSwitch || !volumeSliderAlert) return;
-
-  // Set the switch state from localStorage
-  voiceAlertSwitch.checked = localStorage.getItem("voiceAlertMode") === "on";
-  volumeSliderAlert.value =
-    localStorage.getItem("volumeSliderAlertValue") || 50;
-
-  // Set initial enabled/disabled state
-  volumeSliderAlert.disabled = !voiceAlertSwitch.checked;
-
-  // Add event listener
-  voiceAlertSwitch.addEventListener("change", toggleVoiceAlert);
-  volumeSliderAlert.addEventListener("input", toggleVoiceAlert);
-});
-
-// =========================================//
 function toggleVoiceAlert() {
   const voiceAlertSwitch = document.getElementById("voice-alert-switch");
   const volumeSliderAlert = document.getElementById("volume-slider-alert");
 
   if (voiceAlertSwitch && volumeSliderAlert) {
     volumeSliderAlert.disabled = !voiceAlertSwitch.checked;
-    window.voiceAlertEnabled = voiceAlertSwitch.checked; // <-- FIXED LINE
+    window.voiceAlertEnabled = voiceAlertSwitch.checked;
     window.speechSynthesis.cancel();
     localStorage.setItem(
       "voiceAlertMode",
@@ -37,7 +16,7 @@ function toggleVoiceAlert() {
 }
 
 // =========================================//
-function playVoiceAlertOnDetection(message = "Object detected!") {
+function playVoiceAlert(message = "Object detected!") {
   // Check the global flag before playing
   if (
     typeof window.voiceAlertEnabled !== "undefined" &&
@@ -69,4 +48,29 @@ function updateValueAlert(val) {
     window.speechSynthesis.cancel(); // Stop any ongoing speech
     window.speechSynthesis.speak(utter); // Speak with the new volume
   }
+}
+
+// =========================================//
+function setVoiceAlertMode(mode) {
+  const voiceAlertSwitch = document.getElementById("voice-alert-switch");
+
+  if (voiceAlertSwitch) {
+    voiceAlertSwitch.checked = mode === "on";
+    voiceAlertSwitch.dispatchEvent(new Event("change"));
+  }
+}
+
+function setVolumeSliderAlertValue(value) {
+  const voiceAlertSwitch = document.getElementById("voice-alert-switch");
+  const volumeSliderAlert = document.getElementById("volume-slider-alert");
+  if (!volumeSliderAlert) return;
+
+  // Enable or disable the slider based on the switch state
+  volumeSliderAlert.disabled = !(voiceAlertSwitch && voiceAlertSwitch.checked);
+
+  // Set the slider value
+  volumeSliderAlert.value = value;
+
+  // Optionally trigger input event if needed
+  volumeSliderAlert.dispatchEvent(new Event("input"));
 }

@@ -27,3 +27,14 @@ function toggleSource() {
   if (groupFrameSource)
     groupFrameSource.style.display = sourceSwitch.checked ? "flex" : "none";
 }
+
+// =========================================//
+function setSourceMode(mode) {
+  const sourceSwitch = document.getElementById("source-switch");
+  // alert("setSourceMode called, sourceSwitch:", sourceSwitch, "mode:", mode);
+
+  if (sourceSwitch) {
+    sourceSwitch.checked = mode === "on";
+    sourceSwitch.dispatchEvent(new Event("change"));
+  }
+}
