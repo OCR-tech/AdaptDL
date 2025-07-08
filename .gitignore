@@ -16,3 +16,6 @@ app/web/backend/package.json
 app/web/js/command.js
 project_structure.txt
 app/main0.py
+node_modules/
+package-lock.json
+package.json
