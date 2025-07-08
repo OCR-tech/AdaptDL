@@ -17,7 +17,7 @@ function toggleEmailInput() {
 // =========================================//
 // Function to handle the email alert submission
 function okEmailAlert() {
-  alert("OkEmailAlert");
+  // alert("OkEmailAlert");
 
   const emailInput = document.getElementById("email-user");
   const email = emailInput ? emailInput.value.trim() : "";
@@ -35,7 +35,7 @@ function okEmailAlert() {
     sendEmailAlert(
       email,
       "[AdaptDL] Alert Notification",
-      "Object detection alert: " +
+      "Object Detection: " +
         new Date().toLocaleString() +
         "," +
         // Include GPS coordinates if available using cachedGPS
@@ -59,7 +59,7 @@ function okEmailAlert() {
  * @param {string} message - Email body content.
  */
 function sendEmailAlert(toEmail, subject, message) {
-  alert("SendEmailAlert");
+  // alert("SendEmailAlert");
 
   // Send the email using fetch API
   fetch("/api/send-email", {
