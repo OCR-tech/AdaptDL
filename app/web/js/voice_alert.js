@@ -10,7 +10,7 @@ function toggleVoiceAlert() {
   if (voiceAlertSwitch && volumeSliderAlert) {
     volumeSliderAlert.disabled = !voiceAlertSwitch.checked;
     window.voiceAlertEnabled = voiceAlertSwitch.checked;
-    // window.speechSynthesis.cancel();
+    window.speechSynthesis.cancel();
 
     localStorage.setItem(
       "voiceAlertMode",

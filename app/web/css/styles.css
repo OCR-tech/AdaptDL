@@ -455,6 +455,20 @@ body.dark-mode .video-source-section select:disabled {
   margin-bottom: 0px;
   font-size: 15px;
 }
+/* Style for .btn-ok-settings */
+.btn-ok-settings {
+  display: none;
+  font-size: 0.5em;
+  width: 80px;
+  height: 30px;
+  padding: 0px;
+  margin: 0px;
+  border-radius: 5px;
+  text-align: center;
+  vertical-align: middle;
+  align-items: center;
+  justify-content: center;
+}
 
 /*==================*/
 /* Dark mode styles */
