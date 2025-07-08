@@ -6,10 +6,16 @@ function toggleVoiceStatus() {
   const voiceStatusSwitch = document.getElementById("voice-status-switch");
   const volumeSliderStatus = document.getElementById("volume-slider-status");
 
+  window.voiceStatusEnabled = voiceStatusSwitch && voiceStatusSwitch.checked;
+
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Voice Status");
+  }
+
   if (voiceStatusSwitch && volumeSliderStatus) {
     volumeSliderStatus.disabled = !voiceStatusSwitch.checked;
-    window.voiceStatusEnabled = voiceStatusSwitch && voiceStatusSwitch.checked;
-    window.speechSynthesis.cancel();
+    // window.speechSynthesis.cancel();
+
     localStorage.setItem(
       "voiceStatusMode",
       voiceStatusSwitch.checked ? "on" : "off"

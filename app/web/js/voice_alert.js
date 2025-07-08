@@ -3,10 +3,15 @@ function toggleVoiceAlert() {
   const voiceAlertSwitch = document.getElementById("voice-alert-switch");
   const volumeSliderAlert = document.getElementById("volume-slider-alert");
 
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Voice Alert");
+  }
+
   if (voiceAlertSwitch && volumeSliderAlert) {
     volumeSliderAlert.disabled = !voiceAlertSwitch.checked;
     window.voiceAlertEnabled = voiceAlertSwitch.checked;
-    window.speechSynthesis.cancel();
+    // window.speechSynthesis.cancel();
+
     localStorage.setItem(
       "voiceAlertMode",
       voiceAlertSwitch.checked ? "on" : "off"
