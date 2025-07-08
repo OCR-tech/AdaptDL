@@ -115,5 +115,6 @@ app.post("/api/send-line", async (req, res) => {
 // =========================================== //
 // Listen on the specified port
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}/index.html`);
+  console.log(`Server running on http://localhost:${PORT}`);
+  // console.log(`Server running on http://localhost:${PORT}/index.html`);
 });
