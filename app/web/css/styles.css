@@ -370,6 +370,7 @@ input {
   align-items: center;
   gap: 12px;
   margin-bottom: 10px;
+  flex-wrap: wrap;
 }
 #video-source {
   width: 100%;
@@ -455,19 +456,23 @@ body.dark-mode .video-source-section select:disabled {
   margin-bottom: 0px;
   font-size: 15px;
 }
-/* Style for .btn-ok-settings */
-.btn-ok-settings {
+.controls-section .btn-ok-settings {
   display: none;
-  font-size: 0.5em;
-  width: 80px;
+  font-size: 0.65em;
   height: 30px;
   padding: 0px;
   margin: 0px;
-  border-radius: 5px;
-  text-align: center;
-  vertical-align: middle;
-  align-items: center;
-  justify-content: center;
+}
+
+.settings-row label {
+  /* width: 100px; */
+  margin: 0 0 5px 0;
+  /* background-color: rgb(228, 228, 228); */
+}
+
+.datetime-label,
+.gps-label {
+  display: none;
 }
 
 /*==================*/
@@ -669,5 +674,10 @@ body.dark-mode .controls-section button:disabled {
   .button-browse {
     /* width: 100%; */
     max-width: 200px;
+  }
+  .settings-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
   }
 }

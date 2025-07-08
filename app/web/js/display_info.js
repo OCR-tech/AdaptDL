@@ -35,15 +35,40 @@ document.addEventListener("DOMContentLoaded", function () {
 // =========================================//
 function toggleDateTime() {
   // alert("ToggleDateTime");
+
+  const dateTimeLabel = document.getElementById("datetime-label");
   const dateTimeSwitch = document.getElementById("datetime-switch");
+
   if (dateTimeSwitch) {
     window.showDateTimeOverlay = dateTimeSwitch.checked;
     localStorage.setItem(
       "dateTimeOverlayEnabled",
       dateTimeSwitch.checked ? "on" : "off"
     );
+
+    // display the label with current date and time
+    if (window.showDateTimeOverlay) {
+      if (dateTimeLabel) {
+        dateTimeLabel.style.display = "block";
+        updateDateTime();
+      }
+    } else {
+      if (dateTimeLabel) {
+        dateTimeLabel.style.display = "none";
+      }
+    }
   }
 }
+
+// =========================================//
+function updateDateTime() {
+  const now = new Date();
+  const formatted = now.toLocaleString();
+  document.getElementById("datetime-label").textContent = formatted;
+}
+// Update every second
+setInterval(updateDateTime, 1000);
+updateDateTime();
 
 // =========================================//
 // Display current date and time in on canvas
@@ -90,11 +115,48 @@ document.addEventListener("DOMContentLoaded", function () {
 // =========================================//
 function toggleGPS() {
   const gpsSwitch = document.getElementById("gps-switch");
+  const gpsLabel = document.getElementById("gps-label");
+
   if (gpsSwitch) {
     window.showGPSLocation = gpsSwitch.checked;
     localStorage.setItem("gpsOverlayEnabled", gpsSwitch.checked);
+
+    // display the label with current GPS location
+    if (window.showGPSLocation) {
+      if (gpsLabel) {
+        gpsLabel.style.display = "block";
+        updateGPSlocation(cachedGPS.latitude, cachedGPS.longitude);
+      }
+    } else {
+      if (gpsLabel) {
+        gpsLabel.style.display = "none";
+      }
+    }
   }
 }
+
+// =========================================//
+function updateGPSlocation() {
+  // alert("UpdateGPSlocation");
+  const gpsLabel = document.getElementById("gps-label");
+  if (!gpsLabel) return;
+  // cachedGPS.latitude = 13.7563;
+  // cachedGPS.longitude = 100.5018;
+  // alert(cachedGPS);
+  if (
+    typeof cachedGPS.latitude === "number" &&
+    typeof cachedGPS.longitude === "number"
+  ) {
+    gpsLabel.textContent = `Lat: ${cachedGPS.latitude.toFixed(
+      6
+    )}, Lon: ${cachedGPS.longitude.toFixed(6)}`;
+  } else {
+    gpsLabel.textContent = "GPS unavailable";
+  }
+}
+// Update every second
+setInterval(updateGPSlocation, 1000);
+updateGPSlocation();
 
 // =========================================//
 // Display current GPS location on canvas
