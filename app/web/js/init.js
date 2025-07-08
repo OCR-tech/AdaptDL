@@ -16,6 +16,7 @@ window.addEventListener("DOMContentLoaded", function () {
       model = loadedModel;
       // initUI();
       // initSystem();
+      requestCameraPermission(); // Request camera permission
       // listAllCameras();
       document.getElementById("status").innerText = "Ready!";
       document.getElementById("theme-switch").disabled = false;
@@ -75,17 +76,22 @@ function requestCameraPermission() {
 
   // display an alert message requesting access to the camera from web browser without playing video
   document.getElementById("status").innerText = "Requesting camera access...";
+
+  // navigator.mediaDevices
+  //   .getUserMedia({ video: true })
+  //   .then((stream) => {
+  //     console.log("Camera access granted!");
+  //   })
+  //   .catch((err) => {
+  //     console.error("Camera error:", err);
+  //   });
+
   navigator.mediaDevices
     .getUserMedia({ video: true })
     .then(function (stream) {
-      // If permission is granted
-      // document.getElementById("status").innerText =
-      //   "Camera permission granted.";
-      // You can optionally stop the stream immediately if you only want permission
       stream.getTracks().forEach((track) => track.stop());
     })
     .catch(function (err) {
-      // If permission is denied, show an error message
       document.getElementById("status").innerText =
         "Camera permission denied: " + err;
       alert("Camera permission denied: " + err);

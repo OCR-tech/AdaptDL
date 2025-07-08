@@ -32,7 +32,19 @@ function okEmailAlert() {
     }
 
     // Send the email alert
-    sendEmailAlert(email, "Alert Notification", "This is a test alert.");
+    sendEmailAlert(
+      email,
+      "[AdaptDL] Alert Notification",
+      "Object detection alert: " +
+        new Date().toLocaleString() +
+        "," +
+        // Include GPS coordinates if available using cachedGPS
+        (cachedGPS && cachedGPS.latitude
+          ? ` Latitude: ${cachedGPS.latitude}, Longitude: ${cachedGPS.longitude}`
+          : "")
+    );
+    document.getElementById("status").innerText =
+      "Sending email alert to " + email + "...";
   } else {
     document.getElementById("status").innerText =
       "Email address cannot be empty.";
@@ -49,7 +61,7 @@ function okEmailAlert() {
 function sendEmailAlert(toEmail, subject, message) {
   alert("SendEmailAlert");
 
-  // Example: POST to your backend API that sends the email
+  // Send the email using fetch API
   fetch("/api/send-email", {
     method: "POST",
     headers: {
@@ -58,21 +70,22 @@ function sendEmailAlert(toEmail, subject, message) {
     body: JSON.stringify({
       to: toEmail,
       subject: subject,
-      body: message,
+      text: message,
     }),
   })
     .then((response) => response.json())
     .then((data) => {
       if (data.success) {
-        document.getElementById("status").innerText = "Email alert sent!";
+        document.getElementById("status").innerText =
+          "Email alert sent successfully!";
       } else {
         document.getElementById("status").innerText =
           "Failed to send email alert.";
       }
     })
     .catch((error) => {
+      console.error("Error sending email:", error);
       document.getElementById("status").innerText =
-        "Error sending email alert.";
-      console.error("Email Alert Error:", error);
+        "An error occurred while sending the email.";
     });
 }
