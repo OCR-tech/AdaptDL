@@ -7,6 +7,37 @@ let ctx = null;
 let stream = null;
 
 // =========================================//
+const btnCommand = document.getElementById("btn-command");
+const btnVoice = document.getElementById("btn-voice");
+const btnSettings = document.getElementById("btn-settings");
+const btnHelp = document.getElementById("btn-help");
+const btnTutorial = document.getElementById("btn-tutorial");
+const btnStart = document.getElementById("btn-start");
+const btnStop = document.getElementById("btn-stop");
+const groupFrameSource = document.getElementById("group-frame-source");
+const groupFrameCommand = document.getElementById("group-frame-command");
+const groupFrameVoice = document.getElementById("group-frame-voice");
+const groupFrameSettings = document.getElementById("group-frame-settings");
+const groupFrameTutorial = document.getElementById("group-frame-tutorial");
+const groupFrameHelp = document.getElementById("group-frame-help");
+
+// document.getElementById("btn-command").disabled = true;
+// document.getElementById("btn-voice").disabled = true;
+// document.getElementById("btn-settings").disabled = true;
+// document.getElementById("theme-switch").disabled = false;
+// document.getElementById("screen-switch").disabled = false;
+// document.getElementById("source-switch").disabled = false;
+// document.getElementById("video-source").disabled = false;
+
+// btnCommand.disabled = true;
+// btnVoice.disabled = true;
+// btnSettings.disabled = true;
+// btnHelp.disabled = true;
+// btnTutorial.disabled = true;
+// btnStart.disabled = true;
+// btnStop.disabled = true;
+
+// =========================================//
 // Import the COCO-SSD model from TensorFlow.js
 // Load the COCO-SSD model on page load
 window.addEventListener("DOMContentLoaded", function () {
@@ -14,28 +45,39 @@ window.addEventListener("DOMContentLoaded", function () {
     .load()
     .then(function (loadedModel) {
       model = loadedModel;
-      // initUI();
-      // initSystem();
+      initUI();
+      initSystem();
       requestCameraPermission(); // Request camera permission
-      // listAllCameras();
+      requestMicrophonePermission(); // Request microphone permission
+      requestLocationPermission(); // Request location permission
+      requestNotificationPermission(); // Request notification permission
+      listAllCameras();
+
+      // Enable buttons and switches
+      [
+        "theme-switch",
+        "screen-switch",
+        "source-switch",
+        "video-source",
+        "btn-start",
+        "btn-stop",
+        "btn-command",
+        "btn-voice",
+        "btn-settings",
+        "btn-pause",
+        "btn-capture",
+        "btn-overlay1",
+        "btn-overlay2",
+        "btn-record",
+        "btn-mute",
+        "btn-unmute",
+        "btn-reset",
+      ].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.disabled = false;
+      });
+
       document.getElementById("status").innerText = "Ready!";
-      document.getElementById("theme-switch").disabled = false;
-      document.getElementById("screen-switch").disabled = false;
-      document.getElementById("source-switch").disabled = false;
-      document.getElementById("video-source").disabled = false;
-      document.getElementById("btn-start").disabled = false;
-      document.getElementById("btn-stop").disabled = false;
-      document.getElementById("btn-command").disabled = false;
-      document.getElementById("btn-voice").disabled = false;
-      document.getElementById("btn-settings").disabled = false;
-      document.getElementById("btn-pause").disabled = false;
-      document.getElementById("btn-capture").disabled = false;
-      document.getElementById("btn-overlay1").disabled = false;
-      document.getElementById("btn-overlay2").disabled = false;
-      document.getElementById("btn-record").disabled = false;
-      document.getElementById("btn-mute").disabled = false;
-      document.getElementById("btn-unmute").disabled = false;
-      document.getElementById("btn-reset").disabled = false;
     })
     .catch(function (err) {
       document.getElementById("status").innerText = "Model load error: " + err;
@@ -44,14 +86,15 @@ window.addEventListener("DOMContentLoaded", function () {
 
 // =========================================//
 function initUI() {
-  alert("InitializeUI");
+  // alert("InitializeUI");
   // document.getElementById("video-source").disabled = true;
-  document.getElementById("voice-command-switch").disabled = true;
-  document.getElementById("voice-alert-switch").disabled = true;
-  document.getElementById("voice-status-switch").disabled = true;
-  document.getElementById("volume-slider-command").disabled = true;
-  document.getElementById("volume-slider-alert").disabled = true;
-  document.getElementById("volume-slider-status").disabled = true;
+  // document.getElementById("voice-command-switch").disabled = true;
+  // document.getElementById("voice-alert-switch").disabled = true;
+  // document.getElementById("voice-status-switch").disabled = true;
+  // document.getElementById("volume-slider-command").disabled = true;
+  // document.getElementById("volume-slider-alert").disabled = true;
+  // document.getElementById("volume-slider-status").disabled = true;
+  console.log("UI initialized");
 }
 
 // =========================================//
@@ -74,35 +117,86 @@ function initSystem() {
 function requestCameraPermission() {
   // alert("RequestingCameraPermission");
 
-  // display an alert message requesting access to the camera from web browser without playing video
-  document.getElementById("status").innerText = "Requesting camera access...";
-
-  // navigator.mediaDevices
-  //   .getUserMedia({ video: true })
-  //   .then((stream) => {
-  //     console.log("Camera access granted!");
-  //   })
-  //   .catch((err) => {
-  //     console.error("Camera error:", err);
-  //   });
-
   navigator.mediaDevices
     .getUserMedia({ video: true })
-    .then(function (stream) {
-      stream.getTracks().forEach((track) => track.stop());
+    .then((stream) => {
+      console.log("Camera access granted!");
     })
-    .catch(function (err) {
+    .catch((err) => {
       document.getElementById("status").innerText =
         "Camera permission denied: " + err;
       alert("Camera permission denied: " + err);
     });
 }
 
+// =========================================//
+function requestMicrophonePermission() {
+  // alert("RequestingMicrophonePermission");
+
+  navigator.mediaDevices
+    .getUserMedia({ audio: true })
+    .then(function (stream) {
+      stream.getTracks().forEach((track) => track.stop());
+    })
+    .catch(function (err) {
+      document.getElementById("status").innerText =
+        "Microphone permission denied: " + err;
+      alert("Microphone permission denied: " + err);
+    });
+}
+
+// =========================================//
+function requestLocationPermission() {
+  // alert("RequestingLocationPermission");
+
+  // Check if geolocation is supported
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      function (position) {
+        // Successfully retrieved location
+        console.log("Location retrieved:", position);
+      },
+      function (err) {
+        // Error retrieving location
+        document.getElementById("status").innerText =
+          "Location permission denied: " + err.message;
+        alert("Location permission denied: " + err.message);
+      }
+    );
+  } else {
+    document.getElementById("status").innerText =
+      "Geolocation is not supported by this browser.";
+    alert("Geolocation is not supported by this browser.");
+  }
+}
+
+// =========================================//
+function requestNotificationPermission() {
+  // alert("RequestingNotificationPermission");
+
+  Notification.requestPermission()
+    .then(function (result) {
+      if (result === "granted") {
+        console.log("Notification permission granted.");
+      } else {
+        document.getElementById("status").innerText =
+          "Notification permission denied: " + result;
+        alert("Notification permission denied: " + result);
+      }
+    })
+    .catch(function (err) {
+      document.getElementById("status").innerText =
+        "Notification permission error: " + err;
+      alert("Notification permission error: " + err);
+    });
+}
+
+// =========================================//
 flag_videoSource0 = false; // Integrated camera
 flag_videoSource1 = false; // USB camera
 // =========================================//
 function listAllCameras() {
-  // alert("listAllCameras");
+  alert("listAllCameras");
 
   navigator.mediaDevices
     .enumerateDevices()
@@ -116,10 +210,10 @@ function listAllCameras() {
         videoInputs.forEach((input) => {
           if (input.label.includes("Integrated")) {
             flag_videoSource0 = true;
-            // alert("Integrated camera found: " + input.label);
+            alert("Integrated camera found: " + input.label);
           } else if (input.label.includes("USB")) {
             flag_videoSource1 = true;
-            // alert("USB camera found: " + input.label);
+            alert("USB camera found: " + input.label);
           }
         });
       }
@@ -128,34 +222,3 @@ function listAllCameras() {
       alert("Error enumerating devices: " + err);
     });
 }
-
-// =========================================//
-const btnCommand = document.getElementById("btn-command");
-const btnVoice = document.getElementById("btn-voice");
-const btnSettings = document.getElementById("btn-settings");
-const btnHelp = document.getElementById("btn-help");
-const btnTutorial = document.getElementById("btn-tutorial");
-const btnStart = document.getElementById("btn-start");
-const btnStop = document.getElementById("btn-stop");
-const groupFrameSource = document.getElementById("group-frame-source");
-const groupFrameCommand = document.getElementById("group-frame-command");
-const groupFrameVoice = document.getElementById("group-frame-voice");
-const groupFrameSettings = document.getElementById("group-frame-settings");
-const groupFrameTutorial = document.getElementById("group-frame-tutorial");
-const groupFrameHelp = document.getElementById("group-frame-help");
-
-// // document.getElementById("btn-command").disabled = true;
-// // document.getElementById("btn-voice").disabled = true;
-// // document.getElementById("btn-settings").disabled = true;
-// // document.getElementById("theme-switch").disabled = false;
-// // document.getElementById("screen-switch").disabled = false;
-// // document.getElementById("source-switch").disabled = false;
-// // document.getElementById("video-source").disabled = false;
-
-// btnCommand.disabled = true;
-// btnVoice.disabled = true;
-// btnSettings.disabled = true;
-// btnHelp.disabled = true;
-// btnTutorial.disabled = true;
-// btnStart.disabled = true;
-// btnStop.disabled = true;
