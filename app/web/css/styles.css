@@ -402,13 +402,13 @@ input {
 }
 .video-source-section select:focus {
   outline: none;
-  border-color: #2980b9;
-  background-color: #fff;
+  /* border-color: #2980b9; */
+  /* background-color: #fff; */
 }
 .video-source-section select option {
   padding: 10px;
-  background-color: #fff;
-  color: #333;
+  /* background-color: #fff; */
+  /* color: #333; */
 }
 .video-source-section select option:hover {
   background-color: #f0f0f0;
@@ -418,18 +418,7 @@ input {
   color: #aaa;
   cursor: not-allowed;
 }
-body.dark-mode #video-source,
-body.dark-mode .video-source-section select {
-  background: #23272b;
-  color: #e0e0e0;
-  border-color: #4a90e2;
-}
-body.dark-mode #video-source:disabled,
-body.dark-mode .video-source-section select:disabled {
-  background-color: #2c2f33;
-  color: #aaa;
-  cursor: not-allowed;
-}
+
 .source-section {
   display: flex;
   flex-wrap: wrap;
@@ -526,11 +515,6 @@ body.dark-mode .controls-section button:disabled {
   color: #494949;
   cursor: not-allowed;
 }
-.video-source-section select.dark-mode {
-  background: #23272b;
-  color: #e0e0e0;
-  border-color: #4a90e2;
-}
 .dark-mode code {
   background-color: #505050;
   color: #e0e0e0;
@@ -548,6 +532,18 @@ body.dark-mode .controls-section button:disabled {
 }
 .dark-mode input:checked + .slider {
   background-color: #2980b9;
+}
+.dark-mode #video-source,
+.dark-mode .video-source-section select {
+  background: #23272b;
+  color: #e0e0e0;
+  border-color: #4a90e2;
+}
+.dark-mode #video-source:disabled,
+.dark-mode .video-source-section select:disabled {
+  background-color: #2c2f33;
+  color: #aaa;
+  cursor: not-allowed;
 }
 
 /* Responsive font and layout for small screens */
