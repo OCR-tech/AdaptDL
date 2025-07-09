@@ -64,7 +64,14 @@ window.addEventListener("DOMContentLoaded", function () {
 // =========================================//
 function initSystem() {
   // alert("InitializeSystem");
-  console.log("Initializing system");
+
+  window.voiceAlertEnabled = true;
+  window.emailAlertEnabled = true;
+  window.notificationEnabled = true;
+  window.showDateTimeOverlay = true;
+  window.showGPSLocation = true;
+
+  // console.log("Initializing system");
 }
 
 // =========================================//

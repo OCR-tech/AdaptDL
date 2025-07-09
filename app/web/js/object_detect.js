@@ -5,20 +5,32 @@ function detectFrame() {
   }
   model.detect(video).then(function (predictions) {
     // Check for object detection
+    const objectNames = predictions.map((p) => p.class).join(", ");
 
+    //=========================================//
     // Voice alert for object detection
     if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
       // alert(window.voiceAlertEnabled);
-      playVoiceAlert("Object detected.");
+      playVoiceAlert("Object detected");
     }
 
+    //=========================================//
+    // Email alert for object detection
+    if (predictions && predictions.length > 0 && window.emailAlertEnabled) {
+      // alert("sendEmailAlert: " + objectNames);
+      console.log("sendEmailAlert: " + objectNames);
+      // okEmailAlert();
+      // sendEmailAlert(objectNames);
+    }
+
+    //=========================================//
     // Notification for object detection
     if (predictions && predictions.length > 0 && window.notificationEnabled) {
-      const objectNames = predictions.map((p) => p.class).join(", ");
       // alert("Object detected: " + objectNames);
       notifyDetection(objectNames);
     }
 
+    //=========================================//
     // Draw predictions on the canvas
     drawPredictions(predictions);
     animationId = requestAnimationFrame(detectFrame);

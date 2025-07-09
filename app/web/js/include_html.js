@@ -21,12 +21,6 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
 
-        //==================== Video Unit ======================//
-        window.voiceAlertEnabled = true;
-        window.notificationEnabled = true;
-        window.showDateTimeOverlay = true;
-        window.showGPSLocation = true;
-
         //==========================================//
         // source mode
         const sourceMode = localStorage.getItem("sourceMode") || "off";

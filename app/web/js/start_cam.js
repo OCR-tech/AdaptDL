@@ -305,8 +305,6 @@ function startIPCamera(ipCameraUrl) {
   const placeholder = document.getElementById("video-placeholder");
   if (placeholder) placeholder.style.display = "none";
 
-
-
   function fetchAndDetect() {
     const img = new window.Image();
     img.crossOrigin = "Anonymous";
@@ -451,6 +449,7 @@ function startVideo(filePath) {
     document.getElementById("status").innerText = "Detecting...";
     document.getElementById("btn-start").style.display = "none";
     document.getElementById("btn-stop").style.display = "inline-block";
+
     detectFrame();
   };
 

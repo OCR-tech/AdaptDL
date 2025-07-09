@@ -1,5 +1,6 @@
 // =========================================//
 function toggleVoiceAlert() {
+  alert("toggleVoiceAlert");
   const voiceAlertSwitch = document.getElementById("voice-alert-switch");
   const volumeSliderAlert = document.getElementById("volume-slider-alert");
 
@@ -21,14 +22,14 @@ function toggleVoiceAlert() {
 }
 
 // =========================================//
-function playVoiceAlert(message = "Object detected!") {
+function playVoiceAlert(message = "Object detected") {
   // Check the global flag before playing
-  if (
-    typeof window.voiceAlertEnabled !== "undefined" &&
-    !window.voiceAlertEnabled
-  ) {
-    return; // Do not play if disabled
-  }
+  // if (
+  //   typeof window.voiceAlertEnabled !== "undefined" &&
+  //   !window.voiceAlertEnabled
+  // ) {
+  //   return; // Do not play if disabled
+  // }
 
   const voiceAlertSwitch = document.getElementById("voice-alert-switch");
   const volumeSliderAlert = document.getElementById("volume-slider-alert");

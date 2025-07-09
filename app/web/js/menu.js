@@ -1,6 +1,8 @@
+// let animationId = null;
+
 // =========================================//
 function startButton() {
-  // alert("StartButton");
+  alert("StartButton");
 
   // document.getElementById("status").innerText = "Start";
   document.getElementById("btn-start").style.display = "none";
@@ -11,7 +13,7 @@ function startButton() {
   window.voiceAlertEnabled = true;
   window.notificationEnabled = true;
 
-  // alert("123" + window.voiceAlertEnabled + window.notificationEnabled);
+  alert("123" + window.voiceAlertEnabled + window.notificationEnabled);
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Start");
@@ -31,13 +33,11 @@ function startButton() {
   } else if (videoSource === "video") {
     startVideo(window.selectedVideoFilePath);
   }
-
-  // displayDateTime();
 }
 
 // =========================================//
 function stopButton() {
-  // alert("StopButton");
+  alert("StopButton");
 
   const placeholder = document.getElementById("video-placeholder");
   const btnOk = document.getElementById("btn-ok");
@@ -47,6 +47,8 @@ function stopButton() {
   document.getElementById("btn-stop").style.display = "none";
   document.getElementById("status").innerText = "Stopped";
   document.getElementById("video-source").disabled = false;
+
+  stopCamera();
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Stopped");
@@ -64,11 +66,7 @@ function stopButton() {
 
   window.notificationEnabled = false;
 
-  // alert("123" + window.voiceAlertEnabled + window.notificationEnabled);
-
-  // Stop calling detectFrame()
-
-  // Stop calling fetchAndDetect()
+  alert("123" + window.voiceAlertEnabled + window.notificationEnabled);
 
   if (video) {
     video.pause();
@@ -84,6 +82,37 @@ function stopButton() {
   }
 
   if (placeholder) placeholder.style.display = "block";
+}
+
+// =========================================//
+function stopCamera() {
+  alert("StopCamera");
+
+  // Stop calling detectFrame() by cancelling the animation frame
+  if (window.animationId) {
+    cancelAnimationFrame(window.animationId);
+    window.animationId = null;
+  }
+
+  // Stop the camera stream
+  if (window.cameraStream) {
+    window.cameraStream.getTracks().forEach((track) => track.stop());
+    window.cameraStream = null;
+  }
+
+  // Reset the video element
+  const video = document.getElementById("video");
+  if (video) {
+    video.srcObject = null;
+    video.pause();
+  }
+
+  // Reset the canvas element
+  const canvas = document.getElementById("canvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
 }
 
 // =========================================//
