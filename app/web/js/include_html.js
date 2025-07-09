@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
       .then((data) => {
         el.innerHTML = data;
 
+        //==========================================//
         // Attach handler after include
         if (el.id === "group-frame-source") {
           const select = el.querySelector("#video-source");
@@ -59,8 +60,18 @@ document.addEventListener("DOMContentLoaded", function () {
           localStorage.getItem("volumeSliderStatusValue") || 50;
         if (typeof setVolumeSliderStatusValue === "function")
           setVolumeSliderStatusValue(volumeSliderStatusValue);
-      })
 
+        //==========================================//
+        // Notification mode
+        const notificationMode =
+          localStorage.getItem("notificationMode") || "off";
+        if (typeof setNotificationMode === "function")
+          setNotificationMode(notificationMode);
+
+        //==========================================//
+
+        //==========================================//
+      })
       .catch(() => {
         el.innerHTML = "<p>Failed to load content.</p>";
       });

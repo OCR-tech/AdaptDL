@@ -45,37 +45,14 @@ window.addEventListener("DOMContentLoaded", function () {
     .load()
     .then(function (loadedModel) {
       model = loadedModel;
-      initUI();
-      initSystem();
-      requestCameraPermission(); // Request camera permission
-      requestMicrophonePermission(); // Request microphone permission
-      requestLocationPermission(); // Request location permission
-      requestNotificationPermission(); // Request notification permission
-      listAllCameras();
 
-      // Enable buttons and switches
-      [
-        "theme-switch",
-        "screen-switch",
-        "source-switch",
-        "video-source",
-        "btn-start",
-        "btn-stop",
-        "btn-command",
-        "btn-voice",
-        "btn-settings",
-        "btn-pause",
-        "btn-capture",
-        "btn-overlay1",
-        "btn-overlay2",
-        "btn-record",
-        "btn-mute",
-        "btn-unmute",
-        "btn-reset",
-      ].forEach((id) => {
-        const el = document.getElementById(id);
-        if (el) el.disabled = false;
-      });
+      initSystem();
+      // requestCameraPermission(); // Request camera permission
+      // requestMicrophonePermission(); // Request microphone permission
+      // requestLocationPermission(); // Request location permission
+      // requestNotificationPermission(); // Request notification permission
+      // listAllCameras();
+      initUI();
 
       document.getElementById("status").innerText = "Ready!";
     })
@@ -85,32 +62,38 @@ window.addEventListener("DOMContentLoaded", function () {
 });
 
 // =========================================//
-function initUI() {
-  // alert("InitializeUI");
-  // document.getElementById("video-source").disabled = true;
-  // document.getElementById("voice-command-switch").disabled = true;
-  // document.getElementById("voice-alert-switch").disabled = true;
-  // document.getElementById("voice-status-switch").disabled = true;
-  // document.getElementById("volume-slider-command").disabled = true;
-  // document.getElementById("volume-slider-alert").disabled = true;
-  // document.getElementById("volume-slider-status").disabled = true;
-  console.log("UI initialized");
+function initSystem() {
+  // alert("InitializeSystem");
+  console.log("Initializing system");
 }
 
 // =========================================//
-function initSystem() {
-  // alert("InitializeSystem");
+function initUI() {
+  // alert("InitializeUI");
 
-  // Check if the browser supports getUserMedia
-  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-    document.getElementById("status").innerText = "Camera access is supported.";
-    // requestCameraPermission(); // Request camera permission
-  } else {
-    document.getElementById("status").innerText =
-      "Camera access is not supported by your browser.";
-    alert("Camera access is not supported by your browser.");
-    return;
-  }
+  // Enable buttons and switches
+  [
+    "theme-switch",
+    "screen-switch",
+    "source-switch",
+    "video-source",
+    "btn-start",
+    "btn-stop",
+    "btn-command",
+    "btn-voice",
+    "btn-settings",
+    "btn-pause",
+    "btn-capture",
+    "btn-overlay1",
+    "btn-overlay2",
+    "btn-record",
+    "btn-mute",
+    "btn-unmute",
+    "btn-reset",
+  ].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) el.disabled = false;
+  });
 }
 
 // =========================================//
@@ -149,7 +132,6 @@ function requestMicrophonePermission() {
 function requestLocationPermission() {
   // alert("RequestingLocationPermission");
 
-  // Check if geolocation is supported
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       function (position) {
@@ -196,7 +178,7 @@ flag_videoSource0 = false; // Integrated camera
 flag_videoSource1 = false; // USB camera
 // =========================================//
 function listAllCameras() {
-  alert("listAllCameras");
+  // alert("listAllCameras");
 
   navigator.mediaDevices
     .enumerateDevices()
@@ -210,10 +192,10 @@ function listAllCameras() {
         videoInputs.forEach((input) => {
           if (input.label.includes("Integrated")) {
             flag_videoSource0 = true;
-            alert("Integrated camera found: " + input.label);
+            // alert("Integrated camera found: " + input.label);
           } else if (input.label.includes("USB")) {
             flag_videoSource1 = true;
-            alert("USB camera found: " + input.label);
+            // alert("USB camera found: " + input.label);
           }
         });
       }
