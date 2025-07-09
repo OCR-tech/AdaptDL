@@ -62,13 +62,24 @@ document.addEventListener("DOMContentLoaded", function () {
           setVolumeSliderStatusValue(volumeSliderStatusValue);
 
         //==========================================//
+        // Datetime mode
+        const datetimeMode = localStorage.getItem("datetimeMode") || "off";
+        if (typeof setDatetimeMode === "function")
+          setDatetimeMode(datetimeMode);
+
+        //==========================================//
+        // GPS Location mode
+        const gpsLocationMode =
+          localStorage.getItem("gpsLocationMode") || "off";
+        if (typeof setGPSLocationMode === "function")
+          setGPSLocationMode(gpsLocationMode);
+
+        //==========================================//
         // Notification mode
         const notificationMode =
           localStorage.getItem("notificationMode") || "off";
         if (typeof setNotificationMode === "function")
           setNotificationMode(notificationMode);
-
-        //==========================================//
 
         //==========================================//
       })
