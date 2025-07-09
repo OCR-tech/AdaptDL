@@ -1,15 +1,22 @@
-window.voiceAlertEnabled = true;
-window.showDateTimeOverlay = true;
-window.showGPSLocation = true;
-
 // =========================================//
 function detectFrame() {
   if (!model || !video || video.paused || video.ended) {
     return;
   }
   model.detect(video).then(function (predictions) {
+    // Check for object detection
+
+    // Voice alert for object detection
     if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
+      // alert(window.voiceAlertEnabled);
       playVoiceAlert("Object detected.");
+    }
+
+    // Notification for object detection
+    if (predictions && predictions.length > 0 && window.notificationEnabled) {
+      const objectNames = predictions.map((p) => p.class).join(", ");
+      // alert("Object detected: " + objectNames);
+      notifyDetection(objectNames);
     }
 
     // Draw predictions on the canvas

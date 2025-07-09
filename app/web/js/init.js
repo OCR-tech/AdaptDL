@@ -77,6 +77,7 @@ function initUI() {
     "screen-switch",
     "source-switch",
     "video-source",
+    "video-unit",
     "btn-start",
     "btn-stop",
     "btn-command",

@@ -10,11 +10,22 @@ document.addEventListener("DOMContentLoaded", function () {
         //==========================================//
         // Attach handler after include
         if (el.id === "group-frame-source") {
-          const select = el.querySelector("#video-source");
-          if (select && typeof updateVideoSource === "function") {
-            select.onchange = updateVideoSource;
+          const selectVideo = el.querySelector("#video-source");
+          const selectUnit = el.querySelector("#video-unit");
+
+          if (selectVideo && typeof updateVideoSource === "function") {
+            selectVideo.onchange = updateVideoSource;
+          }
+          if (selectUnit && typeof updateVideoUnit === "function") {
+            selectUnit.onchange = updateVideoUnit;
           }
         }
+
+        //==================== Video Unit ======================//
+        window.voiceAlertEnabled = true;
+        window.notificationEnabled = true;
+        window.showDateTimeOverlay = true;
+        window.showGPSLocation = true;
 
         //==========================================//
         // source mode

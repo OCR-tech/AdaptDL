@@ -9,6 +9,9 @@ function startButton() {
   const videoSource = document.getElementById("video-source").value;
 
   window.voiceAlertEnabled = true;
+  window.notificationEnabled = true;
+
+  // alert("123" + window.voiceAlertEnabled + window.notificationEnabled);
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Start");
@@ -34,6 +37,8 @@ function startButton() {
 
 // =========================================//
 function stopButton() {
+  // alert("StopButton");
+
   const placeholder = document.getElementById("video-placeholder");
   const btnOk = document.getElementById("btn-ok");
   // const videoSourceStatus = document.getElementById("video-source");
@@ -41,6 +46,7 @@ function stopButton() {
   document.getElementById("btn-start").style.display = "inline-block";
   document.getElementById("btn-stop").style.display = "none";
   document.getElementById("status").innerText = "Stopped";
+  document.getElementById("video-source").disabled = false;
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Stopped");
@@ -51,11 +57,14 @@ function stopButton() {
   // btnVoice.classList.remove("active");
   // btnSettings.classList.remove("active");
   btnOk.disabled = false; // Disable the OK button after setting the URL
-  document.getElementById("video-source").disabled = false;
 
   // Stop calling playVoiceAlert()
   window.voiceAlertEnabled = false;
   // window.speechSynthesis.cancel();
+
+  window.notificationEnabled = false;
+
+  // alert("123" + window.voiceAlertEnabled + window.notificationEnabled);
 
   // Stop calling detectFrame()
 

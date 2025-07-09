@@ -17,10 +17,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 // =========================================//
 function toggleNotification() {
-  alert("toggleNotification");
+  // alert("toggleNotification");
   const notificationSwitch = document.getElementById("notification-switch");
   if (!notificationSwitch) return;
-  window.notificationEnabled = !notificationSwitch.checked; // Toggle the global notification flag
+  window.notificationEnabled = notificationSwitch.checked; // Toggle the global notification flag
   // Save the toggle state to localStorage
   localStorage.setItem(
     "notificationMode",
@@ -28,38 +28,40 @@ function toggleNotification() {
   );
 }
 
-// // =========================================//
-// // Show a browser notification when an object is detected
-// function notifyOnObjectDetection(objectName) {
-//   if (!window.notificationEnabled) return;
-
-//   // Check if Notification API is supported
-//   if (!("Notification" in window)) {
-//     console.warn("This browser does not support desktop notification");
-//     return;
-//   }
-
-//   const title = "Object Detected";
-//   const body = objectName
-//     ? `Detected: ${objectName}`
-//     : "An object has been detected.";
-
-//   if (Notification.permission === "granted") {
-//     new Notification(title, { body: body });
-//   } else if (Notification.permission !== "denied") {
-//     Notification.requestPermission().then(function (permission) {
-//       if (permission === "granted") {
-//         new Notification(title, { body: body });
-//       }
-//     });
-//   }
-// }
-
 // =========================================//
 function setNotificationMode(mode) {
   const notificationSwitch = document.getElementById("notification-switch");
   if (notificationSwitch) {
     notificationSwitch.checked = mode === "on";
     notificationSwitch.dispatchEvent(new Event("change"));
+  }
+}
+
+// =========================================//
+// Show a browser notification when an object is detected
+function notifyDetection(objectName) {
+  // alert("notifyDetection: " + objectName);
+
+  if (!window.notificationEnabled) return;
+
+  // Check if Notification API is supported
+  if (!("Notification" in window)) {
+    console.warn("This browser does not support desktop notification");
+    return;
+  }
+
+  const title = "Object Detected";
+  const body = objectName
+    ? `Detected: ${objectName}`
+    : "An object has been detected.";
+
+  if (Notification.permission === "granted") {
+    new Notification(title, { body: body });
+  } else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(function (permission) {
+      if (permission === "granted") {
+        new Notification(title, { body: body });
+      }
+    });
   }
 }
