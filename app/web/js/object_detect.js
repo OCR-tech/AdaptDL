@@ -31,6 +31,17 @@ function detectFrame() {
     }
 
     //=========================================//
+    // Check if motion detection is enabled
+    if (
+      predictions &&
+      predictions.length > 0 &&
+      window.motionDetectionEnabled
+    ) {
+      // alert("Motion detection enabled");
+      console.log("Motion detection enabled");
+    }
+
+    //=========================================//
     // Draw predictions on the canvas
     drawPredictions(predictions);
     animationId = requestAnimationFrame(detectFrame);

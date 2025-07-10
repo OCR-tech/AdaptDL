@@ -70,6 +70,7 @@ function initSystem() {
   window.notificationEnabled = true;
   window.showDateTimeOverlay = true;
   window.showGPSLocation = true;
+  window.motionDetectionEnabled = true;
 
   // console.log("Initializing system");
 }

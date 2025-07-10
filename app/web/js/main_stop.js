@@ -1,0 +1,79 @@
+// =========================================//
+function stopButton() {
+  alert("StopButton");
+
+  const placeholder = document.getElementById("video-placeholder");
+  const btnOk = document.getElementById("btn-ok");
+  // const videoSourceStatus = document.getElementById("video-source");
+
+  document.getElementById("btn-start").style.display = "inline-block";
+  document.getElementById("btn-stop").style.display = "none";
+  document.getElementById("status").innerText = "Stopped";
+  document.getElementById("video-source").disabled = false;
+
+  stopCamera();
+
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Stopped");
+  }
+
+  // Set all buttons to inactive
+  // btnCommand.classList.remove("active");
+  // btnVoice.classList.remove("active");
+  // btnSettings.classList.remove("active");
+  btnOk.disabled = false; // Disable the OK button after setting the URL
+
+  // Stop calling playVoiceAlert()
+  window.voiceAlertEnabled = false;
+  // window.speechSynthesis.cancel();
+
+  window.notificationEnabled = false;
+
+  alert("123" + window.voiceAlertEnabled + window.notificationEnabled);
+
+  if (video) {
+    video.pause();
+    if (video.srcObject) {
+      video.srcObject.getTracks().forEach((track) => track.stop());
+    }
+    video.remove();
+    video = null;
+  }
+  if (canvas) {
+    canvas.remove();
+    canvas = null;
+  }
+
+  if (placeholder) placeholder.style.display = "block";
+}
+
+// =========================================//
+function stopCamera() {
+  alert("StopCamera");
+
+  // Stop calling detectFrame() by cancelling the animation frame
+  if (window.animationId) {
+    cancelAnimationFrame(window.animationId);
+    window.animationId = null;
+  }
+
+  // Stop the camera stream
+  if (window.cameraStream) {
+    window.cameraStream.getTracks().forEach((track) => track.stop());
+    window.cameraStream = null;
+  }
+
+  // Reset the video element
+  const video = document.getElementById("video");
+  if (video) {
+    video.srcObject = null;
+    video.pause();
+  }
+
+  // Reset the canvas element
+  const canvas = document.getElementById("canvas");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+}
