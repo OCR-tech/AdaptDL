@@ -4,7 +4,9 @@ function toggleVoiceCommand() {
   const volumeSliderCommand = document.getElementById("volume-slider-command");
 
   if (window.voiceStatusEnabled) {
-    playVoiceStatus("Voice Command");
+    playVoiceStatus(
+      "Voice Command " + (voiceCommandSwitch.checked ? "On" : "Off")
+    );
   }
 
   if (voiceCommandSwitch && volumeSliderCommand) {

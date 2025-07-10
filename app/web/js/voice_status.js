@@ -9,7 +9,9 @@ function toggleVoiceStatus() {
   window.voiceStatusEnabled = voiceStatusSwitch && voiceStatusSwitch.checked;
 
   if (window.voiceStatusEnabled) {
-    playVoiceStatus("Voice Status");
+    playVoiceStatus(
+      "Voice Status " + (voiceStatusSwitch.checked ? "On" : "Off")
+    );
   }
 
   if (voiceStatusSwitch && volumeSliderStatus) {
@@ -88,18 +90,21 @@ function setVolumeSliderStatusValue(value) {
 
 // =========================================//
 document.getElementById("source-switch").onclick = function () {
+  const sourceSwitch = document.getElementById("source-switch");
   if (window.voiceStatusEnabled) {
-    playVoiceStatus("Source");
+    playVoiceStatus("Source" + (sourceSwitch.checked ? "On" : "Off"));
   }
 };
 document.getElementById("screen-switch").onclick = function () {
+  const screenSwitch = document.getElementById("screen-switch");
   if (window.voiceStatusEnabled) {
-    playVoiceStatus("Screen");
+    playVoiceStatus((screenSwitch.checked ? "Full" : "Normal") + " Screen");
   }
 };
 document.getElementById("theme-switch").onclick = function () {
+  const themeSwitch = document.getElementById("theme-switch");
   if (window.voiceStatusEnabled) {
-    playVoiceStatus("Theme");
+    playVoiceStatus((themeSwitch.checked ? "Dark" : "Light ") + "Theme");
   }
 };
 // =========================================//

@@ -1,11 +1,12 @@
 // =========================================//
 function toggleVoiceAlert() {
-  alert("toggleVoiceAlert");
+  // alert("toggleVoiceAlert");
+
   const voiceAlertSwitch = document.getElementById("voice-alert-switch");
   const volumeSliderAlert = document.getElementById("volume-slider-alert");
 
   if (window.voiceStatusEnabled) {
-    playVoiceStatus("Voice Alert");
+    playVoiceStatus("Voice Alert " + (voiceAlertSwitch.checked ? "On" : "Off"));
   }
 
   if (voiceAlertSwitch && volumeSliderAlert) {
