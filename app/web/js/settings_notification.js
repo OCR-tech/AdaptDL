@@ -21,6 +21,12 @@ function toggleNotification() {
   const notificationSwitch = document.getElementById("notification-switch");
   if (!notificationSwitch) return;
   window.notificationEnabled = notificationSwitch.checked; // Toggle the global notification flag
+
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus(
+      "Notification " + (window.notificationEnabled ? "On" : "Off")
+    );
+  }
   // Save the toggle state to localStorage
   localStorage.setItem(
     "notificationMode",

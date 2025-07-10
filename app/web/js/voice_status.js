@@ -119,5 +119,3 @@ document.getElementById("btn-settings").onclick = function () {
     playVoiceStatus("Settings");
   }
 };
-
-// =========================================//

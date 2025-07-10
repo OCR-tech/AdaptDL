@@ -39,6 +39,10 @@ function toggleGPS() {
   const gpsSwitch = document.getElementById("gps-switch");
   const gpsLabel = document.getElementById("gps-label");
 
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("GPS Location " + (gpsSwitch.checked ? "On" : "Off"));
+  }
+
   if (gpsSwitch) {
     window.showGPSLocation = gpsSwitch.checked;
     localStorage.setItem("gpsLocationMode", gpsSwitch.checked ? "on" : "off");
@@ -46,7 +50,7 @@ function toggleGPS() {
     // display the label with current GPS location
     if (window.showGPSLocation) {
       if (gpsLabel) {
-        gpsLabel.style.display = "block";
+        gpsLabel.style.display = "inline-block";
         updateGPSlocation(cachedGPS.latitude, cachedGPS.longitude);
       }
     } else {

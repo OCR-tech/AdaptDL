@@ -5,6 +5,10 @@ function toggleLineInput() {
   const lineInput = document.getElementById("line-user");
   const btnOkLine = document.getElementById("btn-ok-line");
 
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("LINE Alert " + (lineAlertSwitch.checked ? "On" : "Off"));
+  }
+
   if (lineAlertSwitch && lineAlertSwitch.checked) {
     if (lineInput) lineInput.style.display = "inline-block";
     if (btnOkLine) btnOkLine.style.display = "inline-block";

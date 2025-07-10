@@ -20,6 +20,10 @@ function toggleDateTime() {
   const dateTimeLabel = document.getElementById("datetime-label");
   const dateTimeSwitch = document.getElementById("datetime-switch");
 
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("DateTime " + (dateTimeSwitch.checked ? "On" : "Off"));
+  }
+
   if (dateTimeSwitch) {
     window.showDateTimeOverlay = dateTimeSwitch.checked;
     localStorage.setItem("datetimeMode", dateTimeSwitch.checked ? "on" : "off");
@@ -27,7 +31,7 @@ function toggleDateTime() {
     // display the label with current date and time
     if (window.showDateTimeOverlay) {
       if (dateTimeLabel) {
-        dateTimeLabel.style.display = "block";
+        dateTimeLabel.style.display = "inline-block";
         updateDateTime();
       }
     } else {

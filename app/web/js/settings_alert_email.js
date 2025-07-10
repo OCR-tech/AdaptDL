@@ -5,6 +5,10 @@ function toggleEmailInput() {
   const emailInput = document.getElementById("email-user");
   const btnOkEmail = document.getElementById("btn-ok-email");
 
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("Email Alert " + (emailAlertSwitch.checked ? "On" : "Off"));
+  }
+
   if (emailAlertSwitch && emailAlertSwitch.checked) {
     if (emailInput) emailInput.style.display = "inline-block";
     if (btnOkEmail) btnOkEmail.style.display = "inline-block";

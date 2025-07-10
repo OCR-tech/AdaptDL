@@ -446,10 +446,11 @@ input {
 }
 .controls-section .btn-ok-settings {
   display: none;
-  font-size: 0.65em;
+  font-size: 0.8em;
   height: 30px;
   padding: 0px;
   margin: 0px;
+  gap: 0px;
 }
 
 .settings-row label {

@@ -5,6 +5,10 @@ function toggleSmsInput() {
   const smsInput = document.getElementById("sms-user");
   const btnOkSms = document.getElementById("btn-ok-sms");
 
+  if (window.voiceStatusEnabled) {
+    playVoiceStatus("SMS Alert " + (smsAlertSwitch.checked ? "On" : "Off"));
+  }
+
   if (smsAlertSwitch && smsAlertSwitch.checked) {
     if (smsInput) smsInput.style.display = "inline-block";
     if (btnOkSms) btnOkSms.style.display = "inline-block";

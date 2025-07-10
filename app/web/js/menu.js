@@ -1,5 +1,3 @@
-// let animationId = null;
-
 // =========================================//
 function startButton() {
   alert("StartButton");
