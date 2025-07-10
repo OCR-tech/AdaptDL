@@ -87,6 +87,17 @@ document.addEventListener("DOMContentLoaded", function () {
           setNotificationMode(notificationMode);
 
         //==========================================//
+        // Motion Detection mode
+        const motionDetectionMode =
+          localStorage.getItem("motionDetectionMode") || "off";
+        if (typeof setMotionDetectionMode === "function")
+          setMotionDetectionMode(motionDetectionMode);
+
+        //==========================================//
+
+        //==========================================//
+
+        //==========================================//
       })
       .catch(() => {
         el.innerHTML = "<p>Failed to load content.</p>";
