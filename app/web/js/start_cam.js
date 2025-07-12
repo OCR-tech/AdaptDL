@@ -3,7 +3,6 @@
 // =========================================//
 function startIntegratedCamera() {
   // alert("StartingIntegratedCamera");
-  window.runDetectionLoop = true; // Start the detection loop
 
   navigator.mediaDevices
     .enumerateDevices()
@@ -95,7 +94,6 @@ function startIntegratedCamera() {
 // =========================================//
 function startUSBCamera() {
   // alert("StartingUSBCamera");
-  window.runDetectionLoop = true; // Start the detection loop
 
   navigator.mediaDevices
     .enumerateDevices()
@@ -266,7 +264,6 @@ function startUSBCamera() {
 // =========================================//
 function startIPCamera(ipCameraUrl) {
   alert("StartingIPCamera");
-  window.runDetectionLoop = true; // Start the detection loop
 
   // function startIPCamera(ipCameraUrl) {
   document.getElementById("status").innerText = "Starting IP Camera...";
@@ -344,8 +341,6 @@ function startIPCamera(ipCameraUrl) {
 
 // =========================================//
 function startStream(ipCameraUrl) {
-  window.runDetectionLoop = true; // Start the detection loop
-
   document.getElementById("status").innerText = "Starting Streaming Video...";
 
   // Clean up previous video/canvas if any
@@ -404,8 +399,6 @@ function startStream(ipCameraUrl) {
 function startVideo(filePath) {
   // alert("StartVideo");
   // alert("StartVideo: " + filePath);
-  window.runDetectionLoop = true; // Start the detection loop
-
   document.getElementById("status").innerText = "Starting Video file...";
 
   // Clean up previous video/canvas if any

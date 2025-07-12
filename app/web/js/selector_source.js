@@ -131,7 +131,8 @@ function CheckIntegratedCamera() {
     btnStop.disabled = false; // enable the stop button
     btnCommand.disabled = false; // enable the command button
     btnVoice.disabled = false; // enable the voice button
-    startIntegratedCamera();
+    // startIntegratedCamera();
+    startButton();
   } else {
     console.error("Built-in camera not available.");
     return;
@@ -155,7 +156,8 @@ function CheckUSBCamera() {
     btnStop.disabled = false; // enable the stop button
     btnCommand.disabled = false; // enable the command button
     btnVoice.disabled = false; // enable the voice button
-    startUSBCamera();
+    // startUSBCamera();
+    startButton();
   } else {
     console.error("USB camera not available.");
     return;
@@ -353,7 +355,9 @@ function browseVideoFile() {
       btnVoice.disabled = false; // Enable the voice button
       btnOk.disabled = true; // Disable the OK button
       CheckVideo(file); // Call the function to check the video file format
-      startVideo(window.selectedVideoFilePath); // Play the selected video file
+      startButton();
+
+      // startVideo(window.selectedVideoFilePath); // Play the selected video file
     } else {
       document.getElementById("status").innerText = "No file selected.";
       window.selectedVideoFilePath = null;

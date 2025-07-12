@@ -51,7 +51,7 @@ function notifyDetection(objectName) {
   if (!window.notificationEnabled) return;
 
   // Check if Notification API is supported
-  if (!("Notification" in window)) {
+  if (typeof Notification === "undefined") {
     console.warn("This browser does not support desktop notification");
     return;
   }
@@ -64,10 +64,18 @@ function notifyDetection(objectName) {
   if (Notification.permission === "granted") {
     new Notification(title, { body: body });
   } else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then(function (permission) {
-      if (permission === "granted") {
-        new Notification(title, { body: body });
-      }
-    });
+    Notification.requestPermission()
+      .then(function (permission) {
+        if (permission === "granted") {
+          new Notification(title, { body: body });
+        } else {
+          console.warn("Notification permission denied.");
+        }
+      })
+      .catch(function (err) {
+        console.error("Notification permission request failed:", err);
+      });
+  } else {
+    console.warn("Notification permission denied.");
   }
 }

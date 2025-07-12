@@ -43,30 +43,30 @@ function detectFrame() {
     //   console.log("Motion detection enabled");
     // }
 
-      //=========================================//
-      // Check if sound detection is enabled
-      // if (window.soundDetectionEnabled) {
-      //   // alert("Sound detection enabled");
-      //   // Call the sound detection function
-      //   const soundSensitivity =
-      //     parseInt(localStorage.getItem("soundSensitivity")) || 30;
-      //   prevSamples = prevSamples || new Float32Array(0);
-      //   currSamples = currSamples || new Float32Array(0);
-      //   const soundLevel = detectSoundLevel(
-      //     prevSamples,
-      //     currSamples,
-      //     soundSensitivity
-      //   );
+    //=========================================//
+    // Check if sound detection is enabled
+    // if (window.soundDetectionEnabled) {
+    //   // alert("Sound detection enabled");
+    //   // Call the sound detection function
+    //   const soundSensitivity =
+    //     parseInt(localStorage.getItem("soundSensitivity")) || 30;
+    //   prevSamples = prevSamples || new Float32Array(0);
+    //   currSamples = currSamples || new Float32Array(0);
+    //   const soundLevel = detectSoundLevel(
+    //     prevSamples,
+    //     currSamples,
+    //     soundSensitivity
+    //   );
 
-      //   if (soundLevel) {
-      //     alert("Sound detected");
-      //     playVoiceAlert("Sound detected");
-      //   }
-      // }
+    //   if (soundLevel) {
+    //     alert("Sound detected");
+    //     playVoiceAlert("Sound detected");
+    //   }
+    // }
 
-      //=========================================//
+    //=========================================//
 
-      //=========================================//											
+    //=========================================//
     //=========================================//
     // Draw predictions on the canvas
     drawPredictions(predictions);
@@ -91,7 +91,7 @@ function drawPredictions(predictions) {
   }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   predictions.forEach(function (prediction) {
-  // ===========================================//	
+    // ===========================================//
     // Draw bounding box
     ctx.strokeStyle = "#00FFFF";
     ctx.lineWidth = 2;
@@ -116,13 +116,13 @@ function drawPredictions(predictions) {
     );
   });
 
-  // ===========================================//												  
+  // ===========================================//
   // Draw date and time overlay
   if (window.showDateTimeOverlay) {
     displayDateTime();
   }
 
-// ===========================================//			  
+  // ===========================================//
   // Draw GPS location overlay if enabled
   if (
     window.showGPSLocation &&

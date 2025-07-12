@@ -9,7 +9,6 @@ function startButton() {
   const videoSource = document.getElementById("video-source").value;
 
   window.runDetectionLoop = true; // Start the detection loop
-
   window.voiceAlertEnabled = true;
   window.notificationEnabled = true;
 

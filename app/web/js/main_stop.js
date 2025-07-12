@@ -11,6 +11,13 @@ function stopButton() {
   document.getElementById("status").innerText = "Stopped";
   document.getElementById("video-source").disabled = false;
 
+  // Set all buttons to inactive
+  // btnCommand.classList.remove("active");
+  // btnVoice.classList.remove("active");
+  // btnSettings.classList.remove("active");
+  btnOk.disabled = false; // Disable the OK button after setting the URL
+
+  //=========================================//
   window.runDetectionLoop = false; // Stop the detection loop
   stopCamera();
   cancelAnimationFrame(window.animationId);
@@ -23,18 +30,11 @@ function stopButton() {
     window.speechSynthesis.cancel();
   }
 
-  // Set all buttons to inactive
-  // btnCommand.classList.remove("active");
-  // btnVoice.classList.remove("active");
-  // btnSettings.classList.remove("active");
-  btnOk.disabled = false; // Disable the OK button after setting the URL
-
-  // Stop calling playVoiceAlert()
+  //=========================================//
   window.voiceAlertEnabled = false;
-  // window.speechSynthesis.cancel();
-
   window.notificationEnabled = false;
 
+  //=========================================//
   if (video) {
     video.pause();
     if (video.srcObject) {
