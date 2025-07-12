@@ -77,14 +77,27 @@ function setMotionSensitivity(value) {
 }
 
 // =========================================//
+// Function to update motion detection status
 function updateMotionDetection() {
   // alert("updateMotionDetection");
+  const video = document.getElementById("usb-camera-stream"); // or "video"
+  const canvas = document.getElementById("overlay"); // or "canvas"
+  const motionSwitch = document.getElementById("motion-switch");
+  if (!video || !canvas) return;
 
-  const canvas = document.getElementById("canvas");
-  const video = document.getElementById("video");
-  if (!canvas || !video) return;
+  // alert("updateMotionDetection: " + video.videoWidth + "x" + video.videoHeight);
 
-  // Ensure canvas size matches video
+  // Only run if motion detection is enabled
+  if (motionSwitch && !motionSwitch.checked) {
+    document.getElementById("status").innerText = "Motion detection off";
+    return;
+  }
+
+  if (video.videoWidth === 0 || video.videoHeight === 0) {
+    document.getElementById("status").innerText = "Video not loaded.";
+    return;
+  }
+
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
 
@@ -95,7 +108,7 @@ function updateMotionDetection() {
   window.prevFrame = window.currFrame || currFrame;
   window.currFrame = currFrame;
 
-  const threshold = parseInt(localStorage.getItem("motionSensitivity")) || 30;
+  const threshold = parseInt(localStorage.getItem("motionSensitivity")) || 80;
 
   const motionDetected = detectObjectMotion(
     window.prevFrame,
@@ -105,10 +118,13 @@ function updateMotionDetection() {
     threshold
   );
 
+  // set voicealert if motion is detected
   if (motionDetected) {
-    document.getElementById("status").innerText = "Motion detected!";
+    // alert("Motion detected");
+    // setVoiceAlert("Motion detected");
+    document.getElementById("status").innerText = " Motion detected!";
   } else {
-    document.getElementById("status").innerText = "No motion.";
+    document.getElementById("status").innerText = " No motion detected.";
   }
 }
 
@@ -118,9 +134,9 @@ function detectObjectMotion(
   currFrame,
   width,
   height,
-  threshold = 30
+  threshold = 50
 ) {
-  alert("detectObjectMotion called");
+  // alert("detectObjectMotion");
   if (!prevFrame || !currFrame) return false;
 
   let motionPixels = 0;
@@ -140,8 +156,5 @@ function detectObjectMotion(
     }
   }
 
-  return motionPixels / totalPixels > 0.02;
+  return motionPixels / totalPixels > 0.05;
 }
-
-// Start the detection loop
-setInterval(updateMotionDetection, 200);

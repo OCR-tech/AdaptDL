@@ -38,7 +38,12 @@ function detectFrame() {
     // Check if motion detection is enabled
     if (window.motionDetectionEnabled) {
       // alert("Motion detection enabled");
+      // updateMotionDetection();
       setInterval(updateMotionDetection, 200); // every 200ms
+      // const video = document.getElementById("video");
+      // video.onloadedmetadata = function () {
+      //   setInterval(updateMotionDetection, 200);
+      // };
     }
 
     //=========================================//
