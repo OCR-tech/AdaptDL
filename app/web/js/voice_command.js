@@ -1,6 +1,7 @@
 // =========================================//
 function toggleVoiceCommand() {
-  alert("Toggling voice command");								  
+  alert("toggleVoiceCommand");
+
   const voiceCommandSwitch = document.getElementById("voice-command-switch");
   const volumeSliderCommand = document.getElementById("volume-slider-command");
 
@@ -14,9 +15,9 @@ function toggleVoiceCommand() {
     volumeSliderCommand.disabled = !voiceCommandSwitch.checked;
     window.voiceCommandEnabled = voiceCommandSwitch.checked;
 
-    // if (voiceCommandSwitch.checked) {
-    //   voiceCommand();
-    // }															
+    if (voiceCommandSwitch.checked) {
+      voiceCommand();
+    }
 
     localStorage.setItem(
       "voiceCommandMode",
@@ -31,8 +32,11 @@ function updateValueCommand(val) {
   document.getElementById("volume-value-command").textContent = val;
 
   // change the volume of the user microphone input based on the slider value
-  if (typeof window.microphoneVolume !== "undefined") {
-    window.microphoneVolume = Math.max(0, Math.min(1, val / 100));
+  if (window.speechSynthesis && window.speechSynthesis.speaking) {
+    const utter = new SpeechSynthesisUtterance();
+    utter.volume = Math.max(0, Math.min(1, val / 100));
+    window.speechSynthesis.cancel(); // Stop any ongoing speech
+    window.speechSynthesis.speak(utter); // Speak with the new volume
   }
 }
 
@@ -67,20 +71,39 @@ function setVolumeSliderCommandValue(value) {
 }
 
 // =========================================//
-function voiceCommand() {
-	//   alert("Voice command");
-	
-  // Example command handling logic
-  if (commandText.includes("volume")) {
-    const volumeLevel = extractVolumeLevel(commandText);
-    setVolume(volumeLevel);
+function extractVolumeLevel(commandText) {
+  alert("extractVolumeLevel: " + commandText);
+  // Extract volume level from command text
+  const match = commandText.match(/volume\s*(?:to\s*)?(\d+)/i);
+  if (match && match[1]) {
+    const volume = parseInt(match[1], 10);
+    return Math.max(0, Math.min(100, volume)); // Ensure volume is between 0 and 100
   }
+  return null; // No valid volume level found
+}
+
+// =========================================//
+function setVolume(val) {
+  if (val === null) return; // Ignore invalid volume
+  alert("Setting volume to: " + val);
+  document.getElementById("volume-slider-command").value = val;
+  document.getElementById("volume-value-command").textContent = val;
+}
+
+// =========================================//
+function voiceCommand() {
+  alert("Voice command");
 
   setVoiceCommand(function (commandText) {
     // Handle the recognized command here
     console.log("Recognized command:", commandText);
 
-    // You can trigger actions based on commandText
+    if (commandText.includes("volume")) {
+      const volumeLevel = extractVolumeLevel(commandText);
+      setVolume(volumeLevel);
+    }
+
+    // You can trigger other actions based on commandText
   });
 }
 
@@ -91,9 +114,8 @@ function voiceCommand() {
  * @param {function} onCommand - Callback to handle recognized command text.
  */
 function setVoiceCommand(onCommand) {
-	//   alert("setVoiceCommand");
-	
-	
+  alert("setVoiceCommand");
+
   // Check for browser support
   const SpeechRecognition =
     window.SpeechRecognition || window.webkitSpeechRecognition;
