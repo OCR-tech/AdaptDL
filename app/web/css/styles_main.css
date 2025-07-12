@@ -227,7 +227,7 @@ input {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  min-height: 200px;
+  min-height: 100px;
 }
 .video-feed span {
   position: absolute;
@@ -476,12 +476,6 @@ input {
   border-radius: 6px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-#video-feed {
-  width: 100%;
-  height: 320px;
-  display: flex;
-  gap: 8px;
 }
 
 /*==================*/

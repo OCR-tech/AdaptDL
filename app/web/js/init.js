@@ -65,12 +65,15 @@ window.addEventListener("DOMContentLoaded", function () {
 function initSystem() {
   // alert("InitializeSystem");
 
+  window.runDetectionLoop = false;
+  window.voiceCommandEnabled = true;
   window.voiceAlertEnabled = true;
   window.emailAlertEnabled = true;
   window.notificationEnabled = true;
   window.showDateTimeOverlay = true;
   window.showGPSLocation = true;
   window.motionDetectionEnabled = true;
+  window.soundDetectionEnabled = true;
 
   // console.log("Initializing system");
 }

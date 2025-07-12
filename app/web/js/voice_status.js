@@ -71,6 +71,7 @@ function setVoiceStatusMode(mode) {
   }
 }
 
+// =========================================//
 function setVolumeSliderStatusValue(value) {
   const voiceStatusSwitch = document.getElementById("voice-status-switch");
   const volumeSliderStatus = document.getElementById("volume-slider-status");

@@ -1,6 +1,6 @@
 // =========================================//
 function stopButton() {
-  alert("StopButton");
+  // alert("StopButton");
 
   const placeholder = document.getElementById("video-placeholder");
   const btnOk = document.getElementById("btn-ok");
@@ -11,10 +11,16 @@ function stopButton() {
   document.getElementById("status").innerText = "Stopped";
   document.getElementById("video-source").disabled = false;
 
+  window.runDetectionLoop = false; // Stop the detection loop
   stopCamera();
+  cancelAnimationFrame(window.animationId);
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Stopped");
+  }
+
+  if (window.voiceAlertEnabled) {
+    window.speechSynthesis.cancel();
   }
 
   // Set all buttons to inactive
@@ -28,8 +34,6 @@ function stopButton() {
   // window.speechSynthesis.cancel();
 
   window.notificationEnabled = false;
-
-  alert("123" + window.voiceAlertEnabled + window.notificationEnabled);
 
   if (video) {
     video.pause();
@@ -49,13 +53,7 @@ function stopButton() {
 
 // =========================================//
 function stopCamera() {
-  alert("StopCamera");
-
-  // Stop calling detectFrame() by cancelling the animation frame
-  if (window.animationId) {
-    cancelAnimationFrame(window.animationId);
-    window.animationId = null;
-  }
+  // alert("StopCamera");
 
   // Stop the camera stream
   if (window.cameraStream) {

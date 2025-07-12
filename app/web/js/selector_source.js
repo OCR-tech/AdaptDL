@@ -248,8 +248,6 @@ function okSourceCamera() {
     CheckStream(); // Validate the stream URL format
   }
 
-  alert("123");
-
   if (
     ipCameraUrl === "192.168.30.139:4747" ||
     ipCameraUrl === "192.168.30.139:8080" ||

@@ -1,6 +1,6 @@
 // =========================================//
 function startButton() {
-  alert("StartButton");
+  // alert("StartButton");
 
   // document.getElementById("status").innerText = "Start";
   document.getElementById("btn-start").style.display = "none";
@@ -8,10 +8,10 @@ function startButton() {
 
   const videoSource = document.getElementById("video-source").value;
 
+  window.runDetectionLoop = true; // Start the detection loop
+
   window.voiceAlertEnabled = true;
   window.notificationEnabled = true;
-
-  alert("123" + window.voiceAlertEnabled + window.notificationEnabled);
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Start");

@@ -1,29 +1,12 @@
 // =========================================//
-document.addEventListener("DOMContentLoaded", function () {
-  const motionSwitch = document.getElementById("motion-switch");
-  const motionSensitivitySlider = document.getElementById("motion-sensitivity");
-  if (!motionSwitch) return;
-
-  // Set the switch state from localStorage
-  motionSwitch.checked = localStorage.getItem("motionMode") === "on";
-
-  // Set initial overlay state
-  window.motionDetectionEnabled = motionSwitch.checked;
-
-  // Set initial sensitivity value
-  const initialSensitivity = localStorage.getItem("motionSensitivity") || 30;
-  setMotionSensitivity(initialSensitivity);
-
-  // Add event listener
-  motionSwitch.addEventListener("change", toggleMotionDetection);
-});
-
-// =========================================//
 function toggleMotionDetection() {
   // alert("toggleMotionDetection");
 
   const motionSwitch = document.getElementById("motion-switch");
-  const motionSensitivitySlider = document.getElementById("motion-sensitivity");
+  const motionSensitivitySlider = document.getElementById(
+    "motion-sensitivity-slider"
+  );
+
   if (!motionSwitch || !motionSensitivitySlider) return;
 
   if (window.voiceStatusEnabled) {
@@ -32,12 +15,27 @@ function toggleMotionDetection() {
     );
   }
 
-  if (motionSwitch) {
-    window.motionDetectionEnabled = motionSwitch.checked;
-    // Set the sensitivity slider enabled/disabled based on motion detection state
-    motionSensitivitySlider.disabled = !motionSwitch.checked;
-    localStorage.setItem("motionMode", motionSwitch.checked ? "on" : "off");
+  // Enable/disable motion sensitivity slider based on motion detection switch
+  motionSensitivitySlider.disabled = !motionSwitch.checked;
+
+  // Save motion detection mode and sensitivity to localStorage
+  localStorage.setItem(
+    "motionDetectionMode",
+    motionSwitch.checked ? "on" : "off"
+  );
+  localStorage.setItem("motionSensitivity", motionSensitivitySlider.value);
+}
+
+// =========================================//
+function updateMotionSensitivity(val) {
+  const slider = document.getElementById("motion-sensitivity-slider");
+  if (slider) {
+    slider.value = val;
   }
+
+  // Change the motion detection sensitivity based on the slider value
+  window.motionSensitivity = Math.max(1, Math.min(100, val));
+  localStorage.setItem("motionSensitivity", window.motionSensitivity);
 }
 
 // =========================================//
@@ -45,15 +43,27 @@ function setMotionDetectionMode(mode) {
   // alert("setMotionDetectionMode: " + mode);
 
   const motionSwitch = document.getElementById("motion-switch");
-  if (motionSwitch) {
+  const motionSensitivitySlider = document.getElementById(
+    "motion-sensitivity-slider"
+  );
+
+  if (motionSwitch && motionSensitivitySlider) {
+    // Set the switch state
     motionSwitch.checked = mode === "on";
     motionSwitch.dispatchEvent(new Event("change"));
+    // Set the sensitivity slider enabled/disabled based on motion detection state
+    motionSensitivitySlider.disabled = mode !== "on";
+    // Set the sensitivity value
+    const sensitivityValue = localStorage.getItem("motionSensitivity") || 30;
+    motionSensitivitySlider.value = sensitivityValue;
   }
 }
 
 // =========================================//
 function setMotionSensitivity(value) {
-  const motionSensitivitySlider = document.getElementById("motion-sensitivity");
+  const motionSensitivitySlider = document.getElementById(
+    "motion-sensitivity-slider"
+  );
   if (!motionSensitivitySlider) return;
 
   // Set the slider value

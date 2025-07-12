@@ -93,6 +93,23 @@ document.addEventListener("DOMContentLoaded", function () {
         if (typeof setMotionDetectionMode === "function")
           setMotionDetectionMode(motionDetectionMode);
 
+        const volumeSliderMotionDetectionValue =
+          localStorage.getItem("volumeSliderMotionDetectionValue") || 50;
+        if (typeof setVolumeSliderMotionDetectionValue === "function")
+          setVolumeSliderMotionDetectionValue(volumeSliderMotionDetectionValue);
+
+        //==========================================//
+        // Sound Detection mode
+        const soundDetectionMode =
+          localStorage.getItem("soundDetectionMode") || "off";
+        if (typeof setSoundDetectionMode === "function")
+          setSoundDetectionMode(soundDetectionMode);
+
+        const soundSensitivityValue =
+          localStorage.getItem("soundSensitivityValue") || 50;
+        if (typeof setSoundSensitivityValue === "function")
+          setSoundSensitivityValue(soundSensitivityValue);
+
         //==========================================//
 
         //==========================================//

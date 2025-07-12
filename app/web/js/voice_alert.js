@@ -12,7 +12,7 @@ function toggleVoiceAlert() {
   if (voiceAlertSwitch && volumeSliderAlert) {
     volumeSliderAlert.disabled = !voiceAlertSwitch.checked;
     window.voiceAlertEnabled = voiceAlertSwitch.checked;
-    // window.speechSynthesis.cancel();
+    window.speechSynthesis.cancel();
 
     localStorage.setItem(
       "voiceAlertMode",
@@ -23,7 +23,7 @@ function toggleVoiceAlert() {
 }
 
 // =========================================//
-function playVoiceAlert(message = "Object detected") {
+function setVoiceAlert(message = "Object detected") {
   // Check the global flag before playing
   // if (
   //   typeof window.voiceAlertEnabled !== "undefined" &&
@@ -67,6 +67,7 @@ function setVoiceAlertMode(mode) {
   }
 }
 
+// =========================================//
 function setVolumeSliderAlertValue(value) {
   const voiceAlertSwitch = document.getElementById("voice-alert-switch");
   const volumeSliderAlert = document.getElementById("volume-slider-alert");
@@ -81,3 +82,12 @@ function setVolumeSliderAlertValue(value) {
   // Optionally trigger input event if needed
   volumeSliderAlert.dispatchEvent(new Event("input"));
 }
+
+// =========================================//
+function speak(text) {
+  if ("speechSynthesis" in window) {
+    const utter = new SpeechSynthesisUtterance(text);
+    window.speechSynthesis.speak(utter);
+  }
+}
+// Call speak("Command received") after a command is recognized.

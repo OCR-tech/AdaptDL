@@ -1,5 +1,7 @@
 // =========================================//
 function detectFrame() {
+  // alert("DetectFrame");
+
   if (!model || !video || video.paused || video.ended) {
     return;
   }
@@ -11,7 +13,7 @@ function detectFrame() {
     // Voice alert for object detection
     if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
       // alert(window.voiceAlertEnabled);
-      playVoiceAlert("Object detected");
+      setVoiceAlert("Object detected");
     }
 
     //=========================================//
@@ -32,19 +34,47 @@ function detectFrame() {
 
     //=========================================//
     // Check if motion detection is enabled
-    if (
-      predictions &&
-      predictions.length > 0 &&
-      window.motionDetectionEnabled
-    ) {
-      // alert("Motion detection enabled");
-      console.log("Motion detection enabled");
-    }
+    // if (
+    //   predictions &&
+    //   predictions.length > 0 &&
+    //   window.motionDetectionEnabled
+    // ) {
+    //   // alert("Motion detection enabled");
+    //   console.log("Motion detection enabled");
+    // }
 
+      //=========================================//
+      // Check if sound detection is enabled
+      // if (window.soundDetectionEnabled) {
+      //   // alert("Sound detection enabled");
+      //   // Call the sound detection function
+      //   const soundSensitivity =
+      //     parseInt(localStorage.getItem("soundSensitivity")) || 30;
+      //   prevSamples = prevSamples || new Float32Array(0);
+      //   currSamples = currSamples || new Float32Array(0);
+      //   const soundLevel = detectSoundLevel(
+      //     prevSamples,
+      //     currSamples,
+      //     soundSensitivity
+      //   );
+
+      //   if (soundLevel) {
+      //     alert("Sound detected");
+      //     playVoiceAlert("Sound detected");
+      //   }
+      // }
+
+      //=========================================//
+
+      //=========================================//											
     //=========================================//
     // Draw predictions on the canvas
     drawPredictions(predictions);
-    animationId = requestAnimationFrame(detectFrame);
+
+    if (window.runDetectionLoop) {
+      // Request the next animation frame
+      window.animationId = requestAnimationFrame(detectFrame);
+    }
   });
 }
 
@@ -61,6 +91,7 @@ function drawPredictions(predictions) {
   }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   predictions.forEach(function (prediction) {
+  // ===========================================//	
     // Draw bounding box
     ctx.strokeStyle = "#00FFFF";
     ctx.lineWidth = 2;
@@ -85,11 +116,13 @@ function drawPredictions(predictions) {
     );
   });
 
+  // ===========================================//												  
   // Draw date and time overlay
   if (window.showDateTimeOverlay) {
     displayDateTime();
   }
 
+// ===========================================//			  
   // Draw GPS location overlay if enabled
   if (
     window.showGPSLocation &&
