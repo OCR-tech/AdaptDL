@@ -108,6 +108,7 @@ function updateMotionDetection() {
   window.prevFrame = window.currFrame || currFrame;
   window.currFrame = currFrame;
 
+  // higher value means less sensitive
   const threshold = parseInt(localStorage.getItem("motionSensitivity")) || 80;
 
   const motionDetected = detectObjectMotion(
@@ -156,5 +157,6 @@ function detectObjectMotion(
     }
   }
 
-  return motionPixels / totalPixels > 0.05;
+  // higher value means less sensitive
+  return motionPixels / totalPixels > 0.5;
 }
