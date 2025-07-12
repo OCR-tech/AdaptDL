@@ -77,7 +77,42 @@ function setMotionSensitivity(value) {
 }
 
 // =========================================//
-// Basic object motion detection function
+function updateMotionDetection() {
+  // alert("updateMotionDetection");
+
+  const canvas = document.getElementById("canvas");
+  const video = document.getElementById("video");
+  if (!canvas || !video) return;
+
+  // Ensure canvas size matches video
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+  const currFrame = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+
+  window.prevFrame = window.currFrame || currFrame;
+  window.currFrame = currFrame;
+
+  const threshold = parseInt(localStorage.getItem("motionSensitivity")) || 30;
+
+  const motionDetected = detectObjectMotion(
+    window.prevFrame,
+    window.currFrame,
+    canvas.width,
+    canvas.height,
+    threshold
+  );
+
+  if (motionDetected) {
+    document.getElementById("status").innerText = "Motion detected!";
+  } else {
+    document.getElementById("status").innerText = "No motion.";
+  }
+}
+
+// =========================================//
 function detectObjectMotion(
   prevFrame,
   currFrame,
@@ -85,15 +120,13 @@ function detectObjectMotion(
   height,
   threshold = 30
 ) {
-  // prevFrame and currFrame are Uint8ClampedArray (from canvas ImageData.data)
-  // Returns true if motion is detected, false otherwise
+  alert("detectObjectMotion called");
+  if (!prevFrame || !currFrame) return false;
 
   let motionPixels = 0;
   const totalPixels = width * height;
 
   for (let i = 0; i < totalPixels * 4; i += 4) {
-    // Calculate grayscale difference for each pixel
-
     const prevGray =
       0.299 * prevFrame[i] +
       0.587 * prevFrame[i + 1] +
@@ -107,6 +140,8 @@ function detectObjectMotion(
     }
   }
 
-  // If more than 2% of pixels have changed, consider it motion
   return motionPixels / totalPixels > 0.02;
 }
+
+// Start the detection loop
+setInterval(updateMotionDetection, 200);

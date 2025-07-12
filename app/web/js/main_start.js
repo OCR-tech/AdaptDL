@@ -11,6 +11,7 @@ function startButton() {
   window.runDetectionLoop = true; // Start the detection loop
   window.voiceAlertEnabled = true;
   window.notificationEnabled = true;
+  window.motionDetectionEnabled = true;
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Start");

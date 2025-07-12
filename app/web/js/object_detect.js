@@ -36,14 +36,10 @@ function detectFrame() {
 
     //=========================================//
     // Check if motion detection is enabled
-    // if (
-    //   predictions &&
-    //   predictions.length > 0 &&
-    //   window.motionDetectionEnabled
-    // ) {
-    //   // alert("Motion detection enabled");
-    //   console.log("Motion detection enabled");
-    // }
+    if (window.motionDetectionEnabled) {
+      // alert("Motion detection enabled");
+      setInterval(updateMotionDetection, 200); // every 200ms
+    }
 
     //=========================================//
     // Check if sound detection is enabled
