@@ -1,6 +1,6 @@
 // =========================================//
 function toggleVoiceCommand() {
-  alert("toggleVoiceCommand");
+  // alert("toggleVoiceCommand");
 
   const voiceCommandSwitch = document.getElementById("voice-command-switch");
   const volumeSliderCommand = document.getElementById("volume-slider-command");
@@ -92,7 +92,7 @@ function setVolume(val) {
 
 // =========================================//
 function voiceCommand() {
-  alert("Voice command");
+  // alert("Voice command");
 
   setVoiceCommand(function (commandText) {
     // Handle the recognized command here
@@ -114,7 +114,7 @@ function voiceCommand() {
  * @param {function} onCommand - Callback to handle recognized command text.
  */
 function setVoiceCommand(onCommand) {
-  alert("setVoiceCommand");
+  // alert("setVoiceCommand");
 
   // Check for browser support
   const SpeechRecognition =

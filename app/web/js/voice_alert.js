@@ -24,14 +24,6 @@ function toggleVoiceAlert() {
 
 // =========================================//
 function setVoiceAlert(message = "Object detected") {
-  // Check the global flag before playing
-  // if (
-  //   typeof window.voiceAlertEnabled !== "undefined" &&
-  //   !window.voiceAlertEnabled
-  // ) {
-  //   return; // Do not play if disabled
-  // }
-
   const voiceAlertSwitch = document.getElementById("voice-alert-switch");
   const volumeSliderAlert = document.getElementById("volume-slider-alert");
 
@@ -42,6 +34,11 @@ function setVoiceAlert(message = "Object detected") {
     }
     window.speechSynthesis.speak(utter);
   }
+}
+
+// =========================================//
+function stopVoiceAlert() {
+  window.speechSynthesis.cancel();
 }
 
 // =========================================//

@@ -10,10 +10,12 @@ function detectFrame() {
     const objectNames = predictions.map((p) => p.class).join(", ");
 
     //=========================================//
-    // Voice alert for object detection
     if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
-      // alert(window.voiceAlertEnabled);
       setVoiceAlert("Object detected");
+    } else {
+      if (window.voiceAlertEnabled) {
+        stopVoiceAlert();
+      }
     }
 
     //=========================================//
