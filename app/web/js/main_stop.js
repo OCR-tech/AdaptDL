@@ -28,7 +28,7 @@ function stopButton() {
   }
 
   if (window.voiceAlertEnabled) {
-    window.speechSynthesis.cancel();
+    window.speechSynthesis.cancel(); // Stop any ongoing speech
   }
 
   //=========================================//
