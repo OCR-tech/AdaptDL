@@ -6,7 +6,7 @@ function detectFrame() {
     return;
   }
   model.detect(video).then(function (predictions) {
-    // Check for object detection
+    // Object detection
     const objectNames = predictions.map((p) => p.class).join(", ");
 
     //=========================================//
@@ -19,7 +19,7 @@ function detectFrame() {
     }
 
     //=========================================//
-    // Email alert for object detection
+    // Email alert
     if (predictions && predictions.length > 0 && window.emailAlertEnabled) {
       // alert("sendEmailAlert: " + objectNames);
       console.log("sendEmailAlert: " + objectNames);
@@ -28,14 +28,14 @@ function detectFrame() {
     }
 
     //=========================================//
-    // Notification for object detection
+    // Notification
     if (predictions && predictions.length > 0 && window.notificationEnabled) {
       // alert("Object detected: " + objectNames);
       notifyDetection(objectNames);
     }
 
     //=========================================//
-    // Check if motion detection is enabled
+    // Motion detection
     // if (window.motionDetectionEnabled) {
     //   // alert("Motion detection enabled");
     //   // setupMotionDetectionInterval();
@@ -44,7 +44,7 @@ function detectFrame() {
     // }
 
     //=========================================//
-    // Check if sound detection is enabled
+    // Sound detection
     // if (window.soundDetectionEnabled) {
     //   // alert("Sound detection enabled");
     //   // Call the sound detection function
@@ -65,13 +65,13 @@ function detectFrame() {
     // }
 
     //=========================================//
-    // Check if fire detection is enabled
-    // if (window.fireDetectionEnabled) {
-    //   // alert("Fire detection enabled");
-    //   // setupFireDetectionInterval();
-    //   // updateFireDetection();
-    //   setInterval(updateFireDetection, 200); // every 200ms
-    // }
+    // Fire detection
+    if (window.fireDetectionEnabled) {
+      // alert("Fire detection enabled");
+      // setupFireDetectionInterval();
+      // updateFireDetection();
+      setInterval(updateFireDetection, 200); // every 200ms
+    }
 
     //=========================================//
 

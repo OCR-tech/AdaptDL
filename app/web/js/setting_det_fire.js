@@ -74,10 +74,12 @@ function updateFireDetection() {
   // const video = document.getElementById("video-feed");
   const video = document.getElementById("video-file-player");
   const canvas = document.getElementById("overlay");
-
   const fireSwitch = document.getElementById("fire-switch");
   if (!video || !canvas) return;
 
+  // alert(video.videoWidth + " + " + video.videoHeight);
+
+  // Check if video is loaded
   // Only run if fire detection is enabled
   if (fireSwitch && !fireSwitch.checked) {
     document.getElementById("status").innerText = "Fire detection off";
@@ -91,6 +93,7 @@ function updateFireDetection() {
 
   canvas.width = video.videoWidth;
   canvas.height = video.videoHeight;
+  // alert(canvas.width + " + " + canvas.height);
 
   const ctx = canvas.getContext("2d");
   ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -100,7 +103,7 @@ function updateFireDetection() {
   window.currFrame = currFrame;
 
   // higher value means less sensitive
-  const threshold = parseInt(localStorage.getItem("fireSensitivity")) || 80;
+  const threshold = parseInt(localStorage.getItem("fireSensitivity")) || 25;
 
   const fireDetected = detectFire(
     window.prevFrame,
@@ -125,6 +128,8 @@ function detectFire(prevFrame, currFrame, width, height, threshold = 50) {
 
   let firePixels = 0;
   const totalPixels = width * height;
+  // alert(width + " + " + height);
+  // alert("totalPixels:", totalPixels);
 
   for (let i = 0; i < totalPixels * 4; i += 4) {
     const r = currFrame[i];
@@ -134,6 +139,7 @@ function detectFire(prevFrame, currFrame, width, height, threshold = 50) {
     // Fire color detection: high R, moderate G, low B
     const isFireColor =
       r > 150 && g > 50 && g < 200 && b < 100 && r > g && g > b;
+    // r > 150 && g > 50 && g < 200 && b < 100 && r > g && g > b;
 
     // Intensity change detection (optional, can be removed)
     const prevIntensity = prevFrame[i] + prevFrame[i + 1] + prevFrame[i + 2];
@@ -145,6 +151,8 @@ function detectFire(prevFrame, currFrame, width, height, threshold = 50) {
     }
   }
 
+  // alert("firePixels:" + firePixels + "totalPixels:" + totalPixels);
+
   // higher value means less sensitive
-  return firePixels / totalPixels > 0.01;
+  return firePixels / totalPixels > 0.002;
 }
