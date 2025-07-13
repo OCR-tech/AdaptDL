@@ -36,12 +36,12 @@ function detectFrame() {
 
     //=========================================//
     // Check if motion detection is enabled
-    if (window.motionDetectionEnabled) {
-      // alert("Motion detection enabled");
-
-      updateMotionDetection();
-      // setInterval(updateMotionDetection, 200); // every 200ms
-    }
+    // if (window.motionDetectionEnabled) {
+    //   // alert("Motion detection enabled");
+    //   // setupMotionDetectionInterval();
+    //   // updateMotionDetection();
+    //   setInterval(updateMotionDetection, 200); // every 200ms
+    // }
 
     //=========================================//
     // Check if sound detection is enabled
@@ -65,10 +65,22 @@ function detectFrame() {
     // }
 
     //=========================================//
+    // Check if fire detection is enabled
+    // if (window.fireDetectionEnabled) {
+    //   // alert("Fire detection enabled");
+    //   // setupFireDetectionInterval();
+    //   // updateFireDetection();
+    //   setInterval(updateFireDetection, 200); // every 200ms
+    // }
 
     //=========================================//
+
     //=========================================//
     // Draw predictions on the canvas
+    // alert("Model loaded:", model);
+    // alert("Video playing:", !video.paused && !video.ended);
+    // alert("Video size:", video.videoWidth, video.videoHeight);
+    // alert("Predictions:", predictions);
     drawPredictions(predictions);
 
     if (window.runDetectionLoop) {

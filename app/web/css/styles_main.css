@@ -227,7 +227,7 @@ input {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  min-height: 100px;
+  min-height: 150px;
 }
 .video-feed span {
   position: absolute;

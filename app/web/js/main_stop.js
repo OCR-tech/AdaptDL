@@ -18,6 +18,7 @@ function stopButton() {
   btnOk.disabled = false; // Disable the OK button after setting the URL
 
   window.motionDetectionEnabled = false;
+  window.fireDetectionEnabled = false;
   //=========================================//
   window.runDetectionLoop = false; // Stop the detection loop
   stopCamera();

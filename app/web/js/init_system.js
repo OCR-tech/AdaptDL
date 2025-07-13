@@ -74,6 +74,7 @@ function initSystem() {
   window.showGPSLocation = true;
   window.motionDetectionEnabled = true;
   window.soundDetectionEnabled = true;
+  window.fireDetectionEnabled = true;
 
   // console.log("Initializing system");
 }

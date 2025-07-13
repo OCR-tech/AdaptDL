@@ -80,8 +80,11 @@ function setMotionSensitivity(value) {
 // Function to update motion detection status
 function updateMotionDetection() {
   // alert("updateMotionDetection");
-  const video = document.getElementById("usb-camera-stream"); // or "video"
-  const canvas = document.getElementById("overlay"); // or "canvas"
+  const video = document.getElementById("video-file-player");
+  // const video = document.getElementById("usb-camera-stream");
+
+  const canvas = document.getElementById("overlay");
+
   const motionSwitch = document.getElementById("motion-switch");
   if (!video || !canvas) return;
 
@@ -158,5 +161,5 @@ function detectObjectMotion(
   }
 
   // higher value means less sensitive
-  return motionPixels / totalPixels > 0.5;
+  return motionPixels / totalPixels > 0.05;
 }

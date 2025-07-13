@@ -12,6 +12,7 @@ function startButton() {
   window.voiceAlertEnabled = true;
   window.notificationEnabled = true;
   window.motionDetectionEnabled = true;
+  window.fireDetectionEnabled = true;
 
   if (window.voiceStatusEnabled) {
     playVoiceStatus("Start");

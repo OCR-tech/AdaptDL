@@ -111,6 +111,20 @@ document.addEventListener("DOMContentLoaded", function () {
           setSoundSensitivityValue(soundSensitivityValue);
 
         //==========================================//
+        // Fire Detection mode
+        const fireDetectionMode =
+          localStorage.getItem("fireDetectionMode") || "off";
+        if (typeof setFireDetectionMode === "function")
+          setFireDetectionMode(fireDetectionMode);
+
+        const fireSensitivityValue =
+          localStorage.getItem("fireSensitivityValue") || 50;
+        if (typeof setFireSensitivityValue === "function")
+          setFireSensitivityValue(fireSensitivityValue);
+
+        //==========================================//
+
+        //==========================================//
 
         //==========================================//
 
