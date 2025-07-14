@@ -2,6 +2,7 @@
 // Video source selection
 function updateVideoSource() {
   // alert("updateVideoSource");
+  stopCamera();
 
   const videoSource = document.getElementById("video-source").value;
   const btnStart = document.getElementById("btn-start");

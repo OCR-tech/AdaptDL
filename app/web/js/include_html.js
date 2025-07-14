@@ -80,6 +80,13 @@ document.addEventListener("DOMContentLoaded", function () {
           setGPSLocationMode(gpsLocationMode);
 
         //==========================================//
+        // Video Size mode
+        const videoSizeMode =
+          localStorage.getItem("videoSizeMode") || "default";
+        if (typeof setVideoSizeMode === "function")
+          setVideoSizeMode(videoSizeMode);
+
+        //==========================================//
         // Notification mode
         const notificationMode =
           localStorage.getItem("notificationMode") || "off";

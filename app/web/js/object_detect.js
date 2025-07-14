@@ -7,6 +7,42 @@ function detectFrame() {
   }
   model.detect(video).then(function (predictions) {
     // Object detection
+
+    //=========================================//
+    // Motion detection
+    if (window.motionDetectionEnabled) {
+      // alert("Motion detection enabled");
+      // setupMotionDetectionInterval();
+      // updateMotionDetection();
+      setInterval(updateMotionDetection, 200); // every 200ms
+    }
+
+    //=========================================//
+    // Draw predictions on the canvas
+    // alert("Model loaded:" + model);
+    // alert("Video playing:" + (!video.paused && !video.ended));
+    // alert("Video size:" + video.videoWidth + "x" + video.videoHeight);
+    // alert("Predictions:" + predictions);
+    drawPredictions(predictions);
+
+    if (window.runDetectionLoop) {
+      // Request the next animation frame
+      window.animationId = requestAnimationFrame(detectFrame);
+    }
+
+    //=========================================//
+  });
+}
+
+// =========================================//
+function detectFastFrame() {
+  // alert("DetectFastFrame");
+
+  if (!model || !video || video.paused || video.ended) {
+    return;
+  }
+  model.detect(video).then(function (predictions) {
+    // Object detection
     const objectNames = predictions.map((p) => p.class).join(", ");
 
     //==========================================//
@@ -17,13 +53,13 @@ function detectFrame() {
     // }
 
     //=========================================//
-    if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
-      setVoiceAlert("Object detected");
-    } else {
-      if (window.voiceAlertEnabled) {
-        stopVoiceAlert();
-      }
-    }
+    // if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
+    //   setVoiceAlert("Object detected");
+    // } else {
+    //   if (window.voiceAlertEnabled) {
+    //     stopVoiceAlert();
+    //   }
+    // }
 
     //=========================================//
     // Email alert
@@ -43,12 +79,12 @@ function detectFrame() {
 
     //=========================================//
     // Motion detection
-    // if (window.motionDetectionEnabled) {
-    //   // alert("Motion detection enabled");
-    //   // setupMotionDetectionInterval();
-    //   // updateMotionDetection();
-    //   setInterval(updateMotionDetection, 200); // every 200ms
-    // }
+    if (window.motionDetectionEnabled) {
+      // alert("Motion detection enabled");
+      // setupMotionDetectionInterval();
+      // updateMotionDetection();
+      setInterval(updateMotionDetection, 200); // every 200ms
+    }
 
     //=========================================//
     // Sound detection
@@ -73,12 +109,12 @@ function detectFrame() {
 
     //=========================================//
     // Fire detection
-    if (window.fireDetectionEnabled) {
-      // alert("Fire detection enabled");
-      // setupFireDetectionInterval();
-      // updateFireDetection();
-      setInterval(updateFireDetection, 200); // every 200ms
-    }
+    // if (window.fireDetectionEnabled) {
+    //   // alert("Fire detection enabled");
+    //   // setupFireDetectionInterval();
+    //   // updateFireDetection();
+    //   setInterval(updateFireDetection, 200); // every 200ms
+    // }
 
     //=========================================//
 
@@ -146,11 +182,17 @@ function drawPredictions(predictions) {
   // ===========================================//
   // Draw GPS location overlay if enabled
   if (
-    window.showGPSLocation &&
+    window.showGPSLocationOverlay &&
     cachedGPS.latitude !== null &&
     cachedGPS.longitude !== null
   ) {
     displayGPSlocation(cachedGPS.latitude, cachedGPS.longitude);
+  }
+
+  // ===========================================//
+  // Draw video size overlay
+  if (window.showVideoSizeOverlay) {
+    displayVideoSize();
   }
 }
 

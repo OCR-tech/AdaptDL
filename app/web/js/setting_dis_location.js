@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", function () {
   gpsSwitch.checked = localStorage.getItem("gpsLocationMode") === "true";
 
   // Set initial GPS location mode
-  window.showGPSLocation = gpsSwitch.checked;
+  window.showGPSLocationOverlay = gpsSwitch.checked;
 
   // Add event listener
   gpsSwitch.addEventListener("change", toggleGPS);
@@ -44,11 +44,11 @@ function toggleGPS() {
   }
 
   if (gpsSwitch) {
-    window.showGPSLocation = gpsSwitch.checked;
+    window.showGPSLocationOverlay = gpsSwitch.checked;
     localStorage.setItem("gpsLocationMode", gpsSwitch.checked ? "on" : "off");
 
     // display the label with current GPS location
-    if (window.showGPSLocation) {
+    if (window.showGPSLocationOverlay) {
       if (gpsLabel) {
         gpsLabel.style.display = "inline-block";
         updateGPSlocation(cachedGPS.latitude, cachedGPS.longitude);
@@ -93,6 +93,7 @@ function displayGPSlocation(latitude, longitude) {
   ctx.font = "20px Arial";
   ctx.fillStyle = "rgba(0,0,0,0.5)";
   const textWidth = ctx.measureText(gpsString).width;
+
   // Draw background rectangle below the date/time
   const padding = 8;
   const textHeight = 24;

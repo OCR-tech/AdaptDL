@@ -71,7 +71,8 @@ function initSystem() {
   window.emailAlertEnabled = true;
   window.notificationEnabled = true;
   window.showDateTimeOverlay = true;
-  window.showGPSLocation = true;
+  window.showGPSLocationOverlay = true;
+  window.showVideoSizeOverlay = true;
   window.motionDetectionEnabled = true;
   window.soundDetectionEnabled = true;
   window.fireDetectionEnabled = true;

@@ -36,20 +36,6 @@ function stopButton() {
   window.voiceAlertEnabled = false;
   window.notificationEnabled = false;
 
-  //=========================================//
-  if (video) {
-    video.pause();
-    if (video.srcObject) {
-      video.srcObject.getTracks().forEach((track) => track.stop());
-    }
-    video.remove();
-    video = null;
-  }
-  if (canvas) {
-    canvas.remove();
-    canvas = null;
-  }
-
   if (placeholder) placeholder.style.display = "block";
 }
 
@@ -75,5 +61,19 @@ function stopCamera() {
   if (canvas) {
     const ctx = canvas.getContext("2d");
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
+  //=========================================//
+  if (video) {
+    video.pause();
+    if (video.srcObject) {
+      video.srcObject.getTracks().forEach((track) => track.stop());
+    }
+    video.remove();
+    video = null;
+  }
+  if (canvas) {
+    canvas.remove();
+    canvas = null;
   }
 }

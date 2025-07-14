@@ -62,6 +62,7 @@ function displayDateTime() {
   // ctx.font = "16px Arial";
   ctx.font = "20px Arial";
   ctx.fillStyle = "rgba(0,0,0,0.5)";
+
   // Draw background rectangle for better readability
   const textWidth = ctx.measureText(dateTimeString).width;
   ctx.fillRect(8, 8, textWidth + 8, 24);
