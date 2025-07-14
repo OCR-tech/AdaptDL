@@ -87,6 +87,13 @@ document.addEventListener("DOMContentLoaded", function () {
           setVideoSizeMode(videoSizeMode);
 
         //==========================================//
+        // Framerate mode
+        const framerateMode =
+          localStorage.getItem("framerateMode") || "default";
+        if (typeof setFramerateMode === "function")
+          setFramerateMode(framerateMode);
+
+        //==========================================//
         // Notification mode
         const notificationMode =
           localStorage.getItem("notificationMode") || "off";

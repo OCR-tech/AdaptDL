@@ -48,7 +48,7 @@ function toggleVideoSize() {
 
 // =========================================//
 function updateVideoSizeLabel() {
-  // alert("UpdateVideoSizeLabel");
+  alert("UpdateVideoSizeLabel");
 
   const videoSizeSwitch = document.getElementById("video-size-switch");
   const videoSizeLabel = document.getElementById("video-size-label");
@@ -59,17 +59,17 @@ function updateVideoSizeLabel() {
   if (!videoSizeSwitch.checked) {
     videoSizeLabel.style.display = "none";
     videoSizeLabel.textContent = "";
-    return;
+    // return;
   } else {
     videoSizeLabel.style.display = "inline-block";
 
     if (!video) {
       videoSizeLabel.textContent = "WxH: N/A";
-      return;
+      // return;
     } else {
       videoSizeLabel.textContent =
         "WxH: " + video.videoWidth + "x" + video.videoHeight;
-      return;
+      // return;
     }
   }
 }

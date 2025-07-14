@@ -73,6 +73,7 @@ function initSystem() {
   window.showDateTimeOverlay = true;
   window.showGPSLocationOverlay = true;
   window.showVideoSizeOverlay = true;
+  window.showFramerateOverlay = true;
   window.motionDetectionEnabled = true;
   window.soundDetectionEnabled = true;
   window.fireDetectionEnabled = true;
@@ -111,6 +112,8 @@ function initUI() {
 
   document.getElementById("video-size-label").style.display = "inline-block";
   document.getElementById("video-size-label").textContent = "WxH: N/A";
+  document.getElementById("frame-rate-label").style.display = "inline-block";
+  document.getElementById("frame-rate-label").textContent = "FPS: N/A";
 }
 
 // =========================================//

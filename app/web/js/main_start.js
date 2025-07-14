@@ -1,6 +1,7 @@
 // =========================================//
 function startButton() {
   // alert("StartButton");
+  stopCamera();
 
   // document.getElementById("status").innerText = "Start";
   document.getElementById("btn-start").style.display = "none";
@@ -8,8 +9,7 @@ function startButton() {
 
   const videoSource = document.getElementById("video-source").value;
 
-  // updateVideoSizeLabel();
-
+  // ==============================//
   window.runDetectionLoop = true; // Start the detection loop
   window.voiceAlertEnabled = true;
   window.notificationEnabled = true;
@@ -34,4 +34,25 @@ function startButton() {
   } else if (videoSource === "video") {
     startVideo(window.selectedVideoFilePath);
   }
+
+  // Update video size display with current size in Settings
+  // updateLabelSettings();
+  // updateFramerateLabel();
+}
+
+// ==============================//
+function updateLabelSettings() {
+  const video =
+    document.getElementById("video") ||
+    document.getElementById("camera-stream") ||
+    document.getElementById("usb-camera-stream") ||
+    document.querySelector("video");
+  const label = document.getElementById("video-size-label");
+
+  // alert("video" + video);
+
+  if (!video || !label) return;
+
+  label.textContent = `Video Size: ${video.videoWidth} x ${video.videoHeight}`;
+  label.style.display = "inline-block";
 }

@@ -194,6 +194,12 @@ function drawPredictions(predictions) {
   if (window.showVideoSizeOverlay) {
     displayVideoSize();
   }
+
+  // ===========================================//
+  // Draw framerate overlay
+  if (window.showFramerateOverlay) {
+    displayFramerate();
+  }
 }
 
 // // =========================================//

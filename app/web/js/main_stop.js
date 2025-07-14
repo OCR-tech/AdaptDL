@@ -54,26 +54,68 @@ function stopButton() {
 }
 
 // =========================================//
-function stopCamera() {
-  // alert("StopCamera");
+// function stopCamera() {
+//   // alert("StopCamera");
 
+//   // Stop the camera stream
+//   if (window.cameraStream) {
+//     window.cameraStream.getTracks().forEach((track) => track.stop());
+//     window.cameraStream = null;
+//   }
+
+//   // Reset the video element
+//   const video = document.getElementById("video");
+//   if (video) {
+//     video.srcObject = null;
+//     video.pause();
+//   }
+
+//   // Reset the canvas element
+//   const canvas = document.getElementById("canvas");
+//   if (canvas) {
+//     const ctx = canvas.getContext("2d");
+//     ctx.clearRect(0, 0, canvas.width, canvas.height);
+//   }
+// }
+
+// =========================================//
+function stopCamera() {
   // Stop the camera stream
   if (window.cameraStream) {
     window.cameraStream.getTracks().forEach((track) => track.stop());
     window.cameraStream = null;
   }
 
-  // Reset the video element
-  const video = document.getElementById("video");
-  if (video) {
-    video.srcObject = null;
-    video.pause();
-  }
+  // Reset all possible video elements
+  // const videoIds = ["camera", "camera_usb", "camera_ip", "stream", "video"];
+  const videoIds = [
+    "video",
+    "camera-stream",
+    "usb-camera-stream",
+    "stream-player",
+    "video-file-player",
+  ];
 
-  // Reset the canvas element
-  const canvas = document.getElementById("canvas");
-  if (canvas) {
-    const ctx = canvas.getContext("2d");
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-  }
+  videoIds.forEach((id) => {
+    const video = document.getElementById(id);
+    if (video) {
+      // If the video element has a srcObject, stop its tracks
+      if (video.srcObject && typeof video.srcObject.getTracks === "function") {
+        video.srcObject.getTracks().forEach((track) => track.stop());
+      }
+      video.srcObject = null;
+      video.pause();
+    }
+  });
+
+  // Reset all possible canvas elements
+  const canvasIds = ["canvas", "overlay"];
+  canvasIds.forEach((id) => {
+    const canvas = document.getElementById(id);
+    if (canvas) {
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      // canvas.remove();
+    }
+  });
 }
