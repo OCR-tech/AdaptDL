@@ -12,7 +12,11 @@ function recordToJSON(predictions) {
     now.getDate()
   )}_${pad(now.getHours())}${pad(now.getMinutes())}${pad(now.getSeconds())}`;
 
+  // Get existing records for incremental ID
+  // const existingData = JSON.parse(localStorage.getItem("detectionRecords")) || [];
+
   const data = {
+    // no: existingData.length + 1, // Incremental counter based on previous records
     timestamp: timestamp,
     // filename: `img_${timestamp}.jpg`,
     location_lat: cachedGPS?.latitude.toFixed(4) || "Unknown",
@@ -24,8 +28,6 @@ function recordToJSON(predictions) {
       class: p.class,
       // score: p.score,
       score: p.score.toFixed(1),
-      // boxes_raw: [p.bbox],
-      // color: p.color || "#00FFFF",
       bbox: p.bbox.map((v) => Math.round(v)), // [x, y, width, height]
     })),
   };
