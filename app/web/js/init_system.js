@@ -108,6 +108,9 @@ function initUI() {
     const el = document.getElementById(id);
     if (el) el.disabled = false;
   });
+
+  document.getElementById("video-size-label").style.display = "inline-block";
+  document.getElementById("video-size-label").textContent = "WxH: N/A";
 }
 
 // =========================================//

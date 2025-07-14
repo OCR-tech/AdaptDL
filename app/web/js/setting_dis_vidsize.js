@@ -1,6 +1,7 @@
 // =========================================//
 document.addEventListener("DOMContentLoaded", function () {
   const videoSizeSwitch = document.getElementById("video-size-switch");
+
   if (!videoSizeSwitch) return;
 
   // Set the switch state from localStorage
@@ -49,13 +50,27 @@ function toggleVideoSize() {
 function updateVideoSizeLabel() {
   // alert("UpdateVideoSizeLabel");
 
-  if (window.showVideoSizeOverlay && video) {
-    // Ensure video is defined and has dimensions
-    sizeText = window.showVideoSizeOverlay
-      ? video.videoWidth + "x" + video.videoHeight
-      : "off";
-    document.getElementById("video-size-label").textContent =
-      "WxH: " + sizeText;
+  const videoSizeSwitch = document.getElementById("video-size-switch");
+  const videoSizeLabel = document.getElementById("video-size-label");
+  const video = document.querySelector("video");
+
+  if (!videoSizeSwitch || !videoSizeLabel) return;
+
+  if (!videoSizeSwitch.checked) {
+    videoSizeLabel.style.display = "none";
+    videoSizeLabel.textContent = "";
+    return;
+  } else {
+    videoSizeLabel.style.display = "inline-block";
+
+    if (!video) {
+      videoSizeLabel.textContent = "WxH: N/A";
+      return;
+    } else {
+      videoSizeLabel.textContent =
+        "WxH: " + video.videoWidth + "x" + video.videoHeight;
+      return;
+    }
   }
 }
 
