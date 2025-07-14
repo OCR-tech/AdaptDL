@@ -9,6 +9,14 @@ function detectFrame() {
     // Object detection
     const objectNames = predictions.map((p) => p.class).join(", ");
 
+    //==========================================//
+    // Record to JSON at every 1 second
+    // Check if the model is loaded and video is playing
+    if (!window.lastRecordTime || Date.now() - window.lastRecordTime > 1000) {
+      recordToJSON(predictions);
+      window.lastRecordTime = Date.now();
+    }
+
     //=========================================//
     if (predictions && predictions.length > 0 && window.voiceAlertEnabled) {
       setVoiceAlert("Object detected");
@@ -87,6 +95,8 @@ function detectFrame() {
       // Request the next animation frame
       window.animationId = requestAnimationFrame(detectFrame);
     }
+
+    //=========================================//
   });
 }
 
@@ -143,4 +153,32 @@ function drawPredictions(predictions) {
   ) {
     displayGPSlocation(cachedGPS.latitude, cachedGPS.longitude);
   }
+}
+
+// =========================================//
+function recordToJSON(predictions) {
+  // Remove alert for production use
+  if (!predictions || predictions.length === 0) return;
+
+  const data = {
+    timestamp: new Date().toISOString(),
+    predictions: predictions.map((p, idx) => ({
+      class: p.class,
+      score: p.score,
+      objectNumber: (idx + 1).toString(),
+      objectName: p.class,
+      numberOfObject: "1",
+      frameFilename: `saved_frames/frame_${idx + 1}.jpg`, // You can adjust this logic
+      boxes_raw: [p.bbox],
+      bbox: p.bbox,
+    })),
+  };
+
+  // Save to localStorage or send to server
+  const records = JSON.parse(localStorage.getItem("detectionRecords")) || [];
+  records.push(data);
+
+  // check if existing json file exists if not create a new one
+
+  createJSONFile(records, "detection_records.json");
 }
