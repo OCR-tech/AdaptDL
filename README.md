@@ -3,8 +3,7 @@
 ![Python](https://img.shields.io/badge/python-3.11%2B-blue)
 ![TensorFlow](https://img.shields.io/badge/tensorflow-2.18%2B-blue)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-
-<!-- ![Visitors](https://visitor-badge.laobi.icu/badge?page_id=OCR-tech.AdaptDL) -->
+![Visitors](https://visitor-badge.laobi.icu/badge?page_id=OCR-tech.AdaptDL)
 
 **AdaptDL** is a Python-based real-time object detection system using deep learning with voice commands for surveillance applications.
 
