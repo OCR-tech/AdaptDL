@@ -3,6 +3,7 @@
 function updateVideoSource() {
   // alert("updateVideoSource");
   stopCamera();
+  // stopButton();
 
   const videoSource = document.getElementById("video-source").value;
   const btnStart = document.getElementById("btn-start");

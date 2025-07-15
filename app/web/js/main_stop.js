@@ -54,31 +54,6 @@ function stopButton() {
 }
 
 // =========================================//
-// function stopCamera() {
-//   // alert("StopCamera");
-
-//   // Stop the camera stream
-//   if (window.cameraStream) {
-//     window.cameraStream.getTracks().forEach((track) => track.stop());
-//     window.cameraStream = null;
-//   }
-
-//   // Reset the video element
-//   const video = document.getElementById("video");
-//   if (video) {
-//     video.srcObject = null;
-//     video.pause();
-//   }
-
-//   // Reset the canvas element
-//   const canvas = document.getElementById("canvas");
-//   if (canvas) {
-//     const ctx = canvas.getContext("2d");
-//     ctx.clearRect(0, 0, canvas.width, canvas.height);
-//   }
-// }
-
-// =========================================//
 function stopCamera() {
   // Stop the camera stream
   if (window.cameraStream) {

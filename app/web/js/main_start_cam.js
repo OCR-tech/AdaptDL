@@ -1,5 +1,3 @@
-// Object Detection Script
-
 // =========================================//
 function startIntegratedCamera() {
   // alert("StartingIntegratedCamera");

@@ -58,6 +58,8 @@ window.addEventListener("DOMContentLoaded", function () {
     })
     .catch(function (err) {
       document.getElementById("status").innerText = "Model load error: " + err;
+      console.log("Model load error:", err);
+      console.error("Model load error:", err);
     });
 });
 

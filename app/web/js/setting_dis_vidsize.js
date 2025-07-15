@@ -48,7 +48,7 @@ function toggleVideoSize() {
 
 // =========================================//
 function updateVideoSizeLabel() {
-  alert("UpdateVideoSizeLabel");
+  // alert("UpdateVideoSizeLabel");
 
   const videoSizeSwitch = document.getElementById("video-size-switch");
   const videoSizeLabel = document.getElementById("video-size-label");
