@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>TensorFlow.js COCO-SSD Object Detection</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+      #video,
+      #canvas {
+        max-width: 100%;
+      }
+      #status {
+        margin: 10px 0;
+      }
+      #start-btn {
+        margin: 10px 0;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>COCO-SSD Object Detection (TensorFlow.js, Static)</h2>
+    <div id="status">Loading model...</div>
+    <button id="start-btn">Start Camera</button>
+    <br />
+    <video
+      id="video"
+      width="320"
+      height="240"
+      autoplay
+      muted
+      playsinline
+      style="display: none"
+    ></video>
+    <canvas id="canvas" width="320" height="240"></canvas>
+
+    <!-- TensorFlow.js and COCO-SSD from CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.21.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd"></script>
+    <script>
+      let model = null;
+      let video = document.getElementById("video");
+      let canvas = document.getElementById("canvas");
+      let ctx = canvas.getContext("2d");
+      let running = false;
+
+      // Load the model
+      cocoSsd
+        .load()
+        .then(function (loadedModel) {
+          model = loadedModel;
+          document.getElementById("status").textContent =
+            'Model loaded. Click "Start Camera".';
+          document.getElementById("start-btn").disabled = false;
+        })
+        .catch(function (err) {
+          document.getElementById("status").textContent =
+            "Model load error: " + err;
+          console.error("Model load error:", err);
+        });
+
+      // Start camera on button click
+      document.getElementById("start-btn").onclick = async function () {
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          document.getElementById("status").textContent =
+            "Camera not supported in this browser.";
+          return;
+        }
+        try {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: true,
+          });
+          video.srcObject = stream;
+          video.style.display = "block";
+          running = true;
+          document.getElementById("status").textContent =
+            "Camera started. Detecting objects...";
+          detectFrame();
+        } catch (err) {
+          document.getElementById("status").textContent =
+            "Camera error: " + err;
+          console.error("Camera error:", err);
+        }
+      };
+
+      // Detection loop
+      async function detectFrame() {
+        if (!running) return;
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const predictions = await model.detect(canvas);
+        drawPredictions(predictions);
+        requestAnimationFrame(detectFrame);
+      }
+
+      // Draw bounding boxes and labels
+      function drawPredictions(predictions) {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        predictions.forEach((pred) => {
+          ctx.strokeStyle = "#00FFFF";
+          ctx.lineWidth = 2;
+          ctx.strokeRect(...pred.bbox);
+          ctx.font = "16px Arial";
+          ctx.fillStyle = "#00FFFF";
+          ctx.fillText(
+            pred.class + " (" + Math.round(pred.score * 100) + "%)",
+            pred.bbox[0],
+            pred.bbox[1] > 20 ? pred.bbox[1] - 5 : 10
+          );
+        });
+      }
+    </script>
+  </body>
+</html>

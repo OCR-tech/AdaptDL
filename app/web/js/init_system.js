@@ -47,11 +47,11 @@ window.addEventListener("DOMContentLoaded", function () {
       model = loadedModel;
 
       initSystem();
-      requestCameraPermission(); // Request camera permission
-      requestMicrophonePermission(); // Request microphone permission
-      requestLocationPermission(); // Request location permission
-      requestNotificationPermission(); // Request notification permission
-      listAllCameras();
+      // requestCameraPermission(); // Request camera permission
+      // requestMicrophonePermission(); // Request microphone permission
+      // requestLocationPermission(); // Request location permission
+      // requestNotificationPermission(); // Request notification permission
+      // listAllCameras();
       initUI();
 
       document.getElementById("status").innerText = "Ready!";

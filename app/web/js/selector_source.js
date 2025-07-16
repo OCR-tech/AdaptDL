@@ -65,6 +65,7 @@ function updateVideoSource() {
     ipCameraUrlInput.style.display = "inline-block"; // Hide the input initially
     // ipCameraUrlInput.value = ""; // Clear previous value
     // ipCameraUrlInput.value = "192.168.233.61:8080";
+    // ipCameraUrlInput.value = "192.168.245.139:5500";
 
     // Check if last used value is available
     if (getLastUsedIP()) {
@@ -75,7 +76,8 @@ function updateVideoSource() {
       getLocalIPSubnet(function (subnet) {
         if (subnet) {
           // ipCameraUrlInput.placeholder = subnet + "XXX:8080";
-          ipCameraUrlInput.value = subnet + "XXX:8080";
+          // ipCameraUrlInput.value = subnet + "XXX:5500";
+          ipCameraUrlInput.value = subnet + "139:5500";
           ipCameraUrlInput.focus();
         }
       });
@@ -96,7 +98,7 @@ function updateVideoSource() {
     btnOk.style.display = "inline-block"; // Show the button initially
     ipCameraUrlInput.disabled = false; // Disable the IP camera URL input
     ipCameraUrlInput.style.display = "inline-block"; // Show the input initially
-    ipCameraUrlInput.value = "192.168.233.61:8080";
+    ipCameraUrlInput.value = "192.168.233.61:5500";
     ipCameraUrlInput.focus();
 
     //------------------------------//
@@ -256,13 +258,13 @@ function okSourceCamera() {
     ipCameraUrl === "192.168.30.139:4747" ||
     ipCameraUrl === "192.168.30.139:8080" ||
     ipCameraUrl === "192.168.210.139:8080" ||
-    ipCameraUrl === "192.168.233.61:8080"
+    ipCameraUrl === "192.168.233.61:8080" ||
+    ipCameraUrl === "192.168.245.139:5500"
   ) {
     document.getElementById("status").innerText =
       "IP Camera URL: " + ipCameraUrl;
 
     document.getElementById("video-source").disabled = true;
-    alert("456");
 
     btnOk.disabled = true; // Disable the OK button after setting the URL
     btnStart.disabled = false; // Enable the start button

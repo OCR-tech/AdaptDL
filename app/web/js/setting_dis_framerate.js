@@ -81,19 +81,30 @@ function updateFramerateLabel() {
   }
 }
 
+let lastFrameTime = null;
+let estimatedFPS = "-";
 // =========================================//
 // Display current framerate on canvas
 function displayFramerate() {
-  // alert("displayFramerate");
-
   if (!ctx || !canvas) return;
-  let fps = "off";
+  let fps = "-";
   if (video) {
+    // Try to get framerate from video track if available
     if (video.srcObject && video.srcObject.getVideoTracks) {
       const tracks = video.srcObject.getVideoTracks();
       if (tracks.length > 0 && tracks[0].getSettings) {
-        fps = tracks[0].getSettings().frameRate || "N/A";
+        fps = tracks[0].getSettings().frameRate || "-";
       }
+    }
+    // Estimate FPS for video files or streams
+    if (fps === "-") {
+      const now = performance.now();
+      if (lastFrameTime) {
+        const delta = now - lastFrameTime;
+        estimatedFPS = (1000 / delta).toFixed(1);
+      }
+      lastFrameTime = now;
+      fps = estimatedFPS;
     }
   }
   const sizeText = fps;
