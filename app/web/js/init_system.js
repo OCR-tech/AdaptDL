@@ -66,7 +66,7 @@ window.addEventListener("DOMContentLoaded", function () {
 // =========================================//
 function initSystem() {
   // alert("InitializeSystem");
-
+  window.timerDelay3000ms = false;
   window.runDetectionLoop = false;
   window.voiceCommandEnabled = true;
   window.voiceAlertEnabled = true;
@@ -107,6 +107,7 @@ function initUI() {
     "btn-mute",
     "btn-unmute",
     "btn-reset",
+    "datetime-switch",
   ].forEach((id) => {
     const el = document.getElementById(id);
     if (el) el.disabled = false;
@@ -116,6 +117,8 @@ function initUI() {
   document.getElementById("video-size-label").textContent = "WxH: N/A";
   document.getElementById("frame-rate-label").style.display = "inline-block";
   document.getElementById("frame-rate-label").textContent = "FPS: N/A";
+
+  updateVideoSource();
 }
 
 // =========================================//

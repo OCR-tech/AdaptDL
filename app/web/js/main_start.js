@@ -10,6 +10,7 @@ function startButton() {
   const videoSource = document.getElementById("video-source").value;
 
   // ==============================//
+  window.timerDelay3000ms = true; // Reset the timer
   window.runDetectionLoop = true; // Start the detection loop
   window.voiceAlertEnabled = true;
   window.notificationEnabled = true;
@@ -35,24 +36,21 @@ function startButton() {
     startVideo(window.selectedVideoFilePath);
   }
 
-  // Update video size display with current size in Settings
-  // updateLabelSettings();
-  // updateFramerateLabel();
+  if (window.timerDelay3000ms) {
+    enableTimerDelay3000ms();
+  }
+}
+
+// =========================================//
+function enableTimerDelay3000ms() {
+  // alert("EnableTimerDelay3000ms");
+  window.timerDelay3000ms = setTimeout(updateLabelSettings, 3000);
 }
 
 // ==============================//
 function updateLabelSettings() {
-  const video =
-    document.getElementById("video") ||
-    document.getElementById("camera-stream") ||
-    document.getElementById("usb-camera-stream") ||
-    document.querySelector("video");
-  const label = document.getElementById("video-size-label");
-
-  // alert("video" + video);
-
-  if (!video || !label) return;
-
-  label.textContent = `Video Size: ${video.videoWidth} x ${video.videoHeight}`;
-  label.style.display = "inline-block";
+  // alert("UpdateLabelSettings");
+  updateVideoSizeLabel();
+  updateFramerateLabel();
+  window.timerDelay3000ms = false;
 }
