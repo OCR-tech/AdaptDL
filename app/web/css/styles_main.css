@@ -478,6 +478,40 @@ input {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.status {
+  &.normal:before {
+    background-color: #94e185;
+    border-color: #78d965;
+    box-shadow: 0px 0px 15px 10px #94e185;
+  }
+
+  &.warn:before {
+    background-color: #ffc182;
+    border-color: #ffb161;
+    box-shadow: 0px 0px 15px 15px #ffc182;
+  }
+
+  &.alert:before {
+    background-color: #c9404d;
+    border-color: #c42c3b;
+    box-shadow: 0px 0px 5px 10px #c9404d;
+  }
+
+  &:before {
+    content: "";
+    display: inline-block;
+    width: 3px;
+    height: 3px;
+    margin: 0px;
+  }
+}
+
 /*==================*/
 /* Dark mode styles */
 body.dark-mode {

@@ -18,6 +18,15 @@ function detectFrame() {
     }
 
     //=========================================//
+    // Fire detection
+    // if (window.fireDetectionEnabled) {
+    //   // alert("Fire detection enabled");
+    //   // setupFireDetectionInterval();
+    //   // updateFireDetection();
+    //   setInterval(updateFireDetection, 200); // every 200ms
+    // }
+
+    //=========================================//
     // Draw predictions on the canvas
     // alert("Model loaded:" + model);
     // alert("Video playing:" + (!video.paused && !video.ended));
