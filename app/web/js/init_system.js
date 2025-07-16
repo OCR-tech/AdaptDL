@@ -72,6 +72,7 @@ function initSystem() {
   window.voiceAlertEnabled = true;
   window.emailAlertEnabled = true;
   window.notificationEnabled = true;
+  window.showBoundingBox = true;
   window.showDateTimeOverlay = true;
   window.showGPSLocationOverlay = true;
   window.showVideoSizeOverlay = true;
@@ -104,8 +105,8 @@ function initUI() {
     "btn-overlay1",
     "btn-overlay2",
     "btn-record",
-    "btn-mute",
-    "btn-unmute",
+    "btn-frame1",
+    "btn-frame2",
     "btn-reset",
     "datetime-switch",
   ].forEach((id) => {

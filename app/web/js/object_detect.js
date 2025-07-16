@@ -147,31 +147,34 @@ function drawPredictions(predictions) {
     canvas.height = video.videoHeight;
   }
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  predictions.forEach(function (prediction) {
-    // ===========================================//
-    // Draw bounding box
-    ctx.strokeStyle = "#00FFFF";
-    ctx.lineWidth = 2;
-    ctx.strokeRect(...prediction.bbox);
-    // Draw label background
-    ctx.fillStyle = "#00FFFF";
-    const textWidth = ctx.measureText(prediction.class).width;
-    const textHeight = 16;
-    ctx.fillRect(
-      prediction.bbox[0],
-      prediction.bbox[1] - textHeight,
-      textWidth + 10,
-      textHeight
-    );
-    // Draw text
-    ctx.fillStyle = "#222";
-    ctx.font = "16px Arial";
-    ctx.fillText(
-      prediction.class,
-      prediction.bbox[0] + 5,
-      prediction.bbox[1] - 4
-    );
-  });
+
+  if (window.showBoundingBox) {
+    predictions.forEach(function (prediction) {
+      // ===========================================//
+      // Draw bounding box
+      ctx.strokeStyle = "#00FFFF";
+      ctx.lineWidth = 2;
+      ctx.strokeRect(...prediction.bbox);
+      // Draw label background
+      ctx.fillStyle = "#00FFFF";
+      const textWidth = ctx.measureText(prediction.class).width;
+      const textHeight = 16;
+      ctx.fillRect(
+        prediction.bbox[0],
+        prediction.bbox[1] - textHeight,
+        textWidth + 10,
+        textHeight
+      );
+      // Draw text
+      ctx.fillStyle = "#222";
+      ctx.font = "16px Arial";
+      ctx.fillText(
+        prediction.class,
+        prediction.bbox[0] + 5,
+        prediction.bbox[1] - 4
+      );
+    });
+  }
 
   // ===========================================//
   // Draw date and time overlay
@@ -201,31 +204,3 @@ function drawPredictions(predictions) {
     displayFramerate();
   }
 }
-
-// // =========================================//
-// function recordToJSON(predictions) {
-//   // Remove alert for production use
-//   if (!predictions || predictions.length === 0) return;
-
-//   const data = {
-//     timestamp: new Date().toISOString(),
-//     predictions: predictions.map((p, idx) => ({
-//       class: p.class,
-//       score: p.score,
-//       objectNumber: (idx + 1).toString(),
-//       objectName: p.class,
-//       numberOfObject: "1",
-//       frameFilename: `saved_frames/frame_${idx + 1}.jpg`, // You can adjust this logic
-//       boxes_raw: [p.bbox],
-//       bbox: p.bbox,
-//     })),
-//   };
-
-//   // Save to localStorage or send to server
-//   const records = JSON.parse(localStorage.getItem("detectionRecords")) || [];
-//   records.push(data);
-
-//   // check if existing json file exists if not create a new one
-
-//   createJSONFile(records, "detection_records.json");
-// }

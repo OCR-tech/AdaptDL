@@ -151,6 +151,7 @@ function setVoiceCommand(onCommand) {
   recognition.onend = function () {
     // Optionally restart or update status
     document.getElementById("status").innerText = "Voice recognition stopped.";
+    // console.log("Voice recognition ended.");
   };
 
   recognition.start();
